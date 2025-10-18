@@ -11,15 +11,15 @@ export function Hero() {
           alt="Savannah waterfront"
           className="w-full h-full object-cover opacity-40"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-secondary/70 via-background/70 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-secondary/75 via-background/80 to-accent/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/25 via-transparent to-transparent" />
       </div>
 
       <div className="relative z-10 w-full">
         <div className="max-w-6xl mx-auto px-4 py-24 sm:py-28 lg:py-32 flex flex-col gap-12">
           <div className="flex flex-col md:flex-row items-center md:items-end gap-8 lg:gap-12">
             <div className="flex flex-col items-center md:items-start gap-3 text-center md:text-left">
-              <LogoMark size="lg" className="max-w-[20rem] shadow-[0_35px_80px_-30px_rgba(31,76,59,0.65)]" />
+              <LogoMark size="lg" className="max-w-[20rem] shadow-[0_35px_80px_-30px_rgba(66,93,82,0.65)]" />
               <p className="text-[0.6rem] sm:text-xs font-mono uppercase tracking-[0.4em] text-foreground/60">
                 Official 2026 Leadership Retreat emblem
               </p>
@@ -28,7 +28,7 @@ export function Hero() {
               <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.3em] sm:tracking-[0.45em] text-accent">
                 Third Annual Gathering
               </p>
-              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-primary drop-shadow-[0_10px_25px_rgba(35,29,26,0.12)]">
+              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-primary drop-shadow-[0_10px_25px_rgba(47,38,34,0.14)]">
                 Leadership Retreat 2026
               </h1>
               <p className="text-lg md:text-xl lg:text-2xl text-foreground/90 font-light">
@@ -53,7 +53,7 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
             <Button
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-6 text-base font-mono uppercase tracking-wider shadow-lg shadow-primary/20"
+              className="bg-primary text-primary-foreground hover:bg-primary/85 px-8 py-6 text-base font-mono uppercase tracking-wider shadow-lg shadow-accent/30"
               asChild
             >
               <Link href="#register">Register Now</Link>
