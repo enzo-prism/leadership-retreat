@@ -1,12 +1,38 @@
-import { BedDouble, Bath, Car, TicketPercent, Trees } from "lucide-react"
+import {
+  type LucideIcon,
+  Bath,
+  BedDouble,
+  Bike,
+  Car,
+  MapPin,
+  TicketPercent,
+} from "lucide-react"
 
-const perks = [
-  "Riverfront rooms with sweeping Savannah views",
-  "$249/night group rate with resort & portage fees waived",
-  "Access to house car service (first come, first served)",
-  "Complimentary house bikes and Port City Passport",
-  "Preferred pricing on poolside cabanas and day beds",
-  "Steps from Eastern Wharf dining, shopping, and The Park",
+const perks: { icon: LucideIcon; description: string }[] = [
+  {
+    icon: BedDouble,
+    description: "Riverfront rooms with sweeping Savannah views",
+  },
+  {
+    icon: TicketPercent,
+    description: "$249/night group rate with resort & portage fees waived",
+  },
+  {
+    icon: Car,
+    description: "Access to house car service (first come, first served)",
+  },
+  {
+    icon: Bike,
+    description: "Complimentary house bikes and Port City Passport",
+  },
+  {
+    icon: Bath,
+    description: "Preferred pricing on poolside cabanas and day beds",
+  },
+  {
+    icon: MapPin,
+    description: "Steps from Eastern Wharf dining, shopping, and The Park",
+  },
 ]
 
 export function Accommodations() {
@@ -15,7 +41,7 @@ export function Accommodations() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12">
           <div className="space-y-6">
-            <p className="text-sm font-mono uppercase tracking-[0.4em] text-accent">Stay in Style</p>
+            <p className="text-sm font-mono uppercase tracking-[0.35em] sm:tracking-[0.4em] text-accent">Stay in Style</p>
             <h2 className="text-5xl md:text-6xl font-light text-balance">Where Southern charm meets modern luxury</h2>
             <p className="text-lg text-foreground/90 leading-relaxed">
               Our home base is the Thompson Savannah — a Hyatt property perched on the Savannah River in Eastern Wharf.
@@ -24,12 +50,18 @@ export function Accommodations() {
             </p>
 
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {perks.map((perk) => (
-                <li key={perk} className="flex items-start gap-3 rounded-md border border-border/80 bg-card/95 p-4 text-sm leading-relaxed shadow-sm">
-                  <TicketPercent className="w-5 h-5 text-accent mt-1" />
-                  <span>{perk}</span>
-                </li>
-              ))}
+              {perks.map((perk) => {
+                const Icon = perk.icon
+                return (
+                  <li
+                    key={perk.description}
+                    className="flex items-start gap-3 rounded-md border border-border/80 bg-card/95 p-4 text-sm leading-relaxed shadow-sm"
+                  >
+                    <Icon className="w-5 h-5 text-primary mt-1" />
+                    <span>{perk.description}</span>
+                  </li>
+                )
+              })}
             </ul>
 
             <div className="border border-dashed border-accent/60 rounded-md p-6 bg-accent/5 space-y-4">
@@ -60,8 +92,8 @@ export function Accommodations() {
                   <span>Valet service with waived portage fees</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Trees className="w-4 h-4 text-primary" />
-                  <span>Moments from Savannah’s Riverwalk & The Park</span>
+                  <MapPin className="w-4 h-4 text-primary" />
+                  <span>Moments from Savannah’s Riverwalk &amp; The Park</span>
                 </div>
               </div>
               <p className="text-sm text-muted-foreground">

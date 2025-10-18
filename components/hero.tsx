@@ -11,24 +11,24 @@ export function Hero() {
           className="w-full h-full object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-secondary/70 via-background/70 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/15 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent" />
       </div>
 
       <div className="relative z-10 w-full">
         <div className="max-w-6xl mx-auto px-4 py-24 sm:py-28 lg:py-32 flex flex-col gap-12">
           <div className="flex flex-col md:flex-row items-center md:items-end gap-6">
-            <div className="bg-card/80 backdrop-blur border border-border/60 rounded-md shadow-lg p-6">
+            <div className="bg-card/85 backdrop-blur border border-border/60 rounded-md shadow-lg p-6">
               <img
                 src="/lr26-logo.svg"
                 alt="Leadership Retreat 2026 Savannah Georgia logo"
-                className="h-28 w-auto md:h-32"
+                className="h-24 w-auto sm:h-28 md:h-32"
               />
             </div>
             <div className="text-center md:text-left space-y-4 max-w-2xl">
-              <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.45em] text-accent">
+              <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.3em] sm:tracking-[0.45em] text-accent">
                 Third Annual Gathering
               </p>
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-primary drop-shadow-[0_10px_25px_rgba(35,29,26,0.12)]">
+              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-primary drop-shadow-[0_10px_25px_rgba(35,29,26,0.12)]">
                 Leadership Retreat 2026
               </h1>
               <p className="text-lg md:text-xl lg:text-2xl text-foreground/90 font-light">
@@ -38,14 +38,14 @@ export function Hero() {
           </div>
 
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 md:gap-8 text-foreground font-mono text-xs md:text-sm uppercase tracking-[0.4em] md:tracking-[0.55em]">
+            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 md:gap-8 text-foreground font-mono text-[0.7rem] sm:text-xs md:text-sm uppercase tracking-[0.25em] sm:tracking-[0.35em] md:tracking-[0.55em]">
               <span>Savannah, Georgia</span>
               <span className="hidden sm:inline">•</span>
               <span>June 4–6, 2026</span>
               <span className="hidden sm:inline">•</span>
               <span>The Thompson Savannah</span>
             </div>
-            <p className="text-xs md:text-sm text-foreground/80 font-mono uppercase tracking-[0.45em] text-center md:text-right">
+            <p className="text-[0.7rem] sm:text-xs md:text-sm text-foreground/80 font-mono uppercase tracking-[0.28em] sm:tracking-[0.4em] md:tracking-[0.45em] text-center md:text-right">
               Hosted by ML &amp; Liz for the Leadership Retreat community
             </p>
           </div>
