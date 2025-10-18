@@ -1,16 +1,18 @@
+import { LogoMark } from "@/components/logo-mark"
+
 export function Footer() {
   return (
     <footer className="py-12 px-4 bg-card border-t border-border">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div className="space-y-4">
-            <div className="flex items-start gap-4">
-              <div className="bg-background/80 border border-border/60 rounded-md p-3 shadow-sm">
-                <img src="/lr26-logo.svg" alt="LR26 Savannah Georgia logo" className="h-16 w-auto" />
-              </div>
-              <div>
+            <div className="flex flex-col sm:flex-row sm:items-start sm:gap-5 gap-4">
+              <LogoMark size="sm" className="shrink-0 shadow-[0_25px_60px_-30px_rgba(31,76,59,0.55)]" />
+              <div className="space-y-2 text-center sm:text-left">
                 <h3 className="text-2xl font-light">Leadership Retreat</h3>
-                <p className="text-xs font-mono uppercase tracking-[0.35em] text-accent mt-2">LR26 · Savannah, Georgia</p>
+                <p className="text-xs font-mono uppercase tracking-[0.35em] text-accent">
+                  LR26 · Savannah, Georgia
+                </p>
               </div>
             </div>
             <p className="text-sm text-muted-foreground">
