@@ -38,7 +38,7 @@ export function PastRetreats() {
               <div className="p-8">
                 <div className="flex items-baseline gap-4 mb-3">
                   <span className="text-4xl font-light">{retreat.year}</span>
-                  <span className="text-sm font-mono uppercase tracking-widest text-accent">
+                  <span className="text-sm font-mono font-semibold uppercase tracking-widest text-accent accent-text-shadow">
                     Past Retreat
                   </span>
                 </div>

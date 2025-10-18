@@ -3,7 +3,7 @@ export function WelcomeLetter() {
     <section className="py-24 px-4 bg-card">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-5xl md:text-6xl font-light text-center mb-4 text-balance">Welcome Back!</h2>
-        <p className="text-center text-base md:text-lg text-accent uppercase tracking-[0.4em] mb-12">
+        <p className="text-center text-base md:text-lg text-accent accent-text-shadow font-semibold uppercase tracking-[0.4em] mb-12">
           Where Southern Charm Meets Modern Luxury
         </p>
 

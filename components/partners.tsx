@@ -11,7 +11,7 @@ export function Partners() {
     <section className="py-24 px-4 bg-card" id="partners">
       <div className="max-w-6xl mx-auto text-center space-y-12">
         <div className="space-y-4">
-          <p className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-[0.4em] text-accent">
+          <p className="inline-flex items-center gap-2 text-sm font-mono font-semibold uppercase tracking-[0.4em] text-accent accent-text-shadow">
             <Handshake className="w-4 h-4 text-accent" /> Alliance Partners
           </p>
           <h2 className="text-4xl md:text-5xl font-light text-balance">
