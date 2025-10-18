@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-labelledby="title desc">
+  <title id="title">Leadership Retreat 2026 Logo</title>
+  <desc id="desc">Stylized LR26 mark with Savannah Georgia caption on a painterly background inspired by azalea blooms.</desc>
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f4c3b" />
+      <stop offset="40%" stop-color="#2f7046" />
+      <stop offset="75%" stop-color="#356893" />
+      <stop offset="100%" stop-color="#f2d7a6" />
+    </linearGradient>
+    <radialGradient id="bloom" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#fce4f1" />
+      <stop offset="35%" stop-color="#f06aa2" />
+      <stop offset="100%" stop-color="#b42c68" stop-opacity="0.4" />
+    </radialGradient>
+    <filter id="texture" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" result="noise" />
+      <feColorMatrix type="matrix" values="0 0 0 0 0.12 0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0.25 0" result="colorNoise" />
+      <feBlend in="SourceGraphic" in2="colorNoise" mode="screen" />
+    </filter>
+  </defs>
+  <rect width="600" height="400" fill="url(#bgGradient)" rx="28" filter="url(#texture)" />
+  <g opacity="0.8">
+    <ellipse cx="90" cy="310" rx="220" ry="120" fill="url(#bloom)" />
+    <ellipse cx="310" cy="340" rx="220" ry="120" fill="url(#bloom)" transform="rotate(-10 310 340)" />
+    <ellipse cx="520" cy="300" rx="200" ry="110" fill="url(#bloom)" transform="rotate(6 520 300)" />
+  </g>
+  <g fill="#ffd13b" font-family="'Poppins', 'Helvetica Neue', Arial, sans-serif" font-weight="700">
+    <text x="64" y="170" font-size="180" letter-spacing="-4">LR</text>
+    <text x="64" y="340" font-size="180" letter-spacing="-4">26</text>
+  </g>
+  <text x="485" y="80" text-anchor="end" font-family="'Poppins', 'Helvetica Neue', Arial, sans-serif" font-size="36" fill="#ffd13b" letter-spacing="6" transform="rotate(90 485 80)">
+    SAVANNAH GEORGIA
+  </text>
+</svg>

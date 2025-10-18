@@ -2,7 +2,10 @@ export function WelcomeLetter() {
   return (
     <section className="py-24 px-4 bg-card">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-5xl md:text-6xl font-light text-center mb-16 text-balance">Welcome Back!</h2>
+        <h2 className="text-5xl md:text-6xl font-light text-center mb-4 text-balance">Welcome Back!</h2>
+        <p className="text-center text-base md:text-lg text-accent uppercase tracking-[0.4em] mb-12">
+          Where Southern Charm Meets Modern Luxury
+        </p>
 
         <div className="prose prose-lg max-w-none space-y-6 text-foreground/90 leading-relaxed">
           <p className="text-xl md:text-2xl font-light leading-relaxed">
@@ -15,8 +18,8 @@ export function WelcomeLetter() {
           <p className="text-xl md:text-2xl font-light leading-relaxed">
             This year, we're taking our third annual Leadership Retreat to the historic charm of Savannah, Georgia!
             We've chosen The Thompson Savannah, a stunning waterfront hotel that perfectly blends modern luxury with the
-            city's rich heritage. Prepare to be inspired, connect with fellow leaders, and discover new perspectives in
-            one of America's most captivating cities.
+            city's rich heritage. Prepare for curated sessions with Brian Parsley, immersive conversations, and plenty of
+            time to soak in the riverfront energy.
           </p>
 
           <p className="text-xl md:text-2xl font-light leading-relaxed">
