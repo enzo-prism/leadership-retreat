@@ -5,7 +5,7 @@ type LogoMarkProps = {
   className?: string
 }
 
-const LOGO_SRC = "/Leadership%20Retreat%20logo.webp"
+const LOGO_SRC = "/leadership-retreat-logo.webp"
 const LOGO_ALT = "Leadership Retreat Savannah emblem"
 
 const sizeMap: Record<NonNullable<LogoMarkProps["size"]>, string> = {
