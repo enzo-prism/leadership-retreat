@@ -31,7 +31,7 @@ export function LogoMark({ size = "md", className }: LogoMarkProps) {
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-background/75 to-transparent" />
-        <div className="absolute -inset-8 bg-[radial-gradient(circle_at_top,_rgba(255,209,59,0.35)_0%,_transparent_65%)] opacity-70 blur-3xl" />
+        <div className="absolute -inset-8 bg-[radial-gradient(circle_at_top,_rgba(254,204,45,0.35)_0%,_transparent_65%)] opacity-70 blur-3xl" />
         <div className="absolute inset-0 rounded-[inherit] border border-white/20 mix-blend-soft-light" />
       </div>
       <img src={LOGO_SRC} alt={LOGO_ALT} className={cn("relative z-10 object-contain", sizeMap[size])} />
