@@ -6,7 +6,7 @@ export function Footer() {
           <div>
             <h3 className="text-2xl font-light mb-4">Leadership Retreat</h3>
             <p className="text-sm text-muted-foreground">
-              Building connections, fostering growth, and inspiring leadership excellence.
+              Where Southern charm meets modern luxury for bold, connected leadership.
             </p>
           </div>
 
@@ -23,12 +23,18 @@ export function Footer() {
                   Register
                 </a>
               </li>
-              <li>
+              <li className="space-y-1">
                 <a
-                  href="mailto:retreat@example.com"
-                  className="text-muted-foreground hover:text-secondary transition-colors"
+                  href="mailto:marylynnwheaton@gmail.com"
+                  className="block text-muted-foreground hover:text-secondary transition-colors"
                 >
-                  Contact Us
+                  marylynnwheaton@gmail.com
+                </a>
+                <a
+                  href="mailto:elizabetharmato@gmail.com"
+                  className="block text-muted-foreground hover:text-secondary transition-colors"
+                >
+                  elizabetharmato@gmail.com
                 </a>
               </li>
             </ul>
@@ -42,6 +48,7 @@ export function Footer() {
               Savannah, Georgia
             </p>
             <p className="text-sm text-muted-foreground">June 4–6, 2026</p>
+            <p className="text-xs text-muted-foreground mt-4">Questions? Call (415) 298-6710 or (415) 309-0345.</p>
           </div>
         </div>
 

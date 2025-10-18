@@ -3,13 +3,13 @@ export function PastRetreats() {
     {
       year: "2023",
       location: "Naples, Florida",
-      description: "Sun-drenched shores and inspiring connections",
+      description: "Beachfront escape emphasizing connection and luxury",
       image: "/naples-florida-beach-sunset-luxury-resort.jpg",
     },
     {
       year: "2024",
       location: "Deer Valley, Utah",
-      description: "Breathtaking peaks and transformative insights",
+      description: "Mountain retreat devoted to reflection and growth",
       image: "/deer-valley-utah-mountain-resort-winter-luxury.jpg",
     },
   ]
