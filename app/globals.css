@@ -26,9 +26,9 @@
   --muted: #f2e4d7;
   --muted-foreground: #5f4a43;
 
-  /* Radiant golden sunlight for callouts */
-  --accent: #fecc2d;
-  --accent-foreground: #3b2c1a;
+  /* Rich amber for high-contrast highlights */
+  --accent: #9a5e04;
+  --accent-foreground: #fff6e3;
 
   --destructive: #c45c55;
   --destructive-foreground: #fff7eb;
@@ -47,8 +47,8 @@
   --sidebar-foreground: #2f2622;
   --sidebar-primary: #425d52;
   --sidebar-primary-foreground: #fff6e3;
-  --sidebar-accent: #fecc2d;
-  --sidebar-accent-foreground: #3b2c1a;
+  --sidebar-accent: #9a5e04;
+  --sidebar-accent-foreground: #fff6e3;
   --sidebar-border: #e6d5c3;
   --sidebar-ring: #af6f6a;
 }
@@ -66,8 +66,8 @@
   --secondary-foreground: #fff2eb;
   --muted: #33453f;
   --muted-foreground: #d7c3bb;
-  --accent: #425d52;
-  --accent-foreground: #fff6e3;
+  --accent: #f4d089;
+  --accent-foreground: #2f2622;
   --destructive: #c45c55;
   --destructive-foreground: #fff7eb;
   --border: #365045;
@@ -82,8 +82,8 @@
   --sidebar-foreground: #f5ede2;
   --sidebar-primary: #fecc2d;
   --sidebar-primary-foreground: #2f2622;
-  --sidebar-accent: #af6f6a;
-  --sidebar-accent-foreground: #fff2eb;
+  --sidebar-accent: #f4d089;
+  --sidebar-accent-foreground: #2f2622;
   --sidebar-border: #365045;
   --sidebar-ring: #fecc2d;
 }
@@ -134,5 +134,11 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .accent-text-shadow {
+    text-shadow: 0 1px 1px rgba(28, 17, 5, 0.14), 0 2px 6px rgba(24, 13, 4, 0.18);
   }
 }

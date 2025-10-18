@@ -33,7 +33,9 @@ export function ProgramOverview() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 items-start">
           <div className="space-y-8">
-            <p className="text-sm font-mono uppercase tracking-[0.4em] text-accent">Program Journey</p>
+            <p className="text-sm font-mono font-semibold uppercase tracking-[0.4em] text-accent accent-text-shadow">
+              Program Journey
+            </p>
             <h2 className="text-5xl md:text-6xl font-light text-balance">
               Curated for profound growth, insight, and connection
             </h2>

@@ -21,7 +21,7 @@ export function Venue() {
             </div>
 
             <div className="mt-8 pt-8 border-t border-border/70">
-              <h3 className="text-sm font-mono uppercase tracking-widest text-accent mb-4">
+              <h3 className="text-sm font-mono font-semibold uppercase tracking-widest text-accent accent-text-shadow mb-4">
                 Venue Highlights
               </h3>
               <ul className="space-y-3 text-foreground/90">

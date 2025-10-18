@@ -42,7 +42,9 @@ export function Agenda() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-16">
           <div className="space-y-4 max-w-2xl">
-            <p className="text-sm font-mono uppercase tracking-[0.4em] text-accent">Agenda Snapshot</p>
+            <p className="text-sm font-mono font-semibold uppercase tracking-[0.4em] text-accent accent-text-shadow">
+              Agenda Snapshot
+            </p>
             <h2 className="text-5xl md:text-6xl font-light text-balance">Three days designed for momentum and meaning</h2>
             <p className="text-lg text-foreground/90 leading-relaxed">
               A thoughtful cadence of discovery, connection, and celebration keeps our time together expansive yet

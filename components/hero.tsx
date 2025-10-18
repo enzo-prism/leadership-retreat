@@ -25,7 +25,7 @@ export function Hero() {
               </p>
             </div>
             <div className="text-center md:text-left space-y-4 max-w-3xl">
-              <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.3em] sm:tracking-[0.45em] text-accent">
+              <p className="text-xs sm:text-sm font-mono font-semibold uppercase tracking-[0.3em] sm:tracking-[0.45em] text-accent accent-text-shadow">
                 Third Annual Gathering
               </p>
               <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-primary drop-shadow-[0_10px_25px_rgba(47,38,34,0.14)]">

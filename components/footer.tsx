@@ -10,7 +10,7 @@ export function Footer() {
               <LogoMark size="sm" className="shrink-0 shadow-[0_25px_60px_-30px_rgba(31,76,59,0.55)]" />
               <div className="space-y-2 text-center sm:text-left">
                 <h3 className="text-2xl font-light">Leadership Retreat</h3>
-                <p className="text-xs font-mono uppercase tracking-[0.35em] text-accent">
+                <p className="text-xs font-mono font-semibold uppercase tracking-[0.35em] text-accent accent-text-shadow">
                   LR26 · Savannah, Georgia
                 </p>
               </div>
