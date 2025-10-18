@@ -15,14 +15,15 @@ export function Hero() {
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-        <div className="mb-8">
-          <p className="text-sm font-mono uppercase tracking-[0.3em] text-primary mb-4">Third Annual</p>
-          <h1 className="text-7xl md:text-9xl font-light text-primary mb-6 tracking-tight">
-            Leadership
-            <br />
-            Retreat
+        <div className="mb-10 space-y-6">
+          <p className="text-sm font-mono uppercase tracking-[0.3em] text-primary/80">Third Annual Gathering</p>
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-light text-primary tracking-tight leading-none">
+            Leadership Retreat 2026
           </h1>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-primary font-mono text-sm uppercase tracking-widest mb-8">
+          <p className="text-lg md:text-xl lg:text-2xl text-primary/90 font-light">
+            Where Southern Charm Meets Modern Luxury
+          </p>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-primary font-mono text-xs md:text-sm uppercase tracking-[0.4em] md:tracking-[0.6em]">
             <span>Savannah, Georgia</span>
             <span className="hidden md:inline">•</span>
             <span>June 4–6, 2026</span>
@@ -30,6 +31,10 @@ export function Hero() {
             <span>The Thompson Savannah</span>
           </div>
         </div>
+
+        <p className="text-sm md:text-base text-primary/70 font-mono uppercase tracking-widest mb-8">
+          Hosted by ML &amp; Liz for the Leadership Retreat community
+        </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button

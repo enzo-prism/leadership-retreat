@@ -13,6 +13,7 @@ export function Registration() {
     lastName: "",
     email: "",
     company: "",
+    notes: "",
   })
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -27,7 +28,8 @@ export function Registration() {
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-light mb-6 text-balance">Register Today</h2>
           <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto">
-            Don't miss this opportunity to connect, grow, and be inspired in historic Savannah. Spaces are limited.
+            Attendance is intentionally capped to preserve the intimacy and energy of our conversations. Returning
+            members and new young leaders in dentistry are encouraged to reserve their spot early.
           </p>
         </div>
 
@@ -87,6 +89,19 @@ export function Registration() {
             />
           </div>
 
+          <div className="space-y-2">
+            <Label htmlFor="notes" className="text-sm font-mono uppercase tracking-wider">
+              What would make LR26 remarkable for you?
+            </Label>
+            <textarea
+              id="notes"
+              value={formData.notes}
+              onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+              className="w-full min-h-[120px] resize-y rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-secondary/50"
+              placeholder="Share priorities, questions, or introductions you'd love to make."
+            />
+          </div>
+
           <Button
             type="submit"
             size="lg"
@@ -95,12 +110,26 @@ export function Registration() {
             Submit Registration
           </Button>
 
-          <p className="text-sm text-center text-muted-foreground pt-4">
-            Questions? Contact us at{" "}
-            <a href="mailto:retreat@example.com" className="text-secondary hover:underline">
-              retreat@example.com
-            </a>
-          </p>
+          <div className="pt-6 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-muted-foreground">
+            <div className="text-center md:text-left">
+              <p className="uppercase font-mono tracking-widest text-xs text-primary-foreground/70">Connect with ML</p>
+              <a href="mailto:marylynnwheaton@gmail.com" className="block text-secondary hover:underline">
+                marylynnwheaton@gmail.com
+              </a>
+              <a href="tel:14152986710" className="block mt-1 hover:text-secondary">
+                (415) 298-6710
+              </a>
+            </div>
+            <div className="text-center md:text-left">
+              <p className="uppercase font-mono tracking-widest text-xs text-primary-foreground/70">Connect with Liz</p>
+              <a href="mailto:elizabetharmato@gmail.com" className="block text-secondary hover:underline">
+                elizabetharmato@gmail.com
+              </a>
+              <a href="tel:14153090345" className="block mt-1 hover:text-secondary">
+                (415) 309-0345
+              </a>
+            </div>
+          </div>
         </form>
       </div>
     </section>

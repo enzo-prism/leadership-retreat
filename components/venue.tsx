@@ -7,16 +7,16 @@ export function Venue() {
             <h2 className="text-5xl md:text-6xl font-light mb-8 text-balance">The Thompson Savannah</h2>
             <div className="space-y-6 text-lg leading-relaxed text-foreground/90">
               <p>
-                Perched on the banks of the Savannah River, The Thompson Savannah is a contemporary masterpiece that
-                honors the city's storied past while embracing modern sophistication.
+                Set on the riverfront at Eastern Wharf, the Thompson Savannah pairs Savannah’s storied charm with
+                floor-to-ceiling windows, curated art, and a vibrant culinary scene.
               </p>
               <p>
-                With sweeping waterfront views, world-class dining, and thoughtfully designed spaces for connection and
-                reflection, this venue provides the perfect backdrop for our leadership journey.
+                Our welcome reception unfolds in the Sunroom — an airy indoor/outdoor lounge with panoramic views — while
+                spacious meeting studios and cozy gathering nooks keep conversation flowing all weekend.
               </p>
               <p>
-                Experience the perfect blend of Southern hospitality and modern luxury as we gather to share insights,
-                forge connections, and chart new paths forward together.
+                When sessions conclude, step outside to explore Riverwalk, lounge by the pool, or hop on the house bikes
+                to discover Savannah’s iconic squares.
               </p>
             </div>
 
@@ -27,19 +27,19 @@ export function Venue() {
               <ul className="space-y-3 text-foreground/90">
                 <li className="flex items-start gap-3">
                   <span className="text-secondary mt-1">•</span>
-                  <span>Panoramic river views from every angle</span>
+                  <span>Sunroom reception with indoor/outdoor river views</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-secondary mt-1">•</span>
-                  <span>Rooftop bar and lounge with city vistas</span>
+                  <span>Rooftop bar, pool deck, and creative culinary offerings</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-secondary mt-1">•</span>
-                  <span>State-of-the-art conference facilities</span>
+                  <span>State-of-the-art meeting studios steps from the riverwalk</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-secondary mt-1">•</span>
-                  <span>Walking distance to historic district</span>
+                  <span>Complimentary house car service and bikes for exploring</span>
                 </li>
               </ul>
             </div>
