@@ -51,10 +51,10 @@ export function EventDetails() {
             return (
               <div
                 key={index}
-                className="text-center p-8 rounded-sm border border-border bg-card hover:border-secondary transition-colors"
+                className="text-center p-8 rounded-md border border-border bg-card/90 hover:border-accent transition-colors shadow-sm"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary/10 mb-6">
-                  <Icon className="w-8 h-8 text-secondary" />
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/20 mb-6">
+                  <Icon className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="text-sm font-mono uppercase tracking-widest text-muted-foreground mb-2">
                   {detail.title}

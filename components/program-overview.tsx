@@ -33,7 +33,7 @@ export function ProgramOverview() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 items-start">
           <div className="space-y-8">
-            <p className="text-sm font-mono uppercase tracking-[0.4em] text-muted-foreground">Program Journey</p>
+            <p className="text-sm font-mono uppercase tracking-[0.4em] text-accent">Program Journey</p>
             <h2 className="text-5xl md:text-6xl font-light text-balance">
               Curated for profound growth, insight, and connection
             </h2>
@@ -46,8 +46,8 @@ export function ProgramOverview() {
               {pillars.map((pillar, index) => {
                 const Icon = pillar.icon
                 return (
-                  <div key={index} className="border border-border rounded-sm p-6 bg-card/70 backdrop-blur">
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-secondary/10 text-secondary mb-4">
+                  <div key={index} className="border border-border rounded-md p-6 bg-card/80 backdrop-blur">
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/20 text-primary mb-4">
                       <Icon className="w-6 h-6" />
                     </div>
                     <h3 className="text-lg font-medium mb-2">{pillar.title}</h3>
@@ -58,7 +58,7 @@ export function ProgramOverview() {
             </div>
           </div>
 
-          <div className="bg-card border border-border rounded-sm p-8 flex flex-col gap-6">
+          <div className="bg-card/95 border border-border rounded-md p-8 flex flex-col gap-6 shadow-sm">
             <div>
               <h3 className="text-sm font-mono uppercase tracking-widest text-muted-foreground mb-2">Featured Facilitator</h3>
               <p className="text-2xl font-medium">Brian Parsley</p>
@@ -87,9 +87,9 @@ export function ProgramOverview() {
                 </p>
               </div>
             </div>
-            <div className="rounded-sm border border-dashed border-secondary/40 p-6 bg-secondary/10">
-              <h4 className="text-sm font-mono uppercase tracking-widest text-secondary mb-2">Beyond the keynote</h4>
-              <p className="text-sm text-secondary/90 leading-relaxed">
+            <div className="rounded-md border border-dashed border-accent/60 p-6 bg-accent/10">
+              <h4 className="text-sm font-mono uppercase tracking-widest text-primary mb-2">Beyond the keynote</h4>
+              <p className="text-sm text-primary/80 leading-relaxed">
                 The final morning culminates in a Partner Alliances Panel followed by ML’s “Putting It All Together,”
                 ensuring you leave with clarity, accountability, and next steps.
               </p>

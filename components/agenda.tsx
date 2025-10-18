@@ -42,7 +42,7 @@ export function Agenda() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-16">
           <div className="space-y-4 max-w-2xl">
-            <p className="text-sm font-mono uppercase tracking-[0.4em] text-muted-foreground">Agenda Snapshot</p>
+            <p className="text-sm font-mono uppercase tracking-[0.4em] text-accent">Agenda Snapshot</p>
             <h2 className="text-5xl md:text-6xl font-light text-balance">Three days designed for momentum and meaning</h2>
             <p className="text-lg text-foreground/90 leading-relaxed">
               A thoughtful cadence of discovery, connection, and celebration keeps our time together expansive yet
@@ -50,8 +50,8 @@ export function Agenda() {
               takeaways.
             </p>
           </div>
-          <div className="flex items-center gap-3 rounded-sm border border-border bg-background px-6 py-4">
-            <CalendarDays className="w-8 h-8 text-secondary" />
+          <div className="flex items-center gap-3 rounded-md border border-border bg-background/90 px-6 py-4 shadow-sm">
+            <CalendarDays className="w-8 h-8 text-accent" />
             <div>
               <p className="text-sm font-mono uppercase tracking-widest text-muted-foreground">Total contact time</p>
               <p className="text-lg font-medium">2 half-day labs + 1 integration morning</p>
@@ -61,8 +61,8 @@ export function Agenda() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {schedule.map((day) => (
-            <article key={day.day} className="flex flex-col border border-border bg-background rounded-sm overflow-hidden">
-              <header className="bg-secondary text-secondary-foreground px-6 py-5">
+            <article key={day.day} className="flex flex-col border border-border/80 bg-background/95 rounded-md overflow-hidden shadow-sm">
+              <header className="bg-secondary text-secondary-foreground px-6 py-5 border-b border-border/60">
                 <p className="text-xs font-mono uppercase tracking-[0.4em]">{day.day}</p>
                 <h3 className="text-3xl font-medium mt-2">{day.date}</h3>
                 <p className="text-sm text-secondary-foreground/80 mt-2">{day.focus}</p>

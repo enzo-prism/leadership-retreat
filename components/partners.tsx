@@ -11,8 +11,8 @@ export function Partners() {
     <section className="py-24 px-4 bg-card" id="partners">
       <div className="max-w-6xl mx-auto text-center space-y-12">
         <div className="space-y-4">
-          <p className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-[0.4em] text-muted-foreground">
-            <Handshake className="w-4 h-4" /> Alliance Partners
+          <p className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-[0.4em] text-accent">
+            <Handshake className="w-4 h-4 text-accent" /> Alliance Partners
           </p>
           <h2 className="text-4xl md:text-5xl font-light text-balance">
             Grateful for the partners who make this gathering possible
@@ -26,9 +26,9 @@ export function Partners() {
           {partners.map((partner) => (
             <div
               key={partner.name}
-              className="border border-border bg-background rounded-sm p-8 flex flex-col items-center text-center gap-3 hover:border-secondary transition-colors"
+              className="border border-border bg-background/95 rounded-md p-8 flex flex-col items-center text-center gap-3 hover:border-accent transition-colors shadow-sm"
             >
-              <div className="w-16 h-16 rounded-full bg-secondary/10 text-secondary flex items-center justify-center text-xl font-medium">
+              <div className="w-16 h-16 rounded-full bg-accent/20 text-primary flex items-center justify-center text-xl font-medium">
                 {partner.name[0]}
               </div>
               <h3 className="text-xl font-medium">{partner.name}</h3>

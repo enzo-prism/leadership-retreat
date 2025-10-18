@@ -20,25 +20,25 @@ export function Venue() {
               </p>
             </div>
 
-            <div className="mt-8 pt-8 border-t border-border">
-              <h3 className="text-sm font-mono uppercase tracking-widest text-muted-foreground mb-4">
+            <div className="mt-8 pt-8 border-t border-border/70">
+              <h3 className="text-sm font-mono uppercase tracking-widest text-accent mb-4">
                 Venue Highlights
               </h3>
               <ul className="space-y-3 text-foreground/90">
                 <li className="flex items-start gap-3">
-                  <span className="text-secondary mt-1">•</span>
+                  <span className="text-accent mt-1">•</span>
                   <span>Sunroom reception with indoor/outdoor river views</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-secondary mt-1">•</span>
+                  <span className="text-accent mt-1">•</span>
                   <span>Rooftop bar, pool deck, and creative culinary offerings</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-secondary mt-1">•</span>
+                  <span className="text-accent mt-1">•</span>
                   <span>State-of-the-art meeting studios steps from the riverwalk</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-secondary mt-1">•</span>
+                  <span className="text-accent mt-1">•</span>
                   <span>Complimentary house car service and bikes for exploring</span>
                 </li>
               </ul>
@@ -46,14 +46,14 @@ export function Venue() {
           </div>
 
           <div className="relative">
-            <div className="aspect-[4/5] rounded-sm overflow-hidden">
+            <div className="aspect-[4/5] rounded-md overflow-hidden shadow-lg shadow-primary/10">
               <img
                 src="/modern-luxury-hotel-waterfront-savannah-georgia-th.jpg"
                 alt="The Thompson Savannah"
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-accent/20 rounded-sm -z-10" />
+            <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-accent/30 rounded-md blur-md -z-10" />
           </div>
         </div>
       </div>

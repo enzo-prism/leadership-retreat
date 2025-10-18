@@ -18,7 +18,7 @@ export function PastRetreats() {
     <section className="py-24 px-4 bg-background">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-5xl md:text-6xl font-light text-center mb-8 text-balance">Our Journey</h2>
-        <p className="text-center text-xl text-muted-foreground mb-20 max-w-3xl mx-auto">
+        <p className="text-center text-xl text-foreground/80 mb-20 max-w-3xl mx-auto">
           Building on the success of our previous retreats
         </p>
 
@@ -26,7 +26,7 @@ export function PastRetreats() {
           {retreats.map((retreat, index) => (
             <div
               key={index}
-              className="group relative overflow-hidden rounded-sm border border-border bg-card hover:border-secondary transition-all"
+              className="group relative overflow-hidden rounded-md border border-border bg-card/95 hover:border-accent transition-all shadow-sm"
             >
               <div className="aspect-[4/3] overflow-hidden">
                 <img
@@ -38,7 +38,7 @@ export function PastRetreats() {
               <div className="p-8">
                 <div className="flex items-baseline gap-4 mb-3">
                   <span className="text-4xl font-light">{retreat.year}</span>
-                  <span className="text-sm font-mono uppercase tracking-widest text-muted-foreground">
+                  <span className="text-sm font-mono uppercase tracking-widest text-accent">
                     Past Retreat
                   </span>
                 </div>

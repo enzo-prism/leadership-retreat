@@ -3,8 +3,16 @@ export function Footer() {
     <footer className="py-12 px-4 bg-card border-t border-border">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          <div>
-            <h3 className="text-2xl font-light mb-4">Leadership Retreat</h3>
+          <div className="space-y-4">
+            <div className="flex items-start gap-4">
+              <div className="bg-background/80 border border-border/60 rounded-md p-3 shadow-sm">
+                <img src="/lr26-logo.svg" alt="LR26 Savannah Georgia logo" className="h-16 w-auto" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-light">Leadership Retreat</h3>
+                <p className="text-xs font-mono uppercase tracking-[0.35em] text-accent mt-2">LR26 · Savannah, Georgia</p>
+              </div>
+            </div>
             <p className="text-sm text-muted-foreground">
               Where Southern charm meets modern luxury for bold, connected leadership.
             </p>
@@ -14,25 +22,25 @@ export function Footer() {
             <h4 className="text-sm font-mono uppercase tracking-widest mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#details" className="text-muted-foreground hover:text-secondary transition-colors">
+                <a href="#details" className="text-muted-foreground hover:text-accent transition-colors">
                   Event Details
                 </a>
               </li>
               <li>
-                <a href="#register" className="text-muted-foreground hover:text-secondary transition-colors">
+                <a href="#register" className="text-muted-foreground hover:text-accent transition-colors">
                   Register
                 </a>
               </li>
               <li className="space-y-1">
                 <a
                   href="mailto:marylynnwheaton@gmail.com"
-                  className="block text-muted-foreground hover:text-secondary transition-colors"
+                  className="block text-muted-foreground hover:text-accent transition-colors"
                 >
                   marylynnwheaton@gmail.com
                 </a>
                 <a
                   href="mailto:elizabetharmato@gmail.com"
-                  className="block text-muted-foreground hover:text-secondary transition-colors"
+                  className="block text-muted-foreground hover:text-accent transition-colors"
                 >
                   elizabetharmato@gmail.com
                 </a>

@@ -33,7 +33,7 @@ export function Registration() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6 bg-card text-card-foreground p-8 md:p-12 rounded-sm">
+        <form onSubmit={handleSubmit} className="space-y-6 bg-card/95 text-card-foreground p-8 md:p-12 rounded-md shadow-xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label htmlFor="firstName" className="text-sm font-mono uppercase tracking-wider">
@@ -97,7 +97,7 @@ export function Registration() {
               id="notes"
               value={formData.notes}
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-              className="w-full min-h-[120px] resize-y rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-secondary/50"
+              className="w-full min-h-[120px] resize-y rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50"
               placeholder="Share priorities, questions, or introductions you'd love to make."
             />
           </div>
@@ -105,7 +105,7 @@ export function Registration() {
           <Button
             type="submit"
             size="lg"
-            className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 py-6 text-base font-mono uppercase tracking-wider"
+            className="w-full bg-accent text-accent-foreground hover:bg-accent/90 py-6 text-base font-mono uppercase tracking-wider shadow-lg shadow-accent/30"
           >
             Submit Registration
           </Button>
@@ -113,19 +113,19 @@ export function Registration() {
           <div className="pt-6 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-muted-foreground">
             <div className="text-center md:text-left">
               <p className="uppercase font-mono tracking-widest text-xs text-primary-foreground/70">Connect with ML</p>
-              <a href="mailto:marylynnwheaton@gmail.com" className="block text-secondary hover:underline">
+              <a href="mailto:marylynnwheaton@gmail.com" className="block text-primary hover:underline">
                 marylynnwheaton@gmail.com
               </a>
-              <a href="tel:14152986710" className="block mt-1 hover:text-secondary">
+              <a href="tel:14152986710" className="block mt-1 hover:text-primary">
                 (415) 298-6710
               </a>
             </div>
             <div className="text-center md:text-left">
               <p className="uppercase font-mono tracking-widest text-xs text-primary-foreground/70">Connect with Liz</p>
-              <a href="mailto:elizabetharmato@gmail.com" className="block text-secondary hover:underline">
+              <a href="mailto:elizabetharmato@gmail.com" className="block text-primary hover:underline">
                 elizabetharmato@gmail.com
               </a>
-              <a href="tel:14153090345" className="block mt-1 hover:text-secondary">
+              <a href="tel:14153090345" className="block mt-1 hover:text-primary">
                 (415) 309-0345
               </a>
             </div>
