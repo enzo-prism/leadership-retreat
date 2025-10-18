@@ -1,3 +1,4 @@
+import { LogoMark } from "@/components/logo-mark"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
@@ -16,15 +17,14 @@ export function Hero() {
 
       <div className="relative z-10 w-full">
         <div className="max-w-6xl mx-auto px-4 py-24 sm:py-28 lg:py-32 flex flex-col gap-12">
-          <div className="flex flex-col md:flex-row items-center md:items-end gap-6">
-            <div className="bg-card/85 backdrop-blur border border-border/60 rounded-md shadow-lg p-6">
-              <img
-                src="/lr26-logo.svg"
-                alt="Leadership Retreat 2026 Savannah Georgia logo"
-                className="h-24 w-auto sm:h-28 md:h-32"
-              />
+          <div className="flex flex-col md:flex-row items-center md:items-end gap-8 lg:gap-12">
+            <div className="flex flex-col items-center md:items-start gap-3 text-center md:text-left">
+              <LogoMark size="lg" className="max-w-[20rem] shadow-[0_35px_80px_-30px_rgba(31,76,59,0.65)]" />
+              <p className="text-[0.6rem] sm:text-xs font-mono uppercase tracking-[0.4em] text-foreground/60">
+                Official 2026 Leadership Retreat emblem
+              </p>
             </div>
-            <div className="text-center md:text-left space-y-4 max-w-2xl">
+            <div className="text-center md:text-left space-y-4 max-w-3xl">
               <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.3em] sm:tracking-[0.45em] text-accent">
                 Third Annual Gathering
               </p>
