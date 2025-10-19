@@ -72,7 +72,7 @@ export function SiteHeader() {
       </div>
 
       {open ? (
-        <div className="border-t border-border/60 bg-secondary px-4 pb-6 pt-3 text-secondary-foreground md:hidden">
+        <div className="border-t border-border/60 bg-primary px-4 pb-6 pt-3 text-primary-foreground md:hidden">
           <nav className="flex flex-col gap-2 text-sm">
             {navItems.map((item) => (
               <Link
@@ -80,14 +80,18 @@ export function SiteHeader() {
                 href={item.href}
                 className={`rounded-md px-3 py-2 transition-colors ${
                   isLinkActive(pathname, item.href)
-                    ? "bg-secondary-foreground/20 text-secondary-foreground"
-                    : "text-secondary-foreground/80 hover:bg-secondary-foreground/15 hover:text-secondary-foreground"
+                    ? "bg-primary-foreground/10 text-primary-foreground"
+                    : "text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 }`}
               >
                 {item.label}
               </Link>
             ))}
-            <Button asChild size="sm" className="mt-2 w-full bg-secondary-foreground text-secondary hover:bg-secondary-foreground/85">
+            <Button
+              asChild
+              size="sm"
+              className="mt-2 w-full bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+            >
               <Link href="/register">Register</Link>
             </Button>
           </nav>
