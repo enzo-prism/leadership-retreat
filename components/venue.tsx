@@ -48,8 +48,8 @@ export function Venue() {
           <div className="relative">
             <div className="aspect-[4/5] rounded-md overflow-hidden shadow-lg shadow-primary/10">
               <img
-                src="/modern-luxury-hotel-waterfront-savannah-georgia-th.jpg"
-                alt="The Thompson Savannah"
+                src="/thompson-savannah-lobby.png"
+                alt="Sunroom lounge inside The Thompson Savannah"
                 className="w-full h-full object-cover"
               />
             </div>

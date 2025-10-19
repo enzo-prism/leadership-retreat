@@ -110,8 +110,8 @@ export function Accommodations() {
           <div className="grid grid-rows-[1fr_auto] gap-6">
             <div className="relative overflow-hidden rounded-md border border-border">
               <img
-                src="/modern-luxury-hotel-waterfront-savannah-georgia-th.jpg"
-                alt="Riverfront view of the Thompson Savannah hotel"
+                src="/thompson-savannah-bedroom.png"
+                alt="Suite interior at the Thompson Savannah hotel"
                 className="w-full h-full object-cover"
               />
             </div>

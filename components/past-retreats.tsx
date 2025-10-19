@@ -4,13 +4,15 @@ export function PastRetreats() {
       year: "2023",
       location: "Naples, Florida",
       description: "Beachfront escape emphasizing connection and luxury",
-      image: "/naples-florida-beach-sunset-luxury-resort.jpg",
+      image: "/naples-retreat-group-shot.png",
+      imageAlt: "Leadership Retreat attendees gathered together in Naples, Florida",
     },
     {
       year: "2024",
       location: "Deer Valley, Utah",
       description: "Mountain retreat devoted to reflection and growth",
-      image: "/deer-valley-utah-mountain-resort-winter-luxury.jpg",
+      image: "/leadership-retreat-group-photo.png",
+      imageAlt: "Leadership Retreat community group photo from the Deer Valley gathering",
     },
   ]
 
@@ -31,7 +33,7 @@ export function PastRetreats() {
               <div className="aspect-[4/3] overflow-hidden">
                 <img
                   src={retreat.image || "/placeholder.svg"}
-                  alt={`${retreat.location} ${retreat.year}`}
+                  alt={retreat.imageAlt || `${retreat.location} ${retreat.year}`}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>

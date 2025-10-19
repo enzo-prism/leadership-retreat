@@ -74,7 +74,7 @@ export function ProgramOverview() {
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="relative overflow-hidden rounded-sm aspect-[4/5] sm:w-1/2 bg-muted">
                 <img
-                  src="/placeholder-user.jpg"
+                  src="/brian-parsley.png"
                   alt="Portrait of Brian Parsley"
                   className="w-full h-full object-cover"
                 />
