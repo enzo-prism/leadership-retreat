@@ -799,13 +799,13 @@ export default function RegistrationPage() {
         </div>
         <div className="relative mx-auto flex max-w-6xl flex-col gap-8 px-4 text-center md:text-left lg:flex-row lg:items-end">
           <div className="space-y-6 lg:flex-1">
-            <p className="text-xs font-mono uppercase tracking-[0.4em] text-foreground/70">Registration</p>
-            <h1 className="text-4xl font-light sm:text-5xl md:text-6xl">{EVENT.name}</h1>
-            <div className="space-y-1 text-sm uppercase tracking-[0.35em] text-foreground/70">
+            <p className="text-xs font-mono uppercase tracking-[0.4em] text-secondary-foreground/80">Registration</p>
+            <h1 className="text-4xl font-light sm:text-5xl md:text-6xl text-secondary-foreground">{EVENT.name}</h1>
+            <div className="space-y-1 text-sm uppercase tracking-[0.35em] text-secondary-foreground/80">
               <p>June 4–6, 2026 · Savannah, GA</p>
               <p>{EVENT.venue.name}</p>
             </div>
-            <p className="text-base text-foreground/80 md:text-lg">
+            <p className="text-base text-secondary-foreground/90 md:text-lg">
               Registration covers immersive learning labs, curated experiences, and hosted meals. Hotel accommodations are
               booked separately via our Thompson Savannah group rate.
             </p>
@@ -813,12 +813,22 @@ export default function RegistrationPage() {
               <Button asChild size="lg">
                 <a href="#registration">Register now</a>
               </Button>
-              <Button asChild size="lg" variant="outline">
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-secondary-foreground/70 text-secondary-foreground hover:bg-secondary-foreground hover:text-secondary transition-colors"
+              >
                 <Link href={EVENT.venue.groupLink} target="_blank" rel="noreferrer">
                   Book hotel at group rate
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="ghost" className="text-foreground/80 hover:text-foreground">
+              <Button
+                asChild
+                size="lg"
+                variant="ghost"
+                className="text-secondary-foreground/90 hover:text-secondary-foreground"
+              >
                 <a href="#agenda">View agenda</a>
               </Button>
             </div>

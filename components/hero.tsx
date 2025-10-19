@@ -22,24 +22,24 @@ export function Hero() {
               <LogoMark size="lg" className="max-w-[20rem] shadow-[0_35px_80px_-30px_rgba(66,93,82,0.65)]" />
             </div>
             <div className="text-center md:text-left space-y-4 max-w-3xl">
-              <p className="text-xs sm:text-sm font-mono font-semibold uppercase tracking-[0.3em] sm:tracking-[0.45em] text-accent accent-text-shadow">
+              <p className="text-xs sm:text-sm font-mono font-semibold uppercase tracking-[0.3em] sm:tracking-[0.45em] text-secondary-foreground/80 accent-text-shadow">
                 Third Annual Gathering
               </p>
-              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-primary drop-shadow-[0_10px_25px_rgba(47,38,34,0.14)]">
+              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-secondary-foreground drop-shadow-[0_12px_32px_rgba(0,0,0,0.22)]">
                 Leadership Retreat 2026
               </h1>
             </div>
           </div>
 
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 md:gap-8 text-foreground font-mono text-[0.7rem] sm:text-xs md:text-sm uppercase tracking-[0.25em] sm:tracking-[0.35em] md:tracking-[0.55em]">
+            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 md:gap-8 text-secondary-foreground font-mono text-[0.7rem] sm:text-xs md:text-sm uppercase tracking-[0.25em] sm:tracking-[0.35em] md:tracking-[0.55em]">
               <span>Savannah, Georgia</span>
               <span className="hidden sm:inline">•</span>
               <span>June 4–6, 2026</span>
               <span className="hidden sm:inline">•</span>
               <span>The Thompson Savannah</span>
             </div>
-            <p className="text-[0.7rem] sm:text-xs md:text-sm text-foreground/80 font-mono uppercase tracking-[0.28em] sm:tracking-[0.4em] md:tracking-[0.45em] text-center md:text-right">
+            <p className="text-[0.7rem] sm:text-xs md:text-sm text-secondary-foreground/80 font-mono uppercase tracking-[0.28em] sm:tracking-[0.4em] md:tracking-[0.45em] text-center md:text-right">
               Hosted by ML &amp; Liz for the Leadership Retreat community
             </p>
           </div>
@@ -55,7 +55,7 @@ export function Hero() {
             <Button
               size="lg"
               variant="outline"
-              className="border-accent text-accent hover:bg-accent hover:text-accent-foreground px-8 py-6 text-base font-mono uppercase tracking-wider bg-card/70 backdrop-blur"
+              className="border-secondary-foreground/70 text-secondary-foreground hover:bg-secondary-foreground hover:text-secondary px-8 py-6 text-base font-mono uppercase tracking-wider bg-secondary/20 backdrop-blur transition-colors"
               asChild
             >
               <Link href="#details">Explore the Experience</Link>
