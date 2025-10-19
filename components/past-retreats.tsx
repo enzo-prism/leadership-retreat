@@ -31,6 +31,7 @@ export function PastRetreats() {
       src: "/retreat-eating-together.png",
       alt: "Attendees sharing a meal together during the retreat",
       caption: "Shared meals that spark new ideas and deeper friendships",
+      aspect: "portrait" as const,
     },
     {
       src: "/retreat-meeting.png",
@@ -84,23 +85,27 @@ export function PastRetreats() {
             </p>
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {retreatMoments.map((moment) => (
-              <figure
-                key={moment.src}
-                className="group overflow-hidden rounded-2xl border border-white/40 bg-white/70 shadow-[0_18px_40px_-28px_rgba(42,36,33,0.45)] backdrop-blur"
-              >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={moment.src}
-                    alt={moment.alt}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <figcaption className="p-4 text-sm text-muted-foreground text-center leading-relaxed">
-                  {moment.caption}
-                </figcaption>
-              </figure>
-            ))}
+            {retreatMoments.map((moment) => {
+              const aspectClass = moment.aspect === "portrait" ? "aspect-[9/16]" : "aspect-[4/3]"
+              const imageClass =
+                moment.aspect === "portrait"
+                  ? "h-full w-full object-contain bg-white transition-transform duration-500 group-hover:scale-105"
+                  : "h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+
+              return (
+                <figure
+                  key={moment.src}
+                  className="group overflow-hidden rounded-2xl border border-white/40 bg-white/70 shadow-[0_18px_40px_-28px_rgba(42,36,33,0.45)] backdrop-blur"
+                >
+                  <div className={`${aspectClass} overflow-hidden`}>
+                    <img src={moment.src} alt={moment.alt} className={imageClass} />
+                  </div>
+                  <figcaption className="p-4 text-sm text-muted-foreground text-center leading-relaxed">
+                    {moment.caption}
+                  </figcaption>
+                </figure>
+              )
+            })}
           </div>
         </div>
       </div>
