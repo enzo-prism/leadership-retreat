@@ -1,4 +1,5 @@
 import { Calendar, MapPin, Users, Mic2, Sparkles } from "lucide-react"
+import Link from "next/link"
 
 export function EventDetails() {
   const details = [
@@ -35,7 +36,7 @@ export function EventDetails() {
   ]
 
   return (
-    <section id="details" className="py-24 px-4 bg-background">
+    <section id="details" className="py-24 px-4 bg-background scroll-mt-28">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-5xl md:text-6xl font-light text-center mb-6 text-balance">
           A Mind-Expanding Savannah Retreat
@@ -84,12 +85,12 @@ export function EventDetails() {
                 With limited capacity for richer dialogue, early registration is encouraged.
               </p>
             </div>
-            <a
+            <Link
               href="/register"
               className="mt-6 inline-flex items-center justify-center rounded-sm border border-secondary-foreground/30 px-6 py-3 text-sm font-mono uppercase tracking-widest hover:bg-secondary-foreground hover:text-secondary transition-colors"
             >
               View Registration Options
-            </a>
+            </Link>
           </div>
         </div>
       </div>

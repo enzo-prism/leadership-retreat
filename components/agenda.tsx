@@ -38,7 +38,7 @@ const schedule = [
 
 export function Agenda() {
   return (
-    <section className="py-24 px-4 bg-card" id="agenda">
+    <section className="py-24 px-4 bg-card scroll-mt-28" id="agenda">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-16">
           <div className="space-y-4 max-w-2xl">

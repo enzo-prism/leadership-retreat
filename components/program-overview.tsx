@@ -29,7 +29,7 @@ export function ProgramOverview() {
   ]
 
   return (
-    <section className="py-24 px-4 bg-gradient-to-b from-background via-background to-card">
+    <section className="py-24 px-4 bg-gradient-to-b from-background via-background to-card scroll-mt-28" id="program">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 items-start">
           <div className="space-y-8">

@@ -1,6 +1,6 @@
 export function Venue() {
   return (
-    <section className="py-24 px-4 bg-card">
+    <section className="py-24 px-4 bg-card scroll-mt-28" id="venue">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>

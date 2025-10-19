@@ -826,7 +826,7 @@ export default function RegistrationPage() {
         </div>
       </section>
 
-      <section id="registration" className="relative py-20">
+      <section id="registration" className="relative py-20 scroll-mt-28">
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-secondary/15 via-background/0 to-transparent" />
         <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 lg:flex-row">
           <div className="flex-1 space-y-8">
@@ -902,7 +902,7 @@ export default function RegistrationPage() {
         </div>
       </section>
 
-      <section id="agenda" className="bg-card py-20">
+      <section id="agenda" className="bg-card py-20 scroll-mt-28">
         <div className="mx-auto max-w-6xl space-y-10 px-4">
           <div className="text-center space-y-3">
             <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Agenda At A Glance</p>

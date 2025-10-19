@@ -37,7 +37,7 @@ const perks: { icon: LucideIcon; description: string }[] = [
 
 export function Accommodations() {
   return (
-    <section className="py-24 px-4 bg-background" id="stay">
+    <section className="py-24 px-4 bg-background scroll-mt-28" id="stay">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12">
           <div className="space-y-6">

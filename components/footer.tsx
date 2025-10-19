@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import { LogoMark } from "@/components/logo-mark"
 
 export function Footer() {
@@ -29,9 +31,9 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/register" className="text-muted-foreground hover:text-accent transition-colors">
+                <Link href="/register" className="text-muted-foreground hover:text-accent transition-colors">
                   Register
-                </a>
+                </Link>
               </li>
               <li className="space-y-1">
                 <a

@@ -40,7 +40,7 @@ export function PastRetreats() {
   ]
 
   return (
-    <section className="py-24 px-4 bg-background">
+    <section className="py-24 px-4 bg-background scroll-mt-28" id="journey">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-5xl md:text-6xl font-light text-center mb-8 text-balance">Our Journey</h2>
         <p className="text-center text-xl text-foreground/80 mb-20 max-w-3xl mx-auto">
