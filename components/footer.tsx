@@ -29,7 +29,7 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#register" className="text-muted-foreground hover:text-accent transition-colors">
+                <a href="/register" className="text-muted-foreground hover:text-accent transition-colors">
                   Register
                 </a>
               </li>

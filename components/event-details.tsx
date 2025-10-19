@@ -85,7 +85,7 @@ export function EventDetails() {
               </p>
             </div>
             <a
-              href="#register"
+              href="/register"
               className="mt-6 inline-flex items-center justify-center rounded-sm border border-secondary-foreground/30 px-6 py-3 text-sm font-mono uppercase tracking-widest hover:bg-secondary-foreground hover:text-secondary transition-colors"
             >
               View Registration Options

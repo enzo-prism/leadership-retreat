@@ -50,7 +50,7 @@ export function Hero() {
               className="bg-primary text-primary-foreground hover:bg-primary/85 px-8 py-6 text-base font-mono uppercase tracking-wider shadow-lg shadow-accent/30"
               asChild
             >
-              <Link href="#register">Register Now</Link>
+              <Link href="/register">Register Now</Link>
             </Button>
             <Button
               size="lg"
