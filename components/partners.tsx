@@ -41,17 +41,19 @@ export function Partners() {
           {partners.map((partner) => (
             <div
               key={partner.name}
-              className="border border-border bg-background/95 rounded-md p-8 flex flex-col items-center text-center gap-3 hover:border-accent transition-colors shadow-sm"
+              className="border border-border/70 bg-card/95 rounded-lg p-8 flex flex-col items-stretch text-center gap-6 hover:border-accent transition-colors shadow-sm"
             >
-              <div className="w-24 h-24 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center p-5">
+              <div className="aspect-[16/9] w-full rounded-md border border-border/80 bg-gradient-to-br from-secondary/15 via-background to-accent/10 flex items-center justify-center overflow-hidden shadow-inner">
                 <img
                   src={partner.logo || "/placeholder-logo.png"}
                   alt={partner.logoAlt || `${partner.name} logo`}
-                  className="max-h-full max-w-full object-contain"
+                  className="max-h-full max-w-full object-contain p-4"
                 />
               </div>
-              <h3 className="text-xl font-medium">{partner.name}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{partner.description}</p>
+              <div className="space-y-2">
+                <h3 className="text-xl font-medium text-foreground leading-tight text-balance">{partner.name}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{partner.description}</p>
+              </div>
             </div>
           ))}
         </div>
