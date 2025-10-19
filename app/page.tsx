@@ -15,13 +15,13 @@ export default function Home() {
     <main className="min-h-screen">
       <Hero />
       <WelcomeLetter />
+      <PastRetreats />
       <EventDetails />
       <ProgramOverview />
       <Agenda />
       <Venue />
       <Accommodations />
       <Partners />
-      <PastRetreats />
       <Registration />
       <Footer />
     </main>
