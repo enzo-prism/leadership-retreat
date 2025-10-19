@@ -16,6 +16,29 @@ export function PastRetreats() {
     },
   ]
 
+  const retreatMoments = [
+    {
+      src: "/retreat-happy-attendees.png",
+      alt: "Retreat attendees smiling together during a group connection moment",
+      caption: "Joy-filled connections that energize every gathering",
+    },
+    {
+      src: "/retreat-group-talk.png",
+      alt: "Facilitator guiding a discussion with engaged retreat participants",
+      caption: "Intimate conversations shaped by your voice and experience",
+    },
+    {
+      src: "/retreat-eating-together.png",
+      alt: "Attendees sharing a meal together during the retreat",
+      caption: "Shared meals that spark new ideas and deeper friendships",
+    },
+    {
+      src: "/retreat-meeting.png",
+      alt: "Retreat participants collaborating during a workshop session",
+      caption: "Collaborative sessions that translate insight into action",
+    },
+  ]
+
   return (
     <section className="py-24 px-4 bg-background">
       <div className="max-w-7xl mx-auto">
@@ -49,6 +72,36 @@ export function PastRetreats() {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-20 space-y-8">
+          <div className="text-center space-y-3">
+            <p className="text-sm font-mono font-semibold uppercase tracking-[0.35em] text-accent accent-text-shadow">
+              Retreat Moments
+            </p>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              A glimpse into the energy, camaraderie, and intention that define our time together.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {retreatMoments.map((moment) => (
+              <figure
+                key={moment.src}
+                className="group overflow-hidden rounded-md border border-border bg-card/90 shadow-sm"
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={moment.src}
+                    alt={moment.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <figcaption className="p-4 text-sm text-muted-foreground text-center leading-relaxed">
+                  {moment.caption}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </div>
     </section>
