@@ -72,7 +72,7 @@ export function SiteHeader() {
       </div>
 
       {open ? (
-        <div className="border-t border-border/60 bg-background/95 px-4 pb-6 pt-3 md:hidden">
+        <div className="border-t border-border/60 bg-secondary px-4 pb-6 pt-3 text-secondary-foreground md:hidden">
           <nav className="flex flex-col gap-2 text-sm">
             {navItems.map((item) => (
               <Link
@@ -80,14 +80,14 @@ export function SiteHeader() {
                 href={item.href}
                 className={`rounded-md px-3 py-2 transition-colors ${
                   isLinkActive(pathname, item.href)
-                    ? "bg-accent/10 text-accent-foreground"
-                    : "text-muted-foreground hover:bg-muted/40 hover:text-foreground"
+                    ? "bg-secondary-foreground/20 text-secondary-foreground"
+                    : "text-secondary-foreground/80 hover:bg-secondary-foreground/15 hover:text-secondary-foreground"
                 }`}
               >
                 {item.label}
               </Link>
             ))}
-            <Button asChild size="sm" className="mt-2 w-full">
+            <Button asChild size="sm" className="mt-2 w-full bg-secondary-foreground text-secondary hover:bg-secondary-foreground/85">
               <Link href="/register">Register</Link>
             </Button>
           </nav>
