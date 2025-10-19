@@ -20,9 +20,6 @@ export function Hero() {
           <div className="flex flex-col md:flex-row items-center md:items-end gap-8 lg:gap-12">
             <div className="flex flex-col items-center md:items-start gap-3 text-center md:text-left">
               <LogoMark size="lg" className="max-w-[20rem] shadow-[0_35px_80px_-30px_rgba(66,93,82,0.65)]" />
-              <p className="text-[0.6rem] sm:text-xs font-mono uppercase tracking-[0.4em] text-foreground/60">
-                Official 2026 Leadership Retreat emblem
-              </p>
             </div>
             <div className="text-center md:text-left space-y-4 max-w-3xl">
               <p className="text-xs sm:text-sm font-mono font-semibold uppercase tracking-[0.3em] sm:tracking-[0.45em] text-accent accent-text-shadow">
@@ -31,9 +28,6 @@ export function Hero() {
               <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-primary drop-shadow-[0_10px_25px_rgba(47,38,34,0.14)]">
                 Leadership Retreat 2026
               </h1>
-              <p className="text-lg md:text-xl lg:text-2xl text-foreground/90 font-light">
-                Where Southern charm meets modern luxury on Savannah’s riverfront.
-              </p>
             </div>
           </div>
 
