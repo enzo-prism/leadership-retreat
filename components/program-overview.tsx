@@ -29,9 +29,9 @@ export function ProgramOverview() {
   ]
 
   return (
-    <section className="py-24 px-4 bg-gradient-to-b from-background via-background to-card scroll-mt-28" id="program">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 items-start">
+    <section className="py-24 px-4 scroll-mt-28 bg-gradient-to-b from-background via-white/60 to-background" id="program">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div className="space-y-8">
             <p className="text-sm font-mono font-semibold uppercase tracking-[0.4em] text-accent accent-text-shadow">
               Program Journey
@@ -44,12 +44,15 @@ export function ProgramOverview() {
               leaders in dentistry. Expect a boutique experience that feels bespoke to the conversations we are eager to
               have, grounded in the charm of Savannah and elevated by modern luxury.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               {pillars.map((pillar, index) => {
                 const Icon = pillar.icon
                 return (
-                  <div key={index} className="border border-border rounded-md p-6 bg-card/80 backdrop-blur">
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/20 text-primary mb-4">
+                  <div
+                    key={index}
+                    className="relative overflow-hidden rounded-2xl border border-white/35 bg-white/70 p-6 shadow-[0_24px_45px_-30px_rgba(42,36,33,0.45)] backdrop-blur transition-transform hover:-translate-y-1"
+                  >
+                    <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full border border-accent/25 bg-accent/10 text-primary">
                       <Icon className="w-6 h-6" />
                     </div>
                     <h3 className="text-lg font-medium mb-2">{pillar.title}</h3>
@@ -60,7 +63,7 @@ export function ProgramOverview() {
             </div>
           </div>
 
-          <div className="bg-card/95 border border-border rounded-md p-8 flex flex-col gap-6 shadow-sm">
+          <div className="flex flex-col gap-6 rounded-3xl border border-white/40 bg-white/75 p-8 shadow-[0_28px_55px_-32px_rgba(42,36,33,0.55)] backdrop-blur">
             <div>
               <h3 className="text-sm font-mono uppercase tracking-widest text-muted-foreground mb-2">Featured Facilitator</h3>
               <p className="text-2xl font-medium">Brian Parsley</p>
@@ -79,8 +82,8 @@ export function ProgramOverview() {
               warmth, humor, and research-backed wisdom to every interaction. His client roster includes Ford, RE/MAX,
               Liberty Mutual, and Blue Cross Blue Shield.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="relative overflow-hidden rounded-sm aspect-[4/5] sm:w-1/2 bg-muted">
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-white/50 bg-muted shadow-sm sm:w-1/2">
                 <img
                   src="/brian-parsley.png"
                   alt="Portrait of Brian Parsley"

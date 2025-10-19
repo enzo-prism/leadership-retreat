@@ -40,30 +40,30 @@ export function PastRetreats() {
   ]
 
   return (
-    <section className="py-24 px-4 bg-background scroll-mt-28" id="journey">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-5xl md:text-6xl font-light text-center mb-8 text-balance">Our Journey</h2>
-        <p className="text-center text-xl text-foreground/80 mb-20 max-w-3xl mx-auto">
+    <section className="py-24 px-4 scroll-mt-28 bg-gradient-to-b from-background via-white/55 to-background" id="journey">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-5xl md:text-6xl font-light text-center mb-6 text-balance">Our Journey</h2>
+        <p className="text-center text-xl text-muted-foreground mb-16 max-w-3xl mx-auto">
           Building on the success of our previous retreats
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {retreats.map((retreat, index) => (
             <div
               key={index}
-              className="group relative overflow-hidden rounded-md border border-border bg-card/95 hover:border-accent transition-all shadow-sm"
+              className="group relative overflow-hidden rounded-3xl border border-white/40 bg-white/75 shadow-[0_28px_55px_-30px_rgba(42,36,33,0.45)] backdrop-blur transition-all hover:-translate-y-1.5 hover:shadow-[0_40px_70px_-28px_rgba(66,93,82,0.35)]"
             >
               <div className="aspect-[4/3] overflow-hidden">
                 <img
                   src={retreat.image || "/placeholder.svg"}
                   alt={retreat.imageAlt || `${retreat.location} ${retreat.year}`}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
               <div className="p-8">
-                <div className="flex items-baseline gap-4 mb-3">
+                <div className="mb-3 flex items-baseline gap-4">
                   <span className="text-4xl font-light">{retreat.year}</span>
-                  <span className="text-sm font-mono font-semibold uppercase tracking-widest text-accent accent-text-shadow">
+                  <span className="rounded-full border border-accent/30 px-3 py-1 text-xs font-mono uppercase tracking-[0.35em] text-accent">
                     Past Retreat
                   </span>
                 </div>
@@ -83,17 +83,17 @@ export function PastRetreats() {
               A glimpse into the energy, camaraderie, and intention that define our time together.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {retreatMoments.map((moment) => (
               <figure
                 key={moment.src}
-                className="group overflow-hidden rounded-md border border-border bg-card/90 shadow-sm"
+                className="group overflow-hidden rounded-2xl border border-white/40 bg-white/70 shadow-[0_18px_40px_-28px_rgba(42,36,33,0.45)] backdrop-blur"
               >
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
                     src={moment.src}
                     alt={moment.alt}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
                 <figcaption className="p-4 text-sm text-muted-foreground text-center leading-relaxed">
