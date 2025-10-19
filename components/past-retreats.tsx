@@ -68,8 +68,7 @@ export function PastRetreats() {
                     Past Retreat
                   </span>
                 </div>
-                <h3 className="text-2xl font-medium mb-2">{retreat.location}</h3>
-                <p className="text-muted-foreground">{retreat.description}</p>
+                <h3 className="text-2xl font-medium">{retreat.location}</h3>
               </div>
             </div>
           ))}
