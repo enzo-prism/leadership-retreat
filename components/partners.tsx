@@ -1,9 +1,24 @@
 import { Handshake } from "lucide-react"
 
 const partners = [
-  { name: "CareCredit", description: "Financial solutions empowering patient access" },
-  { name: "CBG", description: "Commercial banking guidance for growth-minded practices" },
-  { name: "Professional Transition Strategies", description: "Strategic pathways for practice evolution" },
+  {
+    name: "CareCredit",
+    description: "Making care possible... today.",
+    logo: "/carecredit-logo.png",
+    logoAlt: 'CareCredit logo with the promise "Making care possible... today."',
+  },
+  {
+    name: "CBG & Company Inc.",
+    description: "Commercial banking guidance for growth-minded practices",
+    logo: "/cbg-logo.png",
+    logoAlt: "CBG & Company Inc. logo",
+  },
+  {
+    name: "Practice Transitions Institute",
+    description: "Excellence, Integrity, Purpose.",
+    logo: "/practice-transitions-institute-logo.png",
+    logoAlt: 'Practice Transitions Institute logo with the words "Excellence, Integrity, Purpose."',
+  },
 ]
 
 export function Partners() {
@@ -28,8 +43,12 @@ export function Partners() {
               key={partner.name}
               className="border border-border bg-background/95 rounded-md p-8 flex flex-col items-center text-center gap-3 hover:border-accent transition-colors shadow-sm"
             >
-              <div className="w-16 h-16 rounded-full bg-accent/20 text-primary flex items-center justify-center text-xl font-medium">
-                {partner.name[0]}
+              <div className="w-24 h-24 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center p-5">
+                <img
+                  src={partner.logo || "/placeholder-logo.png"}
+                  alt={partner.logoAlt || `${partner.name} logo`}
+                  className="max-h-full max-w-full object-contain"
+                />
               </div>
               <h3 className="text-xl font-medium">{partner.name}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{partner.description}</p>
