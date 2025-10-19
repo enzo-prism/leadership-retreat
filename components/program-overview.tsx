@@ -65,6 +65,14 @@ export function ProgramOverview() {
               <h3 className="text-sm font-mono uppercase tracking-widest text-muted-foreground mb-2">Featured Facilitator</h3>
               <p className="text-2xl font-medium">Brian Parsley</p>
               <p className="text-sm text-muted-foreground">Behavioral scientist • Founding principal, The Constance Group</p>
+              <a
+                href="https://brianparsley.com"
+                target="_blank"
+                rel="noreferrer"
+                className="mt-2 inline-flex items-center text-xs font-mono uppercase tracking-[0.35em] text-primary hover:text-primary/80 transition-colors"
+              >
+                brianparsley.com ↗
+              </a>
             </div>
             <p className="text-base text-foreground/90 leading-relaxed">
               Renowned for turning complex human behavior insights into actionable, captivating stories, Brian brings
