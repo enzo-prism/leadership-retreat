@@ -264,7 +264,7 @@ export default function RegistrationPage() {
             <label
               key={option.value}
               className={`cursor-pointer rounded-md border p-4 text-left transition-colors ${
-                form.package === option.value ? "border-accent bg-accent/10 text-accent-foreground" : "border-border bg-card"
+                form.package === option.value ? "border-accent bg-accent/10 text-foreground" : "border-border bg-card"
               }`}
             >
               <input
@@ -490,7 +490,7 @@ export default function RegistrationPage() {
 
   const renderHotelStep = () => (
     <div className="space-y-8">
-      <div className="rounded-lg border border-border bg-card/95 p-6 shadow-sm">
+      <div id="hotel-info-details" className="rounded-lg border border-border bg-card/95 p-6 shadow-sm">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <h3 className="text-lg font-medium">Thompson Savannah Group Rate</h3>
@@ -605,15 +605,16 @@ export default function RegistrationPage() {
 
   const renderPaymentStep = () => (
     <div className="space-y-8">
-      <div className="rounded-lg border border-border bg-card/95 p-6 shadow-sm">
+      <div id="investment-overview" className="rounded-lg border border-border bg-card/95 p-6 shadow-sm">
         <h3 className="text-lg font-medium">Registration Investment</h3>
         <p className="mt-2 text-sm text-muted-foreground">
           Registration covers immersive programming, curated experiences, and hosted meals during the retreat. Hotel is
           booked separately via the Hyatt group link.
         </p>
-        <div className="mt-4 rounded-lg border border-primary/25 bg-primary/5 p-4 text-sm leading-relaxed text-primary">
+        <div className="mt-4 rounded-lg border border-primary/25 bg-primary/5 p-4 text-sm leading-relaxed text-primary space-y-2">
           <p>We encourage participants to secure their space this year by making a deposit or paying in full by 2025.</p>
-          <p className="mt-2">The February 15 deadline only applies to additional guest event fees or any remaining balance.</p>
+          <p>To reserve your space, a 50% deposit is due at the time of enrollment. The balance is due February 15, 2026.</p>
+          <p className="text-primary/80">The February 15 deadline only applies to additional guest event fees or any remaining balance.</p>
         </div>
         <div className="mt-6 space-y-3 text-sm">
           <div className="flex items-center justify-between">
@@ -634,7 +635,7 @@ export default function RegistrationPage() {
       <div className="rounded-lg border border-border bg-card/95 p-6 shadow-sm">
         <h3 className="text-lg font-medium">Preferred Payment Method</h3>
         <div className="mt-4 space-y-3">
-          <label className="flex items-start gap-3 rounded-md border border-accent bg-accent/10 p-4">
+          <label className="flex items-start gap-3 rounded-md border border-accent bg-accent/10 p-4 text-foreground">
             <input
               type="radio"
               name="payment-method"
@@ -938,24 +939,6 @@ export default function RegistrationPage() {
                   <a href="#agenda">View agenda</a>
                 </Button>
               </div>
-              <div className="max-w-lg rounded-2xl border border-primary/35 bg-primary/10 px-6 py-5 text-sm leading-relaxed text-primary shadow-[0_24px_45px_-30px_rgba(66,93,82,0.35)] md:text-base">
-                <p className="text-xs font-mono uppercase tracking-[0.35em] text-primary/80">Accommodations Reminder</p>
-                <p className="mt-2 font-semibold">
-                  Hotel booked separately via the{" "}
-                  <Link
-                    href={EVENT.venue.groupLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline-offset-4 hover:underline"
-                  >
-                    Hyatt group link ↗
-                  </Link>
-                  .
-                </p>
-                <p className="mt-1 text-xs text-primary/80 md:text-sm">
-                  Use code G-LDRS to unlock the $249/night rate and optional pre/post stay nights.
-                </p>
-              </div>
             </div>
             <div className="rounded-3xl border border-border/70 bg-card/95 p-8 shadow-[0_24px_60px_-35px_rgba(42,36,33,0.45)] backdrop-blur">
               <div className="space-y-6 text-left">
@@ -994,6 +977,65 @@ export default function RegistrationPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="enrollment-details" className="bg-card/60 py-16">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
+            <article
+              id="enrollment-basics"
+              className="rounded-3xl border border-border bg-card/95 px-6 py-8 shadow-[0_28px_55px_-35px_rgba(42,36,33,0.45)] backdrop-blur"
+            >
+              <h2 className="text-2xl font-light text-foreground sm:text-3xl">Enrollment essentials</h2>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                Reserve your place by submitting the deposit, then finalize your roster and remaining balance ahead of the retreat.
+              </p>
+              <ul className="mt-5 space-y-3 text-sm text-foreground/90">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 block h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+                  <span>50% deposit due at enrollment to hold your seats.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 block h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+                  <span>Remaining balance due no later than February 15, 2026.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 block h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+                  <span>Additional guest event fees also finalize by February 15.</span>
+                </li>
+              </ul>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Button asChild>
+                  <a href="#registration">Complete enrollment</a>
+                </Button>
+              </div>
+            </article>
+            <article
+              id="hotel-info"
+              className="rounded-3xl border border-border bg-card/95 px-6 py-8 shadow-[0_28px_55px_-35px_rgba(42,36,33,0.45)] backdrop-blur"
+            >
+              <h2 className="text-2xl font-light text-foreground sm:text-3xl">Hotel & travel</h2>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                We partner with The Thompson Savannah to extend special rates and curated experiences for LR26 attendees.
+              </p>
+              <div className="mt-5 space-y-3 text-sm text-foreground/90">
+                <p>Use group code <strong>G-LDRS</strong> for the $249/night retreat rate plus optional pre/post nights.</p>
+                <p>
+                  Reserve online through the Hyatt portal or call <a className="text-primary underline-offset-4 hover:underline" href="tel:18002331234">800-233-1234</a>
+                  .
+                </p>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Button asChild variant="outline">
+                  <Link href={EVENT.venue.groupLink} target="_blank" rel="noreferrer">
+                    Book at Hyatt ↗
+                  </Link>
+                </Button>
+              </div>
+            </article>
           </div>
         </div>
       </section>

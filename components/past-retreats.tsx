@@ -47,6 +47,27 @@ export function PastRetreats() {
       alt: "Susan and Chris enjoying a candid conversation",
       caption: "Trust, friendship, and ease — the relationships that make this retreat feel like family.",
     },
+    {
+      src: "/retreat-happy-attendees.png",
+      alt: "Retreat attendees smiling together during a group connection moment",
+      caption: "Intimate conversations shaped by your voice and experience",
+    },
+    {
+      src: "/retreat-group-talk.png",
+      alt: "Facilitator guiding a discussion with engaged retreat participants",
+      caption: "Joy-filled connections that energize every gathering",
+    },
+    {
+      src: "/retreat-eating-together.png",
+      alt: "Attendees sharing a meal together during the retreat",
+      caption: "Shared meals that spark new ideas and deeper friendships",
+      aspect: "portrait" as const,
+    },
+    {
+      src: "/retreat-meeting.png",
+      alt: "Retreat participants collaborating during a workshop session",
+      caption: "Collaborative sessions that translate insight into action",
+    },
   ]
 
   return (

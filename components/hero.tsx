@@ -1,48 +1,83 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 
 import { LogoMark } from "@/components/logo-mark"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
+type HeroSlide = {
+  src: string
+  alt: string
+  label: string
+}
+
+const HERO_SLIDES: HeroSlide[] = [
+  {
+    src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668020/The_event_gang_v3w7ka.webp",
+    alt: "Group of Leadership Retreat attendees smiling together inside the conference room",
+    label: "Reunion energy that sets the tone for LR26",
+  },
+  {
+    src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668019/Boat_top_jllkqg.webp",
+    alt: "Leadership Retreat attendees on a yacht during a blue-sky afternoon",
+    label: "Savannah’s riverfront vistas, experienced together",
+  },
+  {
+    src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668019/Beanie_gal_ghrfxk.webp",
+    alt: "Close-up of an attendee laughing outdoors while wearing a beanie",
+    label: "Laughter that comes naturally when the community reconnects",
+  },
+  {
+    src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668018/Peeps_vvif3t.webp",
+    alt: "Attendees clinking glasses outdoors during golden hour",
+    label: "Evening celebrations that turn conversations into commitments",
+  },
+  {
+    src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668018/Hugh_sqy0xy.webp",
+    alt: "Retreat attendee enjoying a drink and relaxed conversation",
+    label: "Simple moments where courageous leadership takes root",
+  },
+  {
+    src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668020/Susan_and_Chris_qaremz.webp",
+    alt: "Two attendees smiling with margaritas during the retreat",
+    label: "Trusted friendships that make LR26 feel like family",
+  },
+  {
+    src: "/retreat-happy-attendees.png",
+    alt: "Retreat attendees smiling around a table during an indoor session",
+    label: "Candid conversations that turn insight into action",
+  },
+  {
+    src: "/retreat-group-talk.png",
+    alt: "Facilitator guiding a group discussion with engaged participants",
+    label: "Guided discussions designed to unlock courageous leadership",
+  },
+  {
+    src: "/retreat-eating-together.png",
+    alt: "Attendees sharing a meal together during the retreat",
+    label: "Shared meals that nurture momentum and partnership",
+  },
+  {
+    src: "/retreat-meeting.png",
+    alt: "Retreat participants collaborating during a workshop session",
+    label: "Collaborative workshops translating ideas into momentum",
+  },
+  {
+    src: "/naples-retreat-group-shot.png",
+    alt: "Leadership Retreat attendees gathered together in Naples, Florida",
+    label: "Naples 2023 — the spark that grew our community",
+  },
+  {
+    src: "/leadership-retreat-group-photo.png",
+    alt: "Leadership Retreat community group photo from the Deer Valley gathering",
+    label: "Deer Valley 2024 — fresh mountain perspective for what’s next",
+  },
+]
+
 export function Hero() {
-  const slides = useMemo(
-    () => [
-      {
-        src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668020/The_event_gang_v3w7ka.webp",
-        alt: "Group of Leadership Retreat attendees smiling together inside the conference room",
-        label: "Reunion energy that sets the tone for LR26",
-      },
-      {
-        src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668019/Boat_top_jllkqg.webp",
-        alt: "Leadership Retreat attendees on a yacht during a blue-sky afternoon",
-        label: "Savannah’s riverfront vistas, experienced together",
-      },
-      {
-        src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668019/Beanie_gal_ghrfxk.webp",
-        alt: "Close-up of an attendee laughing outdoors while wearing a beanie",
-        label: "Laughter that comes naturally when the community reconnects",
-      },
-      {
-        src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668018/Peeps_vvif3t.webp",
-        alt: "Attendees clinking glasses outdoors during golden hour",
-        label: "Evening celebrations that turn conversations into commitments",
-      },
-      {
-        src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668018/Hugh_sqy0xy.webp",
-        alt: "Retreat attendee enjoying a drink and relaxed conversation",
-        label: "Simple moments where courageous leadership takes root",
-      },
-      {
-        src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668020/Susan_and_Chris_qaremz.webp",
-        alt: "Two attendees smiling with margaritas during the retreat",
-        label: "Trusted friendships that make LR26 feel like family",
-      },
-    ],
-    [],
-  )
+  const slides = HERO_SLIDES
 
   const slideCount = slides.length
   const [currentSlide, setCurrentSlide] = useState(0)
