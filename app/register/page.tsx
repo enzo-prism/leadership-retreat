@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useMemo, useState } from "react"
+import { useMemo, useState, type ReactNode } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -79,6 +79,69 @@ const PRICING = {
   two: 2475,
   additional: 400,
 }
+
+const FAQ_ITEMS: { question: string; answer: ReactNode }[] = [
+  {
+    question: "When is the deadline for additional participants?",
+    answer: (
+      <p>
+        Please share additional attendee names and contact information by March 15 so we can tailor the experience.
+      </p>
+    ),
+  },
+  {
+    question: "What’s included in registration?",
+    answer: (
+      <p>
+        All retreat programming, curated experiences, hosted meals, and materials. Hotel, travel, and optional excursions
+        are booked separately.
+      </p>
+    ),
+  },
+  {
+    question: "How do dietary or accessibility accommodations work?",
+    answer: (
+      <p>
+        Note any allergy, dietary, mobility, or sensory needs in Step 1 and our team will confirm details with you
+        directly.
+      </p>
+    ),
+  },
+  {
+    question: "What is the dress code?",
+    answer: <p>Smart casual. Think light layers for meeting rooms, comfortable shoes for city exploration.</p>,
+  },
+  {
+    question: "Is parking available?",
+    answer: (
+      <p>
+        Valet parking is available onsite. The Thompson also offers complimentary house bikes and a house car service
+        (first come, first served).
+      </p>
+    ),
+  },
+  {
+    question: "How do I pay?",
+    answer: (
+      <div className="space-y-2">
+        <p>Secure your space with a deposit or payment in full by 2025.</p>
+        <p>Additional guest event fees and any remaining balance are due February 15, 2026.</p>
+        <p>Pay by check or Zelle. Questions? Call 415-309-0345.</p>
+        <p>Make check payable to Connect the Dots. Mail to 36 Baker St, San Francisco, CA 94117.</p>
+        <p>You can pay your invoice quickly and securely through Zelle.</p>
+        <div className="space-y-1">
+          <p className="font-medium text-foreground">Steps to Pay:</p>
+          <ol className="list-decimal space-y-1 pl-5">
+            <li>Log in to your bank’s mobile app or online banking.</li>
+            <li>Select Send Money with Zelle®.</li>
+            <li>Enter my Zelle email/phone: 415-309-0345.</li>
+            <li>Enter the payment amount and confirm.</li>
+          </ol>
+        </div>
+      </div>
+    ),
+  },
+]
 
 function formatCurrency(amount: number) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(amount)
@@ -192,7 +255,11 @@ export default function RegistrationPage() {
           {[
             { value: "one", label: "One participant", helper: `${formatCurrency(PRICING.one)}` },
             { value: "two", label: "Two participants", helper: `${formatCurrency(PRICING.two)}` },
-            { value: "custom", label: "Add participants", helper: "Base + $400 each (due May 15)" },
+            {
+              value: "custom",
+              label: "Add participants",
+              helper: "Base + $400 each (additional guest event fees due February 15)",
+            },
           ].map((option) => (
             <label
               key={option.value}
@@ -325,7 +392,7 @@ export default function RegistrationPage() {
           <div className="mt-6 space-y-4">
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">
-                Add more attendees for {formatCurrency(PRICING.additional)} each (due May 15 for roster details).
+                Add more attendees for {formatCurrency(PRICING.additional)} each (additional guest event fees due February 15).
               </p>
               <Button type="button" variant="outline" size="sm" onClick={addAdditionalParticipant}>
                 Add attendee
@@ -451,20 +518,22 @@ export default function RegistrationPage() {
       </div>
 
       <div className="rounded-lg border border-border bg-card/95 p-6 shadow-sm">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <Label className="text-sm font-semibold">I need rooms</Label>
-            <p className="text-xs text-muted-foreground">We’ll remind you to complete your Hyatt booking.</p>
+            <Label className="text-sm font-semibold">Will you use our Thompson Savannah room block?</Label>
+            <p className="text-xs text-muted-foreground">
+              Toggle below if you plan to stay onsite so we can coordinate with the hotel team.
+            </p>
           </div>
           <button
             type="button"
             onClick={() => setForm((prev) => ({ ...prev, needRooms: !prev.needRooms }))}
-            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+            className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors ${
               form.needRooms ? "bg-primary" : "bg-muted"
             }`}
           >
             <span
-              className={`inline-block h-5 w-5 transform rounded-full bg-background transition-transform ${
+              className={`inline-block h-6 w-6 transform rounded-full bg-background transition-transform ${
                 form.needRooms ? "translate-x-5" : "translate-x-1"
               }`}
             />
@@ -472,39 +541,53 @@ export default function RegistrationPage() {
         </div>
 
         {form.needRooms && (
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="rooms">Rooms needed</Label>
-              <Input
-                id="rooms"
-                type="number"
-                min={1}
-                value={form.rooms}
-                onChange={(event) =>
-                  setForm((prev) => ({
-                    ...prev,
-                    rooms: Math.max(1, Number.parseInt(event.target.value || "1", 10)),
-                  }))
-                }
-              />
+          <div className="mt-6 space-y-6">
+            <div className="rounded-lg border border-dashed border-primary/35 bg-primary/5 p-4 text-sm leading-relaxed text-primary">
+              <p>
+                Our rate is $249/night with a $6/day Georgia lodging and historic fee. If rooms are available, the resort
+                will honor the rate three days before and after the event should you choose to extend your stay. So we can
+                manage stays, please let us know the:
+              </p>
+              <ul className="mt-3 list-disc space-y-1 pl-5">
+                <li>Number of hotel rooms needed</li>
+                <li>Preferred check-in date</li>
+                <li>Preferred check-out date</li>
+              </ul>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="check-in">Check-in</Label>
-              <Input
-                id="check-in"
-                type="date"
-                value={form.checkIn}
-                onChange={(event) => setForm((prev) => ({ ...prev, checkIn: event.target.value }))}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="check-out">Check-out</Label>
-              <Input
-                id="check-out"
-                type="date"
-                value={form.checkOut}
-                onChange={(event) => setForm((prev) => ({ ...prev, checkOut: event.target.value }))}
-              />
+            <div className="grid gap-4 md:grid-cols-3">
+              <div className="space-y-2">
+                <Label htmlFor="rooms">Number of hotel rooms needed</Label>
+                <Input
+                  id="rooms"
+                  type="number"
+                  min={1}
+                  value={form.rooms}
+                  onChange={(event) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      rooms: Math.max(1, Number.parseInt(event.target.value || "1", 10)),
+                    }))
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="check-in">Check-in date</Label>
+                <Input
+                  id="check-in"
+                  type="date"
+                  value={form.checkIn}
+                  onChange={(event) => setForm((prev) => ({ ...prev, checkIn: event.target.value }))}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="check-out">Check-out date</Label>
+                <Input
+                  id="check-out"
+                  type="date"
+                  value={form.checkOut}
+                  onChange={(event) => setForm((prev) => ({ ...prev, checkOut: event.target.value }))}
+                />
+              </div>
             </div>
           </div>
         )}
@@ -528,7 +611,11 @@ export default function RegistrationPage() {
           Registration covers immersive programming, curated experiences, and hosted meals during the retreat. Hotel is
           booked separately via the Hyatt group link.
         </p>
-        <div className="mt-4 space-y-3 text-sm">
+        <div className="mt-4 rounded-lg border border-primary/25 bg-primary/5 p-4 text-sm leading-relaxed text-primary">
+          <p>We encourage participants to secure their space this year by making a deposit or paying in full by 2025.</p>
+          <p className="mt-2">The February 15 deadline only applies to additional guest event fees or any remaining balance.</p>
+        </div>
+        <div className="mt-6 space-y-3 text-sm">
           <div className="flex items-center justify-between">
             <span>{baseParticipants} participant{baseParticipants > 1 ? "s" : ""}</span>
             <span>{formatCurrency(basePrice)}</span>
@@ -559,8 +646,9 @@ export default function RegistrationPage() {
             <div>
               <p className="text-sm font-semibold">Pay by check</p>
               <p className="text-xs text-muted-foreground">
-                Make checks payable to <strong>Connect the Dots</strong>, 36 Baker Street, San Francisco, CA 94117.
+                Make check payable to <strong>Connect the Dots</strong>. Mail to 36 Baker St, San Francisco, CA 94117.
               </p>
+              <p className="mt-1 text-xs text-muted-foreground">Prefer Zelle? Send payment to 415-309-0345 after receiving your invoice.</p>
             </div>
           </label>
           <p className="text-xs text-muted-foreground">
@@ -693,8 +781,8 @@ export default function RegistrationPage() {
           <span>{formatCurrency(totalDue)}</span>
         </div>
         <p className="mt-2 text-sm text-muted-foreground">
-          Make checks payable to <strong>Connect the Dots</strong>, 36 Baker Street, San Francisco, CA 94117. Please mail
-          payment within 14 days of submission.
+          Make check payable to <strong>Connect the Dots</strong>. Mail to 36 Baker St, San Francisco, CA 94117. Please mail
+          payment within 14 days of submission. Deposits secure your space; any remaining balance is due February 15, 2026.
         </p>
       </div>
 
@@ -756,9 +844,25 @@ export default function RegistrationPage() {
           <p className="text-sm text-muted-foreground">Total due</p>
           <p className="text-2xl font-semibold">{formatCurrency(totalDue)}</p>
         </div>
-        <div className="mt-6 space-y-3 text-xs text-muted-foreground">
-          <p>Hotel booked separately via Hyatt link.</p>
-          <p>Need help? Email marylynnwheaton@gmail.com or elizabetharmato@gmail.com.</p>
+        <div className="mt-6 rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm leading-relaxed text-primary md:text-base">
+          <p className="font-medium">
+            Hotel booked separately via the{" "}
+            <a href={EVENT.venue.groupLink} target="_blank" rel="noreferrer" className="underline-offset-4 hover:underline">
+              Hyatt group link
+            </a>
+            .
+          </p>
+          <p className="mt-2">
+            Need help? Email{" "}
+            <a href="mailto:marylynnwheaton@gmail.com" className="underline-offset-4 hover:underline">
+              marylynnwheaton@gmail.com
+            </a>{" "}
+            or{" "}
+            <a href="mailto:elizabetharmato@gmail.com" className="underline-offset-4 hover:underline">
+              elizabetharmato@gmail.com
+            </a>
+            .
+          </p>
         </div>
       </div>
     </aside>
@@ -774,7 +878,7 @@ export default function RegistrationPage() {
           </h1>
           <p className="text-sm text-muted-foreground">
             You’ll also receive a save &amp; resume link in case you need to update attendee information or add additional
-            participants ahead of May 15.
+            participants ahead of the February 15 final payment deadline.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Button asChild>
@@ -793,44 +897,102 @@ export default function RegistrationPage() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <section className="relative overflow-hidden bg-secondary py-24">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-secondary via-background/80 to-accent/30" />
-        </div>
-        <div className="relative mx-auto flex max-w-6xl flex-col gap-8 px-4 text-center md:text-left lg:flex-row lg:items-end">
-          <div className="space-y-6 lg:flex-1">
-            <p className="text-xs font-mono uppercase tracking-[0.4em] text-secondary-foreground/80">Registration</p>
-            <h1 className="text-4xl font-light sm:text-5xl md:text-6xl text-secondary-foreground">{EVENT.name}</h1>
-            <div className="space-y-1 text-sm uppercase tracking-[0.35em] text-secondary-foreground/80">
-              <p>June 4–6, 2026 · Savannah, GA</p>
-              <p>{EVENT.venue.name}</p>
+      <section className="relative overflow-hidden py-24">
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary/10 to-background" />
+        <div className="absolute -top-24 right-[-10%] h-80 w-80 rounded-full bg-primary/20 blur-3xl opacity-70" />
+        <div className="absolute bottom-[-45%] left-[-10%] h-96 w-96 rounded-full bg-accent/25 blur-3xl opacity-60" />
+        <div className="relative mx-auto max-w-6xl px-4">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+            <div className="space-y-8">
+              <span className="inline-flex w-fit items-center rounded-full bg-primary/10 px-4 py-2 text-xs font-mono uppercase tracking-[0.35em] text-primary">
+                Registration
+              </span>
+              <div className="space-y-4">
+                <h1 className="text-4xl font-light text-balance text-foreground sm:text-5xl md:text-6xl">{EVENT.name}</h1>
+                <p className="text-lg leading-relaxed text-muted-foreground">
+                  Leadership Retreat 2026 gathers returning attendees and emerging leaders for immersive sessions, curated
+                  experiences, and hosted meals across three intentional days in Savannah.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
+                <div className="inline-flex items-center rounded-full border border-border/60 bg-card/80 px-4 py-2 font-mono uppercase tracking-[0.3em]">
+                  June 4–6 · Savannah, GA
+                </div>
+                <div className="inline-flex items-center rounded-full border border-border/60 bg-card/80 px-4 py-2 font-mono uppercase tracking-[0.3em]">
+                  {EVENT.venue.name}
+                </div>
+                <div className="inline-flex items-center rounded-full border border-border/60 bg-card/80 px-4 py-2 font-mono uppercase tracking-[0.3em]">
+                  Group Code G-LDRS
+                </div>
+              </div>
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                <Button asChild size="lg">
+                  <a href="#registration">Register now</a>
+                </Button>
+                <Button asChild size="lg" variant="outline">
+                  <Link href={EVENT.venue.groupLink} target="_blank" rel="noreferrer">
+                    Book hotel at group rate
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="ghost" className="text-foreground hover:text-primary">
+                  <a href="#agenda">View agenda</a>
+                </Button>
+              </div>
+              <div className="max-w-lg rounded-2xl border border-primary/35 bg-primary/10 px-6 py-5 text-sm leading-relaxed text-primary shadow-[0_24px_45px_-30px_rgba(66,93,82,0.35)] md:text-base">
+                <p className="text-xs font-mono uppercase tracking-[0.35em] text-primary/80">Accommodations Reminder</p>
+                <p className="mt-2 font-semibold">
+                  Hotel booked separately via the{" "}
+                  <Link
+                    href={EVENT.venue.groupLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline-offset-4 hover:underline"
+                  >
+                    Hyatt group link ↗
+                  </Link>
+                  .
+                </p>
+                <p className="mt-1 text-xs text-primary/80 md:text-sm">
+                  Use code G-LDRS to unlock the $249/night rate and optional pre/post stay nights.
+                </p>
+              </div>
             </div>
-            <p className="text-base text-secondary-foreground/90 md:text-lg">
-              Registration covers immersive learning labs, curated experiences, and hosted meals. Hotel accommodations are
-              booked separately via our Thompson Savannah group rate.
-            </p>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-start">
-              <Button asChild size="lg">
-                <a href="#registration">Register now</a>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-secondary-foreground/70 text-secondary-foreground hover:bg-secondary-foreground hover:text-secondary transition-colors"
-              >
-                <Link href={EVENT.venue.groupLink} target="_blank" rel="noreferrer">
-                  Book hotel at group rate
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="ghost"
-                className="text-secondary-foreground/90 hover:text-secondary-foreground"
-              >
-                <a href="#agenda">View agenda</a>
-              </Button>
+            <div className="rounded-3xl border border-border/70 bg-card/95 p-8 shadow-[0_24px_60px_-35px_rgba(42,36,33,0.45)] backdrop-blur">
+              <div className="space-y-6 text-left">
+                <div>
+                  <p className="text-xs font-mono uppercase tracking-[0.35em] text-muted-foreground">Retreat Snapshot</p>
+                  <p className="mt-3 text-2xl font-medium text-foreground">Three intentional days on Savannah&apos;s riverfront</p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    Registration secures your seat for every facilitated session, curated dining experience, and hosted social
+                    gathering.
+                  </p>
+                </div>
+                <dl className="grid gap-4 text-sm text-muted-foreground sm:grid-cols-2">
+                  <div className="rounded-xl border border-border/60 bg-background/80 p-4">
+                    <dt className="font-mono text-xs uppercase tracking-[0.3em] text-primary">Dates</dt>
+                    <dd className="mt-2 text-base text-foreground">June 4–6, 2026</dd>
+                  </div>
+                  <div className="rounded-xl border border-border/60 bg-background/80 p-4">
+                    <dt className="font-mono text-xs uppercase tracking-[0.3em] text-primary">Venue</dt>
+                    <dd className="mt-2 text-base text-foreground">Thompson Savannah · Eastern Wharf</dd>
+                  </div>
+                  <div className="rounded-xl border border-border/60 bg-background/80 p-4">
+                    <dt className="font-mono text-xs uppercase tracking-[0.3em] text-primary">Group Rate</dt>
+                    <dd className="mt-2 text-base text-foreground">{formatCurrency(EVENT.venue.rate)}/night · Code G-LDRS</dd>
+                  </div>
+                  <div className="rounded-xl border border-border/60 bg-background/80 p-4">
+                    <dt className="font-mono text-xs uppercase tracking-[0.3em] text-primary">Questions</dt>
+                    <dd className="mt-2 text-base text-foreground">
+                      Call 415-298-6710 (ML)
+                      <br className="hidden sm:block" />
+                      or 415-309-0345 (Liz)
+                    </dd>
+                  </div>
+                </dl>
+                <div className="rounded-xl border border-dashed border-accent/60 bg-accent/10 p-4 text-sm leading-relaxed text-primary">
+                  Reserve your room early; the Thompson honors the retreat rate up to three nights pre/post stay, pending availability.
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -916,7 +1078,7 @@ export default function RegistrationPage() {
         <div className="mx-auto max-w-6xl space-y-10 px-4">
           <div className="text-center space-y-3">
             <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Agenda At A Glance</p>
-            <h2 className="text-4xl font-light md:text-5xl">Three days designed for momentum</h2>
+            <h2 className="text-4xl font-light md:text-5xl">Three days designed for connection and inspiration</h2>
             <p className="text-base text-muted-foreground md:text-lg">
               Purposeful programming balanced with curated connection time at Savannah’s riverfront.
             </p>
@@ -951,8 +1113,8 @@ export default function RegistrationPage() {
             <h2 className="mt-4 text-3xl font-light">The Thompson Savannah</h2>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
               Our riverfront home base blends Savannah’s storied charm with modern luxury, giving us light-filled studios,
-              an indoor/outdoor Sunroom, and effortless access to Eastern Wharf. Enjoy hosted experiences woven through
-              the property plus curated time to explore the city.
+              an indoor/outdoor Sunroom, and effortless access to Eastern Wharf. Enjoy hosted experiences woven through the
+              property plus time to explore the city.
             </p>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <div className="rounded-lg border border-dashed border-border/70 bg-background/80 p-4 text-sm">
@@ -1007,9 +1169,6 @@ export default function RegistrationPage() {
                 <li key={item}>{item}</li>
               ))}
             </ul>
-            <Button variant="link" className="mt-4 px-0 text-sm text-primary" asChild>
-              <a href="#registration">Review policy at confirmation</a>
-            </Button>
           </div>
         </div>
       </section>
@@ -1024,41 +1183,10 @@ export default function RegistrationPage() {
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-2">
-            {[
-              {
-                question: "When is the deadline for additional participants?",
-                answer:
-                  "Please share additional attendee names and contact information by May 15 so we can tailor the experience.",
-              },
-              {
-                question: "What’s included in registration?",
-                answer:
-                  "All retreat programming, curated experiences, hosted meals, and materials. Hotel, travel, and optional excursions are booked separately.",
-              },
-              {
-                question: "How do dietary or accessibility accommodations work?",
-                answer:
-                  "Note any allergy, dietary, mobility, or sensory needs in Step 1 and our team will confirm details with you directly.",
-              },
-              {
-                question: "What is the dress code?",
-                answer:
-                  "Elevated smart casual. Think light layers for meeting rooms, comfortable shoes for city exploration, and festive attire for evening gatherings.",
-              },
-              {
-                question: "Is parking available?",
-                answer:
-                  "Valet parking is available onsite. The Thompson also offers complimentary house bikes and a house car service (first come, first served).",
-              },
-              {
-                question: "Can I pay by card?",
-                answer:
-                  "Checks are preferred for 2026. If you require card payment, let us know in Step 3 and we’ll follow up with available options.",
-              },
-            ].map((item) => (
+            {FAQ_ITEMS.map((item) => (
               <div key={item.question} className="rounded-xl border border-border bg-background/80 p-6 shadow-sm">
                 <p className="text-sm font-semibold text-foreground">{item.question}</p>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.answer}</p>
+                <div className="mt-2 text-sm text-muted-foreground leading-relaxed space-y-2">{item.answer}</div>
               </div>
             ))}
           </div>

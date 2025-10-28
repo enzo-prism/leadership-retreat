@@ -74,7 +74,7 @@ export function Accommodations() {
                     <p className="text-sm font-mono font-semibold uppercase tracking-widest text-accent accent-text-shadow">
                       Group Booking Code
                     </p>
-                    <p className="text-xl font-medium">Hyatt SAVTH / Code: LDRS</p>
+                    <p className="text-xl font-medium">Hyatt SAVTH / Code: G-LDRS</p>
                   </div>
                 </div>
                 <a
@@ -86,24 +86,17 @@ export function Accommodations() {
                   Reserve Your Room
                 </a>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-muted-foreground">
-                <div className="flex items-center gap-2">
-                  <Bath className="w-4 h-4 text-primary" />
-                  <span>Sunroom reception with indoor/outdoor flow</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Car className="w-4 h-4 text-primary" />
-                  <span>Valet service with waived portage fees</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-primary" />
-                  <span>Moments from Savannah’s Riverwalk &amp; The Park</span>
-                </div>
+              <div className="space-y-3 text-base md:text-lg text-foreground/90 leading-relaxed">
+                <p>
+                  Prefer to call? Dial <a className="text-primary hover:underline" href="tel:18002331234">800-233-1234</a>
+                  and reference code <strong>G-LDRS</strong>. Rooms are limited within the block.
+                </p>
+                <p>
+                  We have a limited number of rooms. If you run into any difficulty, please contact ML at{" "}
+                  <a className="text-primary hover:underline" href="tel:14152986710">415-298-6710</a> or Liz at{" "}
+                  <a className="text-primary hover:underline" href="tel:14153090345">415-309-0345</a>.
+                </p>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Prefer to call? Dial <a className="text-primary hover:underline" href="tel:18002331234">800-233-1234</a>
-                and reference code <strong>LDRS</strong>. Rooms are limited within the block.
-              </p>
             </div>
           </div>
 
@@ -118,7 +111,8 @@ export function Accommodations() {
             <div className="bg-card/95 border border-border rounded-md p-6 text-sm text-muted-foreground leading-relaxed shadow-sm">
               <p>
                 "The Thompson offers effortless sophistication — from the airy Sunroom to the rooftop lounge — giving us
-                space to connect, reflect, and celebrate Savannah’s creative spirit."
+                space to connect, reflect, and celebrate Savannah’s creative spirit. We can't wait to welcome back
+                returning attendees and new participants!"
               </p>
               <p className="mt-4 font-medium text-foreground">— ML &amp; Liz</p>
             </div>

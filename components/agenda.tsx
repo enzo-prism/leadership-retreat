@@ -8,7 +8,7 @@ const schedule = [
     items: [
       { time: "12:30 PM", title: "Registration", detail: "Foyer, Barnwell Room" },
       { time: "1:00 PM", title: "Welcome with ML & Liz", detail: "Setting intentions for LR26" },
-      { time: "1:30 PM", title: "Session with Brian Parsley", detail: "Custom learning lab" },
+      { time: "1:30 PM", title: "Session with Brian Parsley", detail: "Custom learning session" },
       { time: "5:00 PM", title: "Sunroom Reception", detail: "Indoor/Outdoor sunset gathering" },
       { time: "6:30 PM", title: "Evening Open", detail: "Savor Savannah’s dining scene" },
     ],
@@ -56,7 +56,7 @@ export function Agenda() {
             <CalendarDays className="w-8 h-8 text-accent" />
             <div>
               <p className="text-sm font-mono uppercase tracking-widest text-muted-foreground">Total contact time</p>
-              <p className="text-lg font-medium">2 half-day labs + 1 integration morning</p>
+              <p className="text-lg font-medium">2 half-day sessions + 1 integration morning</p>
             </div>
           </div>
         </div>

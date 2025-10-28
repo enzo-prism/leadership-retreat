@@ -13,7 +13,7 @@ export function EventDetails() {
       icon: MapPin,
       title: "Riverfront Venue",
       description: "Thompson Savannah Hotel",
-      subtitle: "Eastern Wharf • Indoor/Outdoor Sunroom",
+      subtitle: "Eastern Wharf • Savannah's reborn riverfront",
     },
     {
       icon: Sparkles,
@@ -45,7 +45,7 @@ export function EventDetails() {
           A Mind-Expanding Savannah Retreat
         </h2>
         <p className="text-center text-lg md:text-xl text-muted-foreground mb-16 max-w-3xl mx-auto">
-          Designed for returning members and rising young leaders in dentistry, LR26 fuses personalized facilitation,
+          Designed for returning attendees and rising young leaders in dentistry, LR26 fuses personalized facilitation,
           luxe surroundings, and meaningful dialogue to unlock fresh perspective.
         </p>
 

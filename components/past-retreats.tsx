@@ -18,25 +18,34 @@ export function PastRetreats() {
 
   const retreatMoments = [
     {
-      src: "/retreat-happy-attendees.png",
-      alt: "Retreat attendees smiling together during a group connection moment",
-      caption: "Joy-filled connections that energize every gathering",
+      src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668020/The_event_gang_v3w7ka.webp",
+      alt: "Leadership Retreat community gathered together smiling at the event",
+      caption: "The joy of reunion — familiar faces, fresh energy, and the shared spirit that keeps us coming back.",
     },
     {
-      src: "/retreat-group-talk.png",
-      alt: "Facilitator guiding a discussion with engaged retreat participants",
-      caption: "Intimate conversations shaped by your voice and experience",
+      src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668019/Boat_top_jllkqg.webp",
+      alt: "Aerial view of attendees enjoying a boat experience during the retreat",
+      caption: "Moments on the water remind us to breathe, reflect, and celebrate how far we’ve come — together.",
     },
     {
-      src: "/retreat-eating-together.png",
-      alt: "Attendees sharing a meal together during the retreat",
-      caption: "Shared meals that spark new ideas and deeper friendships",
-      aspect: "portrait" as const,
+      src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668019/Beanie_gal_ghrfxk.webp",
+      alt: "Attendee laughing while wearing a beanie during an outdoor retreat moment",
+      caption: "Authentic laughter — because true connection never needs polish, only presence.",
     },
     {
-      src: "/retreat-meeting.png",
-      alt: "Retreat participants collaborating during a workshop session",
-      caption: "Collaborative sessions that translate insight into action",
+      src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668018/Peeps_vvif3t.webp",
+      alt: "Retreat attendees sharing a toast at dinner",
+      caption: "Gratitude in every toast — where great company turns ordinary moments into lasting memories.",
+    },
+    {
+      src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668018/Hugh_sqy0xy.webp",
+      alt: "Attendee Hugh smiling and engaged in conversation",
+      caption: "Every voice valued, every perspective welcomed — growth begins in simple conversation.",
+    },
+    {
+      src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668020/Susan_and_Chris_qaremz.webp",
+      alt: "Susan and Chris enjoying a candid conversation",
+      caption: "Trust, friendship, and ease — the relationships that make this retreat feel like family.",
     },
   ]
 

@@ -35,10 +35,6 @@ export function Venue() {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-accent mt-1">•</span>
-                  <span>State-of-the-art meeting studios steps from the riverwalk</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-accent mt-1">•</span>
                   <span>Complimentary house car service and bikes for exploring</span>
                 </li>
               </ul>

@@ -12,13 +12,13 @@ export function ProgramOverview() {
       icon: Handshake,
       title: "Alliance Perspectives",
       description:
-        "A live panel with CareCredit, CBG, and Professional Transition Strategies spotlights opportunities shaping dentistry.",
+        "A live panel with CareCredit, CBG, and Professional Transitions Institute spotlights opportunities shaping dentistry.",
     },
     {
       icon: CalendarClock,
       title: "Immersive Structure",
       description:
-        "Two half-day learning labs balanced with purposeful downtime so you can absorb insights and explore Savannah.",
+        "Two half-day learning sessions balanced with purposeful downtime so you can absorb insights and explore Savannah.",
     },
     {
       icon: CheckCircle2,
@@ -62,12 +62,14 @@ export function ProgramOverview() {
               })}
             </div>
           </div>
-
+  
           <div className="flex flex-col gap-6 rounded-3xl border border-white/40 bg-white/75 p-8 shadow-[0_28px_55px_-32px_rgba(42,36,33,0.55)] backdrop-blur">
             <div>
               <h3 className="text-sm font-mono uppercase tracking-widest text-muted-foreground mb-2">Featured Facilitator</h3>
               <p className="text-2xl font-medium">Brian Parsley</p>
-              <p className="text-sm text-muted-foreground">Behavioral scientist • Founding principal, The Constance Group</p>
+              <p className="text-sm text-muted-foreground">
+                Behavioral scientist • Founding principal, The Constance Group
+              </p>
               <a
                 href="https://brianparsley.com"
                 target="_blank"
@@ -82,22 +84,30 @@ export function ProgramOverview() {
               warmth, humor, and research-backed wisdom to every interaction. His client roster includes Ford, RE/MAX,
               Liberty Mutual, and Blue Cross Blue Shield.
             </p>
+            <div className="rounded-2xl border border-primary/15 bg-primary/10 p-6 text-primary/90 shadow-[0_24px_45px_-30px_rgba(66,93,82,0.35)]">
+              <h4 className="text-sm font-mono uppercase tracking-widest mb-2">Connect with Brian</h4>
+              <p className="text-sm leading-relaxed">
+                Follow @brianparsleyspeaker on Instagram for behind-the-scenes insights and retreat previews.
+              </p>
+              <a
+                href="https://www.instagram.com/brianparsleyspeaker/"
+                target="_blank"
+                rel="noreferrer"
+                className="mt-3 inline-flex items-center text-xs font-mono uppercase tracking-[0.35em] text-primary hover:text-primary/80 transition-colors"
+              >
+                Instagram ↗
+              </a>
+            </div>
             <div className="flex flex-col gap-4 sm:flex-row">
               <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-white/50 bg-muted shadow-sm sm:w-1/2">
-                <img
-                  src="/brian-parsley.png"
-                  alt="Portrait of Brian Parsley"
-                  className="w-full h-full object-cover"
-                />
+                <img src="/brian-parsley.png" alt="Portrait of Brian Parsley" className="w-full h-full object-cover" />
               </div>
               <div className="flex-1 space-y-4">
                 <blockquote className="text-lg italic text-foreground/90 leading-relaxed">
-                  “Brian has a gift for distilling human behavior into simple shifts that unlock courageous leadership. His
-                  sessions are built around you — not a canned presentation.”
+                  “Brian has a gift for distilling human behavior into simple shifts that unlock courageous leadership.
+                  His sessions are built around you — not a canned presentation.”
                 </blockquote>
-                <p className="text-sm text-muted-foreground">
-                  — ML &amp; Liz
-                </p>
+                <p className="text-sm text-muted-foreground">— ML &amp; Liz</p>
               </div>
             </div>
             <div className="rounded-md border border-dashed border-accent/60 p-6 bg-accent/10">
