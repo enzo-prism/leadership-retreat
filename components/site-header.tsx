@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const navItems = [
+  { label: "Home", href: "/" },
   { label: "Experience", href: "/#details" },
   { label: "Program", href: "/#program" },
   { label: "Agenda", href: "/#agenda" },

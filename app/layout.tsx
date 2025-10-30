@@ -5,15 +5,18 @@ import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { SiteHeader } from "@/components/site-header"
 
-const cormorantGaramond = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-sans",
-})
-
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-mono",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--app-font-sans",
+})
+
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--app-font-serif",
 })
 
 export const metadata: Metadata = {
@@ -30,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${cormorantGaramond.variable} ${inter.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${cormorantGaramond.variable} font-sans antialiased`}>
         <SiteHeader />
         <div className="pt-20">{children}</div>
         <Analytics />

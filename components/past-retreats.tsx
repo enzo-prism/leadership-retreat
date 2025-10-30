@@ -20,53 +20,42 @@ export function PastRetreats() {
     {
       src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668020/The_event_gang_v3w7ka.webp",
       alt: "Leadership Retreat community gathered together smiling at the event",
-      caption: "The joy of reunion — familiar faces, fresh energy, and the shared spirit that keeps us coming back.",
     },
     {
       src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668019/Boat_top_jllkqg.webp",
       alt: "Aerial view of attendees enjoying a boat experience during the retreat",
-      caption: "Moments on the water remind us to breathe, reflect, and celebrate how far we’ve come — together.",
     },
     {
       src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668019/Beanie_gal_ghrfxk.webp",
       alt: "Attendee laughing while wearing a beanie during an outdoor retreat moment",
-      caption: "Authentic laughter — because true connection never needs polish, only presence.",
     },
     {
       src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668018/Peeps_vvif3t.webp",
       alt: "Retreat attendees sharing a toast at dinner",
-      caption: "Gratitude in every toast — where great company turns ordinary moments into lasting memories.",
     },
     {
       src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668018/Hugh_sqy0xy.webp",
       alt: "Attendee Hugh smiling and engaged in conversation",
-      caption: "Every voice valued, every perspective welcomed — growth begins in simple conversation.",
     },
     {
       src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668020/Susan_and_Chris_qaremz.webp",
       alt: "Susan and Chris enjoying a candid conversation",
-      caption: "Trust, friendship, and ease — the relationships that make this retreat feel like family.",
     },
     {
       src: "/retreat-happy-attendees.png",
       alt: "Retreat attendees smiling together during a group connection moment",
-      caption: "Intimate conversations shaped by your voice and experience",
     },
     {
       src: "/retreat-group-talk.png",
       alt: "Facilitator guiding a discussion with engaged retreat participants",
-      caption: "Joy-filled connections that energize every gathering",
     },
     {
       src: "/retreat-eating-together.png",
       alt: "Attendees sharing a meal together during the retreat",
-      caption: "Shared meals that spark new ideas and deeper friendships",
-      aspect: "portrait" as const,
     },
     {
       src: "/retreat-meeting.png",
       alt: "Retreat participants collaborating during a workshop session",
-      caption: "Collaborative sessions that translate insight into action",
     },
   ]
 
@@ -113,28 +102,22 @@ export function PastRetreats() {
               A glimpse into the energy, camaraderie, and intention that define our time together.
             </p>
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {retreatMoments.map((moment) => {
-              const aspectClass = moment.aspect === "portrait" ? "aspect-[9/16]" : "aspect-[4/3]"
-              const imageClass =
-                moment.aspect === "portrait"
-                  ? "h-full w-full object-contain bg-white transition-transform duration-500 group-hover:scale-105"
-                  : "h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-
-              return (
-                <figure
-                  key={moment.src}
-                  className="group overflow-hidden rounded-2xl border border-white/40 bg-white/70 shadow-[0_18px_40px_-28px_rgba(42,36,33,0.45)] backdrop-blur"
-                >
-                  <div className={`${aspectClass} overflow-hidden`}>
-                    <img src={moment.src} alt={moment.alt} className={imageClass} />
-                  </div>
-                  <figcaption className="p-4 text-sm text-muted-foreground text-center leading-relaxed">
-                    {moment.caption}
-                  </figcaption>
-                </figure>
-              )
-            })}
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {retreatMoments.map((moment) => (
+              <figure
+                key={moment.src}
+                className="group relative overflow-hidden rounded-2xl border border-white/40 bg-white/70 shadow-[0_18px_40px_-28px_rgba(42,36,33,0.45)] backdrop-blur"
+              >
+                <div className="relative aspect-[4/5] overflow-hidden">
+                  <img
+                    src={moment.src}
+                    alt={moment.alt}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                </div>
+              </figure>
+            ))}
           </div>
         </div>
       </div>
