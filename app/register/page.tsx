@@ -383,7 +383,7 @@ export default function RegistrationPage() {
                       {
                         value: "light" as const,
                         label: "Light experience",
-                        description: "Hosted meals and social gatherings (sessions not included)",
+                        description: "Non-session events only (meals, special activities)",
                         price: PRICING.light,
                       },
                     ] as const
@@ -507,6 +507,9 @@ export default function RegistrationPage() {
           <p className="text-2xl font-semibold">{formatCurrency(totalDue)}</p>
           <p className="mt-2 text-xs text-muted-foreground">
             We&rsquo;ll follow up with payment instructions once we receive your submission.
+          </p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            A 50% deposit is due at the time of enrollment, and the balance is due February 15, 2026.
           </p>
         </div>
       </div>
