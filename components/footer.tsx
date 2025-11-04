@@ -18,7 +18,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-sm text-muted-foreground">
-              Where Southern charm meets modern luxury for bold, connected leadership.
+              Where Southern charm meets modern luxury. And where insightful leaders connect.
             </p>
           </div>
 
@@ -60,7 +60,9 @@ export function Footer() {
               Savannah, Georgia
             </p>
             <p className="text-sm text-muted-foreground">June 4–6, 2026</p>
-            <p className="text-xs text-muted-foreground mt-4">Questions? Call (415) 298-6710 or (415) 309-0345.</p>
+            <p className="text-xs text-muted-foreground mt-4">
+              Questions? Call ML at (415) 298-6710 or Liz at (415) 309-0345.
+            </p>
           </div>
         </div>
 

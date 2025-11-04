@@ -40,9 +40,9 @@ export function ProgramOverview() {
               Curated for profound growth, insight, and connection
             </h2>
             <p className="text-lg md:text-xl text-foreground/90 leading-relaxed">
-              Leadership Retreat 2026 is intentionally crafted for our community of returning members and emerging young
-              leaders in dentistry. Expect a boutique experience that feels bespoke to the conversations we are eager to
-              have, grounded in the charm of Savannah and elevated by modern luxury.
+              Leadership Retreat 2026 is intentionally crafted for the dental community. Expect a boutique experience
+              that feels bespoke to the conversations we are eager to have, grounded in the charm of Savannah and
+              elevated by modern luxury.
             </p>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               {pillars.map((pillar, index) => {

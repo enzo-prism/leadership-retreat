@@ -88,7 +88,7 @@ export function Accommodations() {
               </div>
               <div className="space-y-3 text-base md:text-lg text-foreground/90 leading-relaxed">
                 <p>
-                  Prefer to call? Dial <a className="text-primary hover:underline" href="tel:18002331234">800-233-1234</a>
+                  Prefer to call? Dial <a className="text-primary hover:underline" href="tel:18002331234">800-233-1234</a>{" "}
                   and reference code <strong>G-LDRS</strong>. Rooms are limited within the block.
                 </p>
                 <p>

@@ -45,8 +45,8 @@ export function EventDetails() {
           A Mind-Expanding Savannah Retreat
         </h2>
         <p className="text-center text-lg md:text-xl text-muted-foreground mb-16 max-w-3xl mx-auto">
-          Designed for returning attendees and rising young leaders in dentistry, LR26 fuses personalized facilitation,
-          luxe surroundings, and meaningful dialogue to unlock fresh perspective.
+          Designed for returning attendees, new participants and rising young leaders in dentistry, LR26 fuses
+          personalized facilitation, luxe surroundings, and meaningful dialogue to unlock fresh perspective.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
@@ -77,8 +77,8 @@ export function EventDetails() {
             </h3>
             <p className="text-xl md:text-2xl font-light leading-relaxed text-foreground/90">
               Expect a mind-expanding experience crafted around your goals. Brian Parsley is interviewing attendees in
-              advance to weave your voices directly into two half-day sessions, a collaborative alliance partner panel,
-              and a closing integration conversation led by ML.
+              advance to weave your voices directly into two half-day sessions. Saturday brings a collaborative alliance
+              partner panel, and a closing integration conversation led by ML.
             </p>
           </div>
           <div className="relative overflow-hidden rounded-3xl border border-secondary/30 bg-secondary text-secondary-foreground p-8 shadow-[0_24px_50px_-28px_rgba(175,111,106,0.6)]">

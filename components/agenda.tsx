@@ -8,7 +8,7 @@ const schedule = [
     items: [
       { time: "12:30 PM", title: "Registration", detail: "Foyer, Barnwell Room" },
       { time: "1:00 PM", title: "Welcome with ML & Liz", detail: "Setting intentions for LR26" },
-      { time: "1:30 PM", title: "Session with Brian Parsley", detail: "Custom learning session" },
+      { time: "1:30 PM", title: "Session with Brian Parsley", detail: "Custom learning workshop" },
       { time: "5:00 PM", title: "Sunroom Reception", detail: "Indoor/Outdoor sunset gathering" },
       { time: "6:30 PM", title: "Evening Open", detail: "Savor Savannah’s dining scene" },
     ],
@@ -19,8 +19,8 @@ const schedule = [
     focus: "Growth Conversations",
     items: [
       { time: "8:00 AM", title: "Breakfast", detail: "Foyer, Barnwell Room" },
-      { time: "8:30 AM", title: "Learning Lab with Brian", detail: "Building momentum together" },
-      { time: "12:30 PM", title: "Group Event & Free Afternoon", detail: "Explore with fellow attendees" },
+      { time: "8:30 AM", title: "Session with Brian Parsley continues", detail: "Building momentum together" },
+      { time: "12:30 PM", title: "Group afternoon event", detail: "Curated outing of fun and connection" },
     ],
   },
   {
@@ -29,7 +29,7 @@ const schedule = [
     focus: "Integration",
     items: [
       { time: "8:00 AM", title: "Breakfast", detail: "Foyer, Barnwell Room" },
-      { time: "8:30 AM", title: "Partner Alliances Panel", detail: "Insights from CareCredit, CBG, PTS" },
+      { time: "8:30 AM", title: "Partner Alliances Panel", detail: "Insights from CareCredit, CBG, PTI" },
       { time: "10:30 AM", title: "Putting It All Together", detail: "Closing remarks with ML" },
       { time: "12:00 PM", title: "Adjourn", detail: "See you next time!" },
     ],

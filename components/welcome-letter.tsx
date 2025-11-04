@@ -1,8 +1,13 @@
+import { LogoMark } from "@/components/logo-mark"
+
 export function WelcomeLetter() {
   return (
     <section className="py-24 px-4 bg-card">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-5xl md:text-6xl font-light text-center mb-4 text-balance">Welcome Back!</h2>
+        <div className="flex justify-center mb-8">
+          <LogoMark size="lg" className="max-w-[18rem] drop-shadow-[0_35px_90px_-30px_rgba(0,0,0,0.4)]" />
+        </div>
+        <h2 className="text-5xl md:text-6xl font-light text-center mb-4 text-balance">Welcome!</h2>
         <p className="text-center text-base md:text-lg text-accent accent-text-shadow font-semibold uppercase tracking-[0.4em] mb-12">
           Where Southern Charm Meets Modern Luxury
         </p>
@@ -24,7 +29,7 @@ export function WelcomeLetter() {
 
           <p className="text-xl md:text-2xl font-light leading-relaxed">
             Read on for all the details on our exciting agenda, inspiring speakers, and unique Savannah experiences. We
-            can't wait to welcome you back! So don't delay, register today!
+            can’t wait to welcome back returning attendees and new participants! So don't delay, register today!
           </p>
 
           <div className="pt-8 text-right">
