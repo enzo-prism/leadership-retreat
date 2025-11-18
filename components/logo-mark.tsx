@@ -2,16 +2,23 @@ import { cn } from "@/lib/utils"
 
 type LogoMarkProps = {
   size?: "sm" | "md" | "lg"
+  variant?: "card" | "inline"
   className?: string
 }
 
 const LOGO_SRC = "/leadership-retreat-logo.webp"
 const LOGO_ALT = "Leadership Retreat Savannah emblem"
 
-const sizeMap: Record<NonNullable<LogoMarkProps["size"]>, string> = {
+const cardSizeMap: Record<NonNullable<LogoMarkProps["size"]>, string> = {
   sm: "h-12 sm:h-14",
   md: "h-16 sm:h-20",
   lg: "h-20 sm:h-24 md:h-28",
+}
+
+const inlineSizeMap: Record<NonNullable<LogoMarkProps["size"]>, string> = {
+  sm: "h-8",
+  md: "h-9",
+  lg: "h-10",
 }
 
 const paddingMap: Record<NonNullable<LogoMarkProps["size"]>, string> = {
@@ -20,7 +27,11 @@ const paddingMap: Record<NonNullable<LogoMarkProps["size"]>, string> = {
   lg: "px-6 py-5 sm:px-8 sm:py-6",
 }
 
-export function LogoMark({ size = "md", className }: LogoMarkProps) {
+export function LogoMark({ size = "md", variant = "card", className }: LogoMarkProps) {
+  if (variant === "inline") {
+    return <img src={LOGO_SRC} alt={LOGO_ALT} className={cn("object-contain", inlineSizeMap[size], className)} />
+  }
+
   return (
     <div
       className={cn(
@@ -34,7 +45,7 @@ export function LogoMark({ size = "md", className }: LogoMarkProps) {
         <div className="absolute -inset-8 bg-[radial-gradient(circle_at_top,_rgba(254,204,45,0.35)_0%,_transparent_65%)] opacity-70 blur-3xl" />
         <div className="absolute inset-0 rounded-[inherit] border border-white/20 mix-blend-soft-light" />
       </div>
-      <img src={LOGO_SRC} alt={LOGO_ALT} className={cn("relative z-10 object-contain", sizeMap[size])} />
+      <img src={LOGO_SRC} alt={LOGO_ALT} className={cn("relative z-10 object-contain", cardSizeMap[size])} />
     </div>
   )
 }

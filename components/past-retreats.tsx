@@ -30,8 +30,8 @@ export function PastRetreats() {
       alt: "Attendee laughing while wearing a beanie during an outdoor retreat moment",
     },
     {
-      src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668018/Peeps_vvif3t.webp",
-      alt: "Retreat attendees sharing a toast at dinner",
+      src: "/retreat-meeting.png",
+      alt: "Retreat participants collaborating during a workshop session",
     },
     {
       src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1761668018/Hugh_sqy0xy.webp",
@@ -52,10 +52,6 @@ export function PastRetreats() {
     {
       src: "/retreat-eating-together.png",
       alt: "Attendees sharing a meal together during the retreat",
-    },
-    {
-      src: "/retreat-meeting.png",
-      alt: "Retreat participants collaborating during a workshop session",
     },
   ]
 

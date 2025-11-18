@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import { Building2, CalendarDays, MapPin } from "lucide-react"
 import Link from "next/link"
 
 const HERO_IMAGE = {
@@ -43,12 +44,19 @@ export function Hero() {
             </Button>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 text-xs font-mono uppercase tracking-[0.35em] text-muted-foreground md:text-sm">
-            <span>Savannah, Georgia</span>
-            <span className="hidden sm:inline">•</span>
-            <span>June 4–6, 2026</span>
-            <span className="hidden sm:inline">•</span>
-            <span>The Thompson Savannah</span>
+          <div className="space-y-2 text-base text-muted-foreground">
+            <div className="flex items-center gap-3">
+              <MapPin className="h-4 w-4 text-foreground/70" aria-hidden="true" />
+              <span>Savannah, Georgia</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <CalendarDays className="h-4 w-4 text-foreground/70" aria-hidden="true" />
+              <span>June 4–6, 2026</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <Building2 className="h-4 w-4 text-foreground/70" aria-hidden="true" />
+              <span>The Thompson Savannah</span>
+            </div>
           </div>
         </div>
 

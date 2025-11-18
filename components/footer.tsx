@@ -11,10 +11,9 @@ export function Footer() {
             <div className="flex flex-col sm:flex-row sm:items-start sm:gap-5 gap-4">
               <LogoMark size="sm" className="shrink-0 shadow-[0_25px_60px_-30px_rgba(31,76,59,0.55)]" />
               <div className="space-y-2 text-center sm:text-left">
+                <p className="text-sm uppercase tracking-[0.3em] text-accent">LR26</p>
                 <h3 className="text-2xl font-light">Leadership Retreat</h3>
-                <p className="text-xs font-mono font-semibold uppercase tracking-[0.35em] text-accent accent-text-shadow">
-                  LR26 · Savannah, Georgia
-                </p>
+                <p className="text-sm text-muted-foreground">Savannah, Georgia</p>
               </div>
             </div>
             <p className="text-sm text-muted-foreground">

@@ -1,25 +1,26 @@
 "use client"
 
 import Link from "next/link"
-import { useMemo, useState, type ReactNode } from "react"
+import { useEffect, useMemo, useState, type ReactNode } from "react"
 import { BedDouble, ClipboardList, CreditCard, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-type Attendee = {
-  id: number
+type ContactInfo = {
   firstName: string
   lastName: string
   email: string
-  package: "full" | "light"
+  phone: string
 }
 
-type ContactInfo = {
-  name: string
-  email: string
-  phone: string
-  organization: string
+type PackageOption = "full-individual" | "full-couple" | "light"
+
+type AdditionalName = {
+  id: number
+  firstName: string
+  lastName: string
+  relationship: string
 }
 
 const EVENT = {
@@ -67,16 +68,44 @@ const EVENT = {
   ],
 }
 
-const STEPS = [
-  { id: 1, title: "Contact", description: "Share who we should reach out to with confirmations and updates." },
-  { id: 2, title: "Packages", description: "Add attendees and choose the experience that fits each person." },
+const BASE_STEPS = [
+  { id: 1, title: "Pick Package", description: "Choose the experience that fits best." },
+  { id: 2, title: "Contact Details", description: "Tell us who to reach out to with confirmations." },
+  { id: 3, title: "Additional Names", description: "Share any other attendees and their relationship." },
+  { id: 4, title: "Anything Else", description: "Add final notes or requests for our team." },
 ]
 
 const PRICING = {
   fullIndividual: 1675,
-  fullBundle: 2475,
+  fullCouple: 2475,
   light: 400,
 }
+
+const PACKAGE_OPTIONS: {
+  value: PackageOption
+  label: string
+  description: string
+  price: number
+}[] = [
+  {
+    value: "full-individual",
+    label: "Full experience – individual",
+    description: "All sessions, curated experiences, and hosted meals for one person.",
+    price: PRICING.fullIndividual,
+  },
+  {
+    value: "full-couple",
+    label: "Full experience – couple",
+    description: "Shared experience for two attendees, including all sessions and hosted moments.",
+    price: PRICING.fullCouple,
+  },
+  {
+    value: "light",
+    label: "Light experience – individual",
+    description: "Hosted meals and social gatherings (sessions not included).",
+    price: PRICING.light,
+  },
+]
 
 const FAQ_ITEMS: { question: string; answer: ReactNode }[] = [
   {
@@ -149,70 +178,76 @@ function formatDateLabel(date: string) {
   return new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric" }).format(new Date(date))
 }
 
-type AttendeeField = "firstName" | "lastName" | "email"
-
 export default function RegistrationPage() {
   const [currentStep, setCurrentStep] = useState(0)
   const [hasSubmitted, setHasSubmitted] = useState(false)
   const [contact, setContact] = useState<ContactInfo>({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
-    organization: "",
   })
-  const [attendees, setAttendees] = useState<Attendee[]>(() => [
-    {
-      id: Date.now(),
-      firstName: "",
-      lastName: "",
-      email: "",
-      package: "full",
-    },
-  ])
+  const [selectedPackage, setSelectedPackage] = useState<PackageOption | null>(null)
+  const [additionalNames, setAdditionalNames] = useState<AdditionalName[]>([])
   const [notes, setNotes] = useState("")
 
-  const pricingSummary = useMemo(() => {
-    const fullCount = attendees.filter((attendee) => attendee.package === "full").length
-    const lightCount = attendees.filter((attendee) => attendee.package === "light").length
-    const bundleCount = Math.floor(fullCount / 2)
-    const remainingFull = fullCount % 2
-    const fullTotal = bundleCount * PRICING.fullBundle + remainingFull * PRICING.fullIndividual
-    const lightTotal = lightCount * PRICING.light
-    return {
-      fullCount,
-      lightCount,
-      bundleCount,
-      fullTotal,
-      lightTotal,
-      total: fullTotal + lightTotal,
-    }
-  }, [attendees])
+  const selectedPackageDetails = useMemo(
+    () => PACKAGE_OPTIONS.find((option) => option.value === selectedPackage),
+    [selectedPackage],
+  )
 
-  const progressPercent = STEPS.length > 1 ? (currentStep / (STEPS.length - 1)) * 100 : 100
-  const totalDue = pricingSummary.total
+  const needsAdditionalNames = selectedPackage === "full-couple"
+  const activeSteps = useMemo(() => {
+    if (needsAdditionalNames) {
+      return BASE_STEPS
+    }
+    return BASE_STEPS.filter((step) => step.id !== 3)
+  }, [needsAdditionalNames])
+  const lastStepIndex = activeSteps.length - 1
+  const safeCurrentStep = Math.min(currentStep, lastStepIndex)
+
+  useEffect(() => {
+    if (currentStep > lastStepIndex) {
+      setCurrentStep(lastStepIndex)
+    }
+  }, [currentStep, lastStepIndex])
+
+  useEffect(() => {
+    if (!needsAdditionalNames && additionalNames.length > 0) {
+      setAdditionalNames([])
+    }
+  }, [needsAdditionalNames, additionalNames.length])
+
+  const progressPercent = activeSteps.length > 1 ? (safeCurrentStep / lastStepIndex) * 100 : 100
+  const totalDue = selectedPackageDetails?.price ?? 0
 
   const isStepValid = () => {
-    if (currentStep === 0) {
-      return contact.name.trim() !== "" && contact.email.trim() !== "" && contact.phone.trim() !== ""
+    const currentStepId = activeSteps[safeCurrentStep]?.id
+    if (currentStepId === 1) {
+      return selectedPackage !== null
     }
-    if (currentStep === 1) {
-      if (attendees.length === 0) {
-        return false
-      }
-      return attendees.every(
-        (attendee) =>
-          attendee.firstName.trim() !== "" &&
-          attendee.lastName.trim() !== "" &&
-          attendee.email.trim() !== "" &&
-          (attendee.package === "full" || attendee.package === "light"),
+    if (currentStepId === 2) {
+      return (
+        contact.firstName.trim() !== "" &&
+        contact.lastName.trim() !== "" &&
+        contact.email.trim() !== "" &&
+        contact.phone.trim() !== ""
+      )
+    }
+    if (currentStepId === 3) {
+      return additionalNames.every(
+        (guest) =>
+          guest.firstName.trim() !== "" &&
+          guest.lastName.trim() !== "" &&
+          guest.relationship.trim() !== "",
       )
     }
     return true
   }
 
   const handleContinue = () => {
-    if (currentStep < STEPS.length - 1) {
-      setCurrentStep((prev) => prev + 1)
+    if (currentStep < lastStepIndex) {
+      setCurrentStep((prev) => Math.min(prev + 1, lastStepIndex))
     }
   }
 
@@ -222,33 +257,28 @@ export default function RegistrationPage() {
     }
   }
 
-  const handleAttendeeChange = (id: number, field: AttendeeField, value: string) => {
-    setAttendees((prev) =>
-      prev.map((attendee) => (attendee.id === id ? { ...attendee, [field]: value } : attendee)),
-    )
+  const handleContactChange = (field: keyof ContactInfo, value: string) => {
+    setContact((prev) => ({ ...prev, [field]: value }))
   }
 
-  const handlePackageChange = (id: number, option: Attendee["package"]) => {
-    setAttendees((prev) =>
-      prev.map((attendee) => (attendee.id === id ? { ...attendee, package: option } : attendee)),
-    )
-  }
-
-  const handleAddAttendee = () => {
-    setAttendees((prev) => [
+  const handleAddAdditionalName = () => {
+    setAdditionalNames((prev) => [
       ...prev,
       {
         id: Date.now() + Math.random(),
         firstName: "",
         lastName: "",
-        email: "",
-        package: "full",
+        relationship: "",
       },
     ])
   }
 
-  const handleRemoveAttendee = (id: number) => {
-    setAttendees((prev) => prev.filter((attendee) => attendee.id !== id))
+  const handleAdditionalNameChange = (id: number, field: keyof Omit<AdditionalName, "id">, value: string) => {
+    setAdditionalNames((prev) => prev.map((guest) => (guest.id === id ? { ...guest, [field]: value } : guest)))
+  }
+
+  const handleRemoveAdditionalName = (id: number) => {
+    setAdditionalNames((prev) => prev.filter((guest) => guest.id !== id))
   }
 
   const handleSubmit = () => {
@@ -256,185 +286,181 @@ export default function RegistrationPage() {
   }
 
   const renderContactStep = () => (
-    <div className="space-y-6">
-      <div className="rounded-2xl border border-border bg-card/95 p-6 shadow-sm">
-        <div className="space-y-4">
-          <div>
-            <h3 className="text-lg font-medium">Registration contact</h3>
-            <p className="text-sm text-muted-foreground">
-              We&apos;ll send confirmations, invoice details, and retreat updates to this primary contact.
-            </p>
+    <div className="rounded-2xl border border-border bg-card/95 p-6 shadow-sm">
+      <div className="space-y-4">
+        <div>
+          <h3 className="text-lg font-medium">Contact details</h3>
+          <p className="text-sm text-muted-foreground">
+            We&apos;ll send confirmations and invoices to this primary contact.
+          </p>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="contact-first-name">First name</Label>
+            <Input
+              id="contact-first-name"
+              value={contact.firstName}
+              onChange={(event) => handleContactChange("firstName", event.target.value)}
+            />
           </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="contact-name">Full name</Label>
-              <Input
-                id="contact-name"
-                value={contact.name}
-                onChange={(event) => setContact((prev) => ({ ...prev, name: event.target.value }))}
-                placeholder="Who should we keep in the loop?"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="contact-email">Email</Label>
-              <Input
-                id="contact-email"
-                type="email"
-                value={contact.email}
-                onChange={(event) => setContact((prev) => ({ ...prev, email: event.target.value }))}
-                placeholder="name@email.com"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="contact-phone">Phone</Label>
-              <Input
-                id="contact-phone"
-                type="tel"
-                value={contact.phone}
-                onChange={(event) => setContact((prev) => ({ ...prev, phone: event.target.value }))}
-                placeholder="(###) ###-####"
-              />
-            </div>
-            <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="contact-organization">Organization (optional)</Label>
-              <Input
-                id="contact-organization"
-                value={contact.organization}
-                onChange={(event) => setContact((prev) => ({ ...prev, organization: event.target.value }))}
-                placeholder="Company, team, or group name"
-              />
-            </div>
+          <div className="space-y-2">
+            <Label htmlFor="contact-last-name">Last name</Label>
+            <Input
+              id="contact-last-name"
+              value={contact.lastName}
+              onChange={(event) => handleContactChange("lastName", event.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="contact-email">Email</Label>
+            <Input
+              id="contact-email"
+              type="email"
+              value={contact.email}
+              onChange={(event) => handleContactChange("email", event.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="contact-phone">Phone number</Label>
+            <Input
+              id="contact-phone"
+              type="tel"
+              value={contact.phone}
+              onChange={(event) => handleContactChange("phone", event.target.value)}
+            />
           </div>
         </div>
       </div>
     </div>
   )
 
-  const renderPackagesStep = () => (
-    <div className="space-y-6">
-      <div className="rounded-2xl border border-border bg-card/95 p-6 shadow-sm">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h3 className="text-lg font-medium">Attendees & packages</h3>
-            <p className="text-sm text-muted-foreground">
-              Add each attendee and choose the experience that fits. Mix full and light experiences as needed.
-            </p>
-          </div>
-          <Button type="button" size="sm" onClick={handleAddAttendee}>
-            Add attendee
-          </Button>
+  const renderPackageStep = () => (
+    <div className="rounded-2xl border border-border bg-card/95 p-6 shadow-sm">
+      <div className="space-y-4">
+        <div>
+          <h3 className="text-lg font-medium">Pick your package</h3>
+          <p className="text-sm text-muted-foreground">Choose the experience that suits your plans.</p>
         </div>
-        <p className="mt-4 rounded-lg bg-primary/5 px-3 py-2 text-xs text-primary">
-          Pairs of full experience attendees automatically receive the bundled {formatCurrency(PRICING.fullBundle)} rate.
+        <div className="grid gap-4 md:grid-cols-2">
+          {PACKAGE_OPTIONS.map((option) => {
+            const isActive = selectedPackage === option.value
+            return (
+              <button
+                key={option.value}
+                type="button"
+                aria-pressed={isActive}
+                onClick={() => setSelectedPackage(option.value)}
+                className={`rounded-xl border p-4 text-left transition-colors ${
+                  isActive ? "border-primary bg-primary/10 shadow-sm" : "border-border bg-card"
+                }`}
+              >
+                <p className="text-sm font-semibold text-foreground">{option.label}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{option.description}</p>
+                <p className="mt-3 text-2xl font-light">{formatCurrency(option.price)}</p>
+              </button>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+
+  const renderAdditionalNamesStep = () => (
+    <div className="rounded-2xl border border-border bg-card/95 p-6 shadow-sm">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h3 className="text-lg font-medium">Additional names</h3>
+          <p className="text-sm text-muted-foreground">
+            Share anyone else joining and how they&apos;re connected to the primary participant.
+          </p>
+        </div>
+        <Button type="button" size="sm" variant="outline" onClick={handleAddAdditionalName}>
+          Add name
+        </Button>
+      </div>
+      {additionalNames.length === 0 ? (
+        <p className="mt-6 text-sm text-muted-foreground">
+          No additional attendees yet. Add names if you&apos;re registering guests beyond the primary contact.
         </p>
+      ) : (
         <div className="mt-6 space-y-4">
-          {attendees.map((attendee, index) => (
-            <div key={attendee.id} className="space-y-4 rounded-xl border border-border/80 bg-background/80 p-4">
-              <div className="flex items-center justify-between gap-3">
-                <div className="text-sm font-semibold">Attendee #{index + 1}</div>
-                {attendees.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveAttendee(attendee.id)}
-                    className="text-xs uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-accent"
-                  >
-                    Remove
-                  </button>
-                )}
+          {additionalNames.map((guest) => (
+            <div key={guest.id} className="space-y-4 rounded-xl border border-border/70 bg-background/80 p-4">
+              <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                <span>Additional attendee</span>
+                <button
+                  type="button"
+                  className="text-[10px] tracking-[0.3em] text-muted-foreground hover:text-accent"
+                  onClick={() => handleRemoveAdditionalName(guest.id)}
+                >
+                  Remove
+                </button>
               </div>
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor={`attendee-${attendee.id}-first`}>First name</Label>
+                  <Label htmlFor={`guest-${guest.id}-first`}>First name</Label>
                   <Input
-                    id={`attendee-${attendee.id}-first`}
-                    value={attendee.firstName}
-                    onChange={(event) => handleAttendeeChange(attendee.id, "firstName", event.target.value)}
+                    id={`guest-${guest.id}-first`}
+                    value={guest.firstName}
+                    onChange={(event) => handleAdditionalNameChange(guest.id, "firstName", event.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor={`attendee-${attendee.id}-last`}>Last name</Label>
+                  <Label htmlFor={`guest-${guest.id}-last`}>Last name</Label>
                   <Input
-                    id={`attendee-${attendee.id}-last`}
-                    value={attendee.lastName}
-                    onChange={(event) => handleAttendeeChange(attendee.id, "lastName", event.target.value)}
+                    id={`guest-${guest.id}-last`}
+                    value={guest.lastName}
+                    onChange={(event) => handleAdditionalNameChange(guest.id, "lastName", event.target.value)}
                   />
                 </div>
                 <div className="space-y-2 md:col-span-2">
-                  <Label htmlFor={`attendee-${attendee.id}-email`}>Email</Label>
+                  <Label htmlFor={`guest-${guest.id}-relationship`}>Relationship to primary participant</Label>
                   <Input
-                    id={`attendee-${attendee.id}-email`}
-                    type="email"
-                    value={attendee.email}
-                    onChange={(event) => handleAttendeeChange(attendee.id, "email", event.target.value)}
+                    id={`guest-${guest.id}-relationship`}
+                    value={guest.relationship}
+                    onChange={(event) => handleAdditionalNameChange(guest.id, "relationship", event.target.value)}
                   />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <Label className="text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground">Package</Label>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {(
-                    [
-                      {
-                        value: "full" as const,
-                        label: "Full experience",
-                        description: "All sessions, curated experiences, and hosted meals",
-                        price: PRICING.fullIndividual,
-                      },
-                      {
-                        value: "light" as const,
-                        label: "Light experience",
-                        description: "Hosted meals and social gatherings (sessions not included)",
-                        price: PRICING.light,
-                      },
-                    ] as const
-                  ).map((option) => (
-                    <button
-                      key={option.value}
-                      type="button"
-                      onClick={() => handlePackageChange(attendee.id, option.value)}
-                      className={`rounded-lg border p-4 text-left transition-colors ${
-                        attendee.package === option.value ? "border-primary bg-primary/10" : "border-border bg-card"
-                      }`}
-                    >
-                      <p className="text-sm font-semibold">{option.label}</p>
-                      <p className="mt-1 text-xs text-muted-foreground">{option.description}</p>
-                      <p className="mt-3 text-sm font-medium">{formatCurrency(option.price)}</p>
-                    </button>
-                  ))}
                 </div>
               </div>
             </div>
           ))}
         </div>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Button type="button" variant="outline" size="sm" onClick={handleAddAttendee}>
-            Add another attendee
-          </Button>
-        </div>
-      </div>
+      )}
+    </div>
+  )
 
-      <div className="rounded-2xl border border-dashed border-border/80 bg-card/80 p-6">
-        <Label htmlFor="notes" className="text-sm font-medium text-foreground">
-          Anything else to share? (optional)
-        </Label>
+  const renderNotesStep = () => (
+    <div className="rounded-2xl border border-border bg-card/95 p-6 shadow-sm">
+      <div className="space-y-4">
+        <div>
+          <h3 className="text-lg font-medium">Anything else to share?</h3>
+          <p className="text-sm text-muted-foreground">
+            Include accessibility needs, celebrations, or scheduling notes.
+          </p>
+        </div>
         <textarea
           id="notes"
           value={notes}
           onChange={(event) => setNotes(event.target.value)}
-          className="mt-3 min-h-[120px] w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50"
-          placeholder="Include accessibility needs, celebrations, or scheduling notes."
+          className="min-h-[160px] w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50"
+          placeholder="Let us know how we can make the experience memorable."
         />
       </div>
     </div>
   )
 
   const renderStepContent = () => {
-    switch (currentStep) {
-      case 0:
-        return renderContactStep()
+    const currentStepId = activeSteps[safeCurrentStep]?.id
+    switch (currentStepId) {
       case 1:
+        return renderPackageStep()
+      case 2:
+        return renderContactStep()
+      case 3:
+        return renderAdditionalNamesStep()
+      case 4:
       default:
-        return renderPackagesStep()
+        return renderNotesStep()
     }
   }
 
@@ -443,56 +469,47 @@ export default function RegistrationPage() {
       <div className="space-y-6 rounded-xl border border-border bg-card/95 p-6 shadow-lg shadow-primary/10">
         <div>
           <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Registration Contact</p>
-          <p className="mt-3 text-sm font-medium text-foreground">{contact.name || "Contact pending"}</p>
+          <p className="mt-3 text-sm font-medium text-foreground">
+            {contact.firstName || contact.lastName ? `${contact.firstName} ${contact.lastName}`.trim() : "Contact pending"}
+          </p>
           {contact.email && <p className="text-sm text-muted-foreground">{contact.email}</p>}
           {contact.phone && <p className="text-sm text-muted-foreground">{contact.phone}</p>}
-          {contact.organization && (
-            <p className="mt-2 text-xs uppercase tracking-[0.3em] text-muted-foreground">{contact.organization}</p>
-          )}
         </div>
 
         <div>
-          <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Packages</p>
-          {pricingSummary.fullCount === 0 && pricingSummary.lightCount === 0 ? (
-            <p className="mt-3 text-sm text-muted-foreground">Add attendees to see pricing details.</p>
-          ) : (
-            <div className="mt-3 space-y-2 text-sm">
-              {pricingSummary.fullCount > 0 && (
-                <div className="flex items-center justify-between">
-                  <span>Full experience ({pricingSummary.fullCount})</span>
-                  <span>{formatCurrency(pricingSummary.fullTotal)}</span>
-                </div>
-              )}
-              {pricingSummary.lightCount > 0 && (
-                <div className="flex items-center justify-between">
-                  <span>Light experience ({pricingSummary.lightCount})</span>
-                  <span>{formatCurrency(pricingSummary.lightTotal)}</span>
-                </div>
-              )}
-              {pricingSummary.bundleCount > 0 && (
-                <p className="text-xs text-muted-foreground">
-                  Includes {pricingSummary.bundleCount} bundle{pricingSummary.bundleCount > 1 ? "s" : ""} at {formatCurrency(PRICING.fullBundle)}.
-                </p>
-              )}
+          <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Experience</p>
+          {selectedPackageDetails ? (
+            <div className="mt-3 space-y-1 text-sm">
+              <p className="font-medium text-foreground">{selectedPackageDetails.label}</p>
+              <p className="text-muted-foreground">{formatCurrency(selectedPackageDetails.price)}</p>
             </div>
+          ) : (
+            <p className="mt-3 text-sm text-muted-foreground">Select an experience to see pricing.</p>
           )}
         </div>
 
         <div>
-          <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Attendees</p>
-          <ul className="mt-3 space-y-2 text-sm">
-            {attendees.map((attendee) => (
-              <li key={attendee.id} className="rounded-md border border-border/60 bg-card/80 p-3">
-                <p className="font-medium text-foreground">
-                  {attendee.firstName || "First name"} {attendee.lastName}
-                </p>
-                {attendee.email && <p className="text-xs text-muted-foreground">{attendee.email}</p>}
-                <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
-                  {attendee.package === "full" ? "Full experience" : "Light experience"}
-                </p>
-              </li>
-            ))}
-          </ul>
+          <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Additional Names</p>
+          {needsAdditionalNames ? (
+            additionalNames.length === 0 ? (
+              <p className="mt-3 text-sm text-muted-foreground">Add your partner&apos;s details when ready.</p>
+            ) : (
+              <ul className="mt-3 space-y-2 text-sm">
+                {additionalNames.map((guest) => (
+                  <li key={guest.id} className="rounded-md border border-border/60 bg-card/80 p-3">
+                    <p className="font-medium text-foreground">
+                      {guest.firstName || guest.lastName ? `${guest.firstName} ${guest.lastName}`.trim() : "Name pending"}
+                    </p>
+                    {guest.relationship && (
+                      <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">{guest.relationship}</p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )
+          ) : (
+            <p className="mt-3 text-sm text-muted-foreground">Not required for individual registrations.</p>
+          )}
         </div>
 
         {notes.trim() && (
@@ -504,7 +521,7 @@ export default function RegistrationPage() {
 
         <div className="border-t border-border pt-4">
           <p className="text-sm text-muted-foreground">Estimated total</p>
-          <p className="text-2xl font-semibold">{formatCurrency(totalDue)}</p>
+          <p className="text-2xl font-semibold">{selectedPackageDetails ? formatCurrency(totalDue) : "$0"}</p>
           <p className="mt-2 text-xs text-muted-foreground">
             We&rsquo;ll follow up with payment instructions once we receive your submission.
           </p>
@@ -646,7 +663,7 @@ export default function RegistrationPage() {
             <div className="md:hidden sticky top-0 z-30 -mx-4 bg-background/95 px-4 py-3 shadow-md shadow-primary/10">
               <div className="mb-2 flex items-center justify-between text-xs font-mono uppercase tracking-[0.35em] text-muted-foreground">
                 <span>
-                  Step {currentStep + 1} of {STEPS.length}
+                  Step {safeCurrentStep + 1} of {activeSteps.length}
                 </span>
                 <span>{Math.round(progressPercent)}%</span>
               </div>
@@ -659,12 +676,12 @@ export default function RegistrationPage() {
               <div>
                 <p className="text-xs font-mono uppercase tracking-[0.35em] text-muted-foreground">Registration Progress</p>
                 <p className="mt-3 text-lg font-medium">
-                  {STEPS[currentStep].title}
+                  {activeSteps[safeCurrentStep]?.title}
                 </p>
-                <p className="mt-1 text-sm text-muted-foreground">{STEPS[currentStep].description}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{activeSteps[safeCurrentStep]?.description}</p>
               </div>
               <div className="flex gap-2">
-                {STEPS.map((step, index) => (
+                {activeSteps.map((step, index) => (
                   <div
                     key={step.id}
                     className={`h-2 w-12 rounded-full ${index <= currentStep ? "bg-primary" : "bg-muted"}`}
@@ -681,9 +698,9 @@ export default function RegistrationPage() {
                 <Button variant="ghost" onClick={handleBack} disabled={currentStep === 0}>
                   Back
                 </Button>
-                {currentStep < STEPS.length - 1 ? (
+                {currentStep < lastStepIndex ? (
                   <Button onClick={handleContinue} disabled={!isStepValid()}>
-                    Continue to {STEPS[currentStep + 1].title}
+                    Continue to {activeSteps[safeCurrentStep + 1]?.title ?? "Next"}
                   </Button>
                 ) : (
                   <Button onClick={handleSubmit} disabled={!isStepValid()}>
@@ -702,7 +719,7 @@ export default function RegistrationPage() {
             <Button variant="ghost" size="sm" onClick={handleBack} disabled={currentStep === 0}>
               Back
             </Button>
-            {currentStep < STEPS.length - 1 ? (
+            {currentStep < lastStepIndex ? (
               <Button className="flex-1" size="lg" onClick={handleContinue} disabled={!isStepValid()}>
                 Continue
               </Button>

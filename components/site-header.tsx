@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 
+import { LogoMark } from "@/components/logo-mark"
 import { Button } from "@/components/ui/button"
 
 const navItems = [
@@ -38,9 +39,9 @@ export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-4">
-        <Link href="/" className="flex items-center text-left text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground/80">
-          <span className="hidden sm:inline">Leadership Retreat 2026</span>
-          <span className="sm:hidden">LR26</span>
+        <Link href="/" className="flex items-center" aria-label="Leadership Retreat Savannah emblem">
+          <span className="sr-only">Leadership Retreat Savannah emblem</span>
+          <LogoMark size="sm" variant="inline" className="h-9 w-auto md:h-10" />
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
