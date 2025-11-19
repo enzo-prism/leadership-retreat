@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useMemo, useState, type ReactNode } from "react"
+import { useEffect, useMemo, useState, type FormEvent } from "react"
 import { BedDouble, ClipboardList, CreditCard, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,21 +14,19 @@ type ContactInfo = {
   phone: string
 }
 
-type PackageOption = "full-individual" | "full-couple" | "light"
+type PackageId = "full-individual" | "full-couple" | "light"
 
-type AdditionalName = {
+type SecondaryAttendee = {
   id: number
   firstName: string
   lastName: string
   relationship: string
 }
 
+type AttendeePackageSelection = PackageId | ""
+
 const EVENT = {
   name: "Leadership Retreat 2026",
-  dates: {
-    start: "2026-06-04",
-    end: "2026-06-06",
-  },
   venue: {
     name: "The Thompson Savannah",
     address: "201 Port St, Savannah, GA 31401",
@@ -38,41 +36,12 @@ const EVENT = {
     feesNote: "$6/day GA lodging & historic fee",
     honorsPrePost: true,
   },
-  agenda: [
-    {
-      date: "2026-06-04",
-      items: [
-        { time: "12:30pm–5:00pm", label: "Registration & Meeting" },
-        { time: "5:00pm–6:30pm", label: "Reception" },
-      ],
-    },
-    {
-      date: "2026-06-05",
-      items: [
-        { time: "8:00am–8:30am", label: "Breakfast" },
-        { time: "8:30am–12:00pm", label: "Meeting" },
-        { time: "12:30pm–4:30pm", label: "Special Event" },
-      ],
-    },
-    {
-      date: "2026-06-06",
-      items: [
-        { time: "8:00am–8:30am", label: "Breakfast" },
-        { time: "8:30am–12:00pm", label: "Meeting" },
-      ],
-    },
-  ],
-  cancellationPolicy: [
-    "Cancellations within 21 days of the event may incur a $400 per person fee.",
-    "If your room cannot be resold, hotel attrition charges may apply to you.",
-  ],
 }
 
-const BASE_STEPS = [
-  { id: 1, title: "Pick Package", description: "Choose the experience that fits best." },
-  { id: 2, title: "Contact Details", description: "Tell us who to reach out to with confirmations." },
-  { id: 3, title: "Additional Names", description: "Share any other attendees and their relationship." },
-  { id: 4, title: "Anything Else", description: "Add final notes or requests for our team." },
+const STEPS = [
+  { id: "packages", title: "Select Packages", description: "Choose how many of each experience you need." },
+  { id: "attendees", title: "Attendee Details", description: "Tell us about the people joining you." },
+  { id: "notes", title: "Anything Else", description: "Share final notes or requests for our team." },
 ]
 
 const PRICING = {
@@ -82,91 +51,32 @@ const PRICING = {
 }
 
 const PACKAGE_OPTIONS: {
-  value: PackageOption
+  id: PackageId
   label: string
   description: string
   price: number
+  attendeesPerPackage: number
 }[] = [
   {
-    value: "full-individual",
+    id: "full-individual",
     label: "Full experience – individual",
     description: "All sessions, curated experiences, and hosted meals for one person.",
     price: PRICING.fullIndividual,
+    attendeesPerPackage: 1,
   },
   {
-    value: "full-couple",
+    id: "full-couple",
     label: "Full experience – couple",
     description: "Shared experience for two attendees, including all sessions and hosted moments.",
     price: PRICING.fullCouple,
+    attendeesPerPackage: 2,
   },
   {
-    value: "light",
+    id: "light",
     label: "Light experience – individual",
     description: "Hosted meals and social gatherings (sessions not included).",
     price: PRICING.light,
-  },
-]
-
-const FAQ_ITEMS: { question: string; answer: ReactNode }[] = [
-  {
-    question: "When is the deadline for additional participants?",
-    answer: (
-      <p>
-        Please share additional attendee names and contact information by March 15 so we can tailor the experience.
-      </p>
-    ),
-  },
-  {
-    question: "What’s included in registration?",
-    answer: (
-      <p>
-        All retreat programming, curated experiences, hosted meals, and materials. Hotel, travel, and optional excursions
-        are booked separately.
-      </p>
-    ),
-  },
-  {
-    question: "How do dietary or accessibility accommodations work?",
-    answer: (
-      <p>
-        Use the notes field in Step 2 to share allergy, dietary, mobility, or sensory needs and our team will follow up
-        directly.
-      </p>
-    ),
-  },
-  {
-    question: "What is the dress code?",
-    answer: <p>Smart casual. Think light layers for meeting rooms, comfortable shoes for city exploration.</p>,
-  },
-  {
-    question: "Is parking available?",
-    answer: (
-      <p>
-        Valet parking is available onsite. The Thompson also offers complimentary house bikes and a house car service
-        (first come, first served).
-      </p>
-    ),
-  },
-  {
-    question: "How do I pay?",
-    answer: (
-      <div className="space-y-2">
-        <p>Secure your space with a deposit or payment in full by 2025.</p>
-        <p>Additional guest event fees and any remaining balance are due February 15, 2026.</p>
-        <p>Pay by check or Zelle. Questions? Call 415-309-0345.</p>
-        <p>Make check payable to Connect the Dots. Mail to 36 Baker St, San Francisco, CA 94117.</p>
-        <p>You can pay your invoice quickly and securely through Zelle.</p>
-        <div className="space-y-1">
-          <p className="font-medium text-foreground">Steps to Pay:</p>
-          <ol className="list-decimal space-y-1 pl-5">
-            <li>Log in to your bank’s mobile app or online banking.</li>
-            <li>Select Send Money with Zelle®.</li>
-            <li>Enter my Zelle email/phone: 415-309-0345.</li>
-            <li>Enter the payment amount and confirm.</li>
-          </ol>
-        </div>
-      </div>
-    ),
+    attendeesPerPackage: 1,
   },
 ]
 
@@ -174,9 +84,10 @@ function formatCurrency(amount: number) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(amount)
 }
 
-function formatDateLabel(date: string) {
-  return new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric" }).format(new Date(date))
-}
+const defaultPackageQuantities: Record<PackageId, number> = PACKAGE_OPTIONS.reduce(
+  (acc, option) => ({ ...acc, [option.id]: 0 }),
+  {} as Record<PackageId, number>,
+)
 
 export default function RegistrationPage() {
   const [currentStep, setCurrentStep] = useState(0)
@@ -187,23 +98,44 @@ export default function RegistrationPage() {
     email: "",
     phone: "",
   })
-  const [selectedPackage, setSelectedPackage] = useState<PackageOption | null>(null)
-  const [additionalNames, setAdditionalNames] = useState<AdditionalName[]>([])
+  const [packageQuantities, setPackageQuantities] = useState<Record<PackageId, number>>(defaultPackageQuantities)
+  const [secondaryAttendees, setSecondaryAttendees] = useState<SecondaryAttendee[]>([])
+  const [attendeePackageSelections, setAttendeePackageSelections] = useState<AttendeePackageSelection[]>([])
   const [notes, setNotes] = useState("")
 
-  const selectedPackageDetails = useMemo(
-    () => PACKAGE_OPTIONS.find((option) => option.value === selectedPackage),
-    [selectedPackage],
+  const packageLineItems = useMemo(
+    () =>
+      PACKAGE_OPTIONS.map((option) => {
+        const quantity = packageQuantities[option.id] ?? 0
+        return {
+          ...option,
+          quantity,
+          total: option.price * quantity,
+        }
+      }).filter((item) => item.quantity > 0),
+    [packageQuantities],
   )
 
-  const needsAdditionalNames = selectedPackage === "full-couple"
-  const activeSteps = useMemo(() => {
-    if (needsAdditionalNames) {
-      return BASE_STEPS
-    }
-    return BASE_STEPS.filter((step) => step.id !== 3)
-  }, [needsAdditionalNames])
-  const lastStepIndex = activeSteps.length - 1
+  const attendeeCapacityByPackage = useMemo(
+    () =>
+      PACKAGE_OPTIONS.reduce((acc, option) => {
+        const capacity = option.attendeesPerPackage * (packageQuantities[option.id] ?? 0)
+        if (capacity > 0) {
+          acc[option.id] = capacity
+        }
+        return acc
+      }, {} as Record<PackageId, number>),
+    [packageQuantities],
+  )
+
+  const totalAttendeesRequired = useMemo(
+    () => Object.values(attendeeCapacityByPackage).reduce((sum, count) => sum + count, 0),
+    [attendeeCapacityByPackage],
+  )
+
+  const requiredSecondaryCount = Math.max(totalAttendeesRequired - 1, 0)
+
+  const lastStepIndex = STEPS.length - 1
   const safeCurrentStep = Math.min(currentStep, lastStepIndex)
 
   useEffect(() => {
@@ -213,34 +145,98 @@ export default function RegistrationPage() {
   }, [currentStep, lastStepIndex])
 
   useEffect(() => {
-    if (!needsAdditionalNames && additionalNames.length > 0) {
-      setAdditionalNames([])
-    }
-  }, [needsAdditionalNames, additionalNames.length])
+    setSecondaryAttendees((prev) => {
+      if (requiredSecondaryCount > prev.length) {
+        const difference = requiredSecondaryCount - prev.length
+        const additions = Array.from({ length: difference }, () => ({
+          id: Date.now() + Math.random(),
+          firstName: "",
+          lastName: "",
+          relationship: "",
+        }))
+        return [...prev, ...additions]
+      }
+      if (requiredSecondaryCount < prev.length) {
+        return prev.slice(0, requiredSecondaryCount)
+      }
+      return prev
+    })
+  }, [requiredSecondaryCount])
 
-  const progressPercent = activeSteps.length > 1 ? (safeCurrentStep / lastStepIndex) * 100 : 100
-  const totalDue = selectedPackageDetails?.price ?? 0
+  useEffect(() => {
+    setAttendeePackageSelections((prev) => {
+      const trimmed = prev.slice(0, totalAttendeesRequired)
+      while (trimmed.length < totalAttendeesRequired) {
+        trimmed.push("")
+      }
+      const usage: Record<PackageId, number> = {}
+      return trimmed.map((selection) => {
+        if (!selection) {
+          return ""
+        }
+        const allowed = attendeeCapacityByPackage[selection] ?? 0
+        if (allowed === 0) {
+          return ""
+        }
+        const used = usage[selection] ?? 0
+        if (used >= allowed) {
+          return ""
+        }
+        usage[selection] = used + 1
+        return selection
+      })
+    })
+  }, [totalAttendeesRequired, attendeeCapacityByPackage])
+
+  const progressPercent = STEPS.length > 1 ? (safeCurrentStep / lastStepIndex) * 100 : 100
+  const totalDue = packageLineItems.reduce((sum, item) => sum + item.total, 0)
+
+  const assignedPackageCounts = useMemo(
+    () =>
+      attendeePackageSelections.reduce((acc, selection) => {
+        if (!selection) {
+          return acc
+        }
+        acc[selection] = (acc[selection] ?? 0) + 1
+        return acc
+      }, {} as Record<PackageId, number>),
+    [attendeePackageSelections],
+  )
+
+  const isPrimaryComplete =
+    contact.firstName.trim() !== "" &&
+    contact.lastName.trim() !== "" &&
+    contact.email.trim() !== "" &&
+    contact.phone.trim() !== ""
+
+  const areSecondaryAttendeesComplete = secondaryAttendees.every(
+    (attendee) =>
+      attendee.firstName.trim() !== "" &&
+      attendee.lastName.trim() !== "" &&
+      attendee.relationship.trim() !== "",
+  )
+
+  const arePackageAssignmentsComplete = useMemo(() => {
+    if (attendeePackageSelections.length !== totalAttendeesRequired) {
+      return false
+    }
+    if (attendeePackageSelections.some((selection) => selection === "")) {
+      return false
+    }
+    return PACKAGE_OPTIONS.every((option) => {
+      const required = attendeeCapacityByPackage[option.id] ?? 0
+      const assigned = assignedPackageCounts[option.id] ?? 0
+      return required === assigned
+    })
+  }, [attendeePackageSelections, totalAttendeesRequired, attendeeCapacityByPackage, assignedPackageCounts])
 
   const isStepValid = () => {
-    const currentStepId = activeSteps[safeCurrentStep]?.id
-    if (currentStepId === 1) {
-      return selectedPackage !== null
+    const currentStepId = STEPS[safeCurrentStep]?.id
+    if (currentStepId === "packages") {
+      return totalAttendeesRequired > 0
     }
-    if (currentStepId === 2) {
-      return (
-        contact.firstName.trim() !== "" &&
-        contact.lastName.trim() !== "" &&
-        contact.email.trim() !== "" &&
-        contact.phone.trim() !== ""
-      )
-    }
-    if (currentStepId === 3) {
-      return additionalNames.every(
-        (guest) =>
-          guest.firstName.trim() !== "" &&
-          guest.lastName.trim() !== "" &&
-          guest.relationship.trim() !== "",
-      )
+    if (currentStepId === "attendees") {
+      return isPrimaryComplete && areSecondaryAttendeesComplete && arePackageAssignmentsComplete
     }
     return true
   }
@@ -261,103 +257,303 @@ export default function RegistrationPage() {
     setContact((prev) => ({ ...prev, [field]: value }))
   }
 
-  const handleAddAdditionalName = () => {
-    setAdditionalNames((prev) => [
-      ...prev,
-      {
-        id: Date.now() + Math.random(),
-        firstName: "",
-        lastName: "",
-        relationship: "",
-      },
-    ])
+  const setPackageQuantity = (id: PackageId, quantity: number) => {
+    const safeQuantity = Number.isNaN(quantity) ? 0 : Math.max(0, Math.floor(quantity))
+    setPackageQuantities((prev) => ({ ...prev, [id]: safeQuantity }))
   }
 
-  const handleAdditionalNameChange = (id: number, field: keyof Omit<AdditionalName, "id">, value: string) => {
-    setAdditionalNames((prev) => prev.map((guest) => (guest.id === id ? { ...guest, [field]: value } : guest)))
+  const handleQuantityInputChange = (id: PackageId, value: string) => {
+    const parsed = Number(value)
+    setPackageQuantity(id, Number.isNaN(parsed) ? 0 : parsed)
   }
 
-  const handleRemoveAdditionalName = (id: number) => {
-    setAdditionalNames((prev) => prev.filter((guest) => guest.id !== id))
+  const handleSecondaryAttendeeChange = (
+    id: number,
+    field: keyof Omit<SecondaryAttendee, "id">,
+    value: string,
+  ) => {
+    setSecondaryAttendees((prev) => prev.map((attendee) => (attendee.id === id ? { ...attendee, [field]: value } : attendee)))
   }
 
-  const handleSubmit = () => {
+  const handlePackageAssignmentChange = (index: number, packageId: AttendeePackageSelection) => {
+    setAttendeePackageSelections((prev) => {
+      const next = [...prev]
+      next[index] = packageId
+      return next
+    })
+  }
+
+  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (!isStepValid()) {
+      return
+    }
+    if (currentStep < lastStepIndex) {
+      handleContinue()
+      return
+    }
     setHasSubmitted(true)
   }
 
-  const renderContactStep = () => (
-    <div className="rounded-2xl border border-border bg-card/95 p-6 shadow-sm">
-      <div className="space-y-4">
-        <div>
-          <h3 className="text-lg font-medium">Contact details</h3>
-          <p className="text-sm text-muted-foreground">
-            We&apos;ll send confirmations and invoices to this primary contact.
+  const renderPackageSelect = (attendeeIndex: number, label: string) => {
+    const selection = attendeePackageSelections[attendeeIndex] ?? ""
+    const selectId = `attendee-${attendeeIndex}-package`
+    const selectablePackages = PACKAGE_OPTIONS.filter(
+      (option) => (attendeeCapacityByPackage[option.id] ?? 0) > 0 || selection === option.id,
+    )
+    return (
+      <div className="space-y-2">
+        <Label htmlFor={selectId}>{label}</Label>
+        <select
+          id={selectId}
+          value={selection}
+          onChange={(event) => handlePackageAssignmentChange(attendeeIndex, event.target.value as AttendeePackageSelection)}
+          aria-invalid={selection === "" ? true : undefined}
+          className={`w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 ${selection === "" ? "text-muted-foreground" : "text-foreground"}`}
+        >
+          <option value="">Select a package</option>
+          {selectablePackages.map((option) => {
+            const capacity = attendeeCapacityByPackage[option.id] ?? 0
+            if (capacity === 0 && selection !== option.id) {
+              return null
+            }
+            const assigned = assignedPackageCounts[option.id] ?? 0
+            const isCurrentSelection = selection === option.id
+            const remaining = capacity - assigned + (isCurrentSelection ? 1 : 0)
+            const disabled = remaining <= 0 && !isCurrentSelection
+            const remainingLabel = `${remaining} spot${remaining === 1 ? "" : "s"} remaining`
+            return (
+              <option key={option.id} value={option.id} disabled={disabled}>
+                {option.label} ({remainingLabel})
+              </option>
+            )
+          })}
+        </select>
+        <p className="text-xs text-muted-foreground">Match attendees to packages based on your Step 1 selections.</p>
+      </div>
+    )
+  }
+
+  const getPackageLabel = (selection: AttendeePackageSelection | undefined) => {
+    if (!selection) {
+      return "Pending"
+    }
+    return PACKAGE_OPTIONS.find((option) => option.id === selection)?.label ?? "Pending"
+  }
+
+  const renderAttendeeStep = () => {
+    const attendeeLabel = totalAttendeesRequired === 1 ? "attendee" : "attendees"
+    const secondaryCopy =
+      requiredSecondaryCount > 0
+        ? `We'll also capture ${requiredSecondaryCount} additional attendee${requiredSecondaryCount > 1 ? "s" : ""}.`
+        : "No additional attendees required beyond the primary contact."
+    return (
+      <div className="rounded-2xl border border-border bg-card/95 p-6 shadow-sm">
+        <div className="space-y-6">
+          <div>
+            <h3 className="text-lg font-medium">Attendee details</h3>
+            <p className="text-sm text-muted-foreground">
+              You&apos;ve reserved spots for {totalAttendeesRequired} {attendeeLabel}. {secondaryCopy} Assign each person to a
+              package below so we know which experience they&apos;re attending.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <div>
+              <h4 className="text-sm font-semibold">Primary attendee</h4>
+              <p className="text-xs text-muted-foreground">We&apos;ll send confirmations and invoices to this person.</p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="contact-first-name">First name</Label>
+                <Input
+                  id="contact-first-name"
+                  name="primaryFirstName"
+                  autoComplete="given-name"
+                  required
+                  value={contact.firstName}
+                  onChange={(event) => handleContactChange("firstName", event.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="contact-last-name">Last name</Label>
+                <Input
+                  id="contact-last-name"
+                  name="primaryLastName"
+                  autoComplete="family-name"
+                  required
+                  value={contact.lastName}
+                  onChange={(event) => handleContactChange("lastName", event.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="contact-email">Email</Label>
+                <Input
+                  id="contact-email"
+                  name="primaryEmail"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={contact.email}
+                  onChange={(event) => handleContactChange("email", event.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="contact-phone">Phone number</Label>
+                <Input
+                  id="contact-phone"
+                  name="primaryPhone"
+                  type="tel"
+                  autoComplete="tel"
+                  required
+                  value={contact.phone}
+                  onChange={(event) => handleContactChange("phone", event.target.value)}
+                />
+              </div>
+              <div className="md:col-span-2">{renderPackageSelect(0, "Package selection for primary attendee")}</div>
+            </div>
+          </div>
+
+        {requiredSecondaryCount > 0 && (
+          <div className="space-y-4">
+              <div>
+                <h4 className="text-sm font-semibold">Secondary attendees ({requiredSecondaryCount})</h4>
+                <p className="text-xs text-muted-foreground">
+                  We pre-fill the exact number of additional people based on your package quantities.
+                </p>
+              </div>
+              <div className="space-y-4">
+                {secondaryAttendees.map((attendee, index) => (
+                  <div key={attendee.id} className="rounded-xl border border-border/70 bg-background/80 p-4">
+                    <p className="text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground">
+                      Secondary attendee {index + 1}
+                    </p>
+                    <div className="mt-4 grid gap-4 md:grid-cols-2">
+                      <div className="space-y-2">
+                        <Label htmlFor={`secondary-${attendee.id}-first`}>First name</Label>
+                        <Input
+                          id={`secondary-${attendee.id}-first`}
+                          name={`secondaryAttendees[${index}].firstName`}
+                          autoComplete="off"
+                          required
+                          value={attendee.firstName}
+                          onChange={(event) =>
+                            handleSecondaryAttendeeChange(attendee.id, "firstName", event.target.value)
+                          }
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor={`secondary-${attendee.id}-last`}>Last name</Label>
+                        <Input
+                          id={`secondary-${attendee.id}-last`}
+                          name={`secondaryAttendees[${index}].lastName`}
+                          autoComplete="off"
+                          required
+                          value={attendee.lastName}
+                          onChange={(event) =>
+                            handleSecondaryAttendeeChange(attendee.id, "lastName", event.target.value)
+                          }
+                        />
+                      </div>
+                    <div className="space-y-2 md:col-span-2">
+                      <Label htmlFor={`secondary-${attendee.id}-relationship`}>
+                        Relationship to primary attendee
+                      </Label>
+                      <Input
+                          id={`secondary-${attendee.id}-relationship`}
+                          name={`secondaryAttendees[${index}].relationship`}
+                          autoComplete="off"
+                          required
+                          value={attendee.relationship}
+                          onChange={(event) =>
+                            handleSecondaryAttendeeChange(attendee.id, "relationship", event.target.value)
+                          }
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      {renderPackageSelect(index + 1, `Package selection for secondary attendee ${index + 1}`)}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        {!arePackageAssignmentsComplete && totalAttendeesRequired > 0 && (
+          <p className="text-xs text-destructive">
+            Assign a package to each attendee to continue. Make sure your selections match the quantities from Step 1.
           </p>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          <div className="space-y-2">
-            <Label htmlFor="contact-first-name">First name</Label>
-            <Input
-              id="contact-first-name"
-              value={contact.firstName}
-              onChange={(event) => handleContactChange("firstName", event.target.value)}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="contact-last-name">Last name</Label>
-            <Input
-              id="contact-last-name"
-              value={contact.lastName}
-              onChange={(event) => handleContactChange("lastName", event.target.value)}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="contact-email">Email</Label>
-            <Input
-              id="contact-email"
-              type="email"
-              value={contact.email}
-              onChange={(event) => handleContactChange("email", event.target.value)}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="contact-phone">Phone number</Label>
-            <Input
-              id="contact-phone"
-              type="tel"
-              value={contact.phone}
-              onChange={(event) => handleContactChange("phone", event.target.value)}
-            />
-          </div>
-        </div>
+        )}
       </div>
     </div>
   )
+  }
 
   const renderPackageStep = () => (
     <div className="rounded-2xl border border-border bg-card/95 p-6 shadow-sm">
       <div className="space-y-4">
         <div>
-          <h3 className="text-lg font-medium">Pick your package</h3>
-          <p className="text-sm text-muted-foreground">Choose the experience that suits your plans.</p>
+          <h3 className="text-lg font-medium">Select your packages</h3>
+          <p className="text-sm text-muted-foreground">
+            Set how many of each experience you need. Quantities start at zero so you can mix and match freely.
+          </p>
         </div>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="space-y-4">
           {PACKAGE_OPTIONS.map((option) => {
-            const isActive = selectedPackage === option.value
+            const quantity = packageQuantities[option.id] ?? 0
+            const includesText = option.attendeesPerPackage === 1 ? "Includes 1 attendee" : "Includes 2 attendees"
             return (
-              <button
-                key={option.value}
-                type="button"
-                aria-pressed={isActive}
-                onClick={() => setSelectedPackage(option.value)}
-                className={`rounded-xl border p-4 text-left transition-colors ${
-                  isActive ? "border-primary bg-primary/10 shadow-sm" : "border-border bg-card"
-                }`}
+              <div
+                key={option.id}
+                className="rounded-xl border border-border/70 bg-background/80 p-5 shadow-sm"
               >
-                <p className="text-sm font-semibold text-foreground">{option.label}</p>
-                <p className="mt-1 text-xs text-muted-foreground">{option.description}</p>
-                <p className="mt-3 text-2xl font-light">{formatCurrency(option.price)}</p>
-              </button>
+                <div className="space-y-1">
+                  <p className="text-sm font-semibold text-foreground">{option.label}</p>
+                  <p className="text-xs text-muted-foreground">{option.description}</p>
+                </div>
+                <div className="mt-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                  <div>
+                    <p className="text-2xl font-light">{formatCurrency(option.price)}</p>
+                    <p className="text-xs text-muted-foreground">{includesText}</p>
+                    {quantity > 0 && (
+                      <p className="text-xs text-muted-foreground">
+                        {quantity} × {formatCurrency(option.price)} = {formatCurrency(option.price * quantity)}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="icon-sm"
+                      aria-label={`Decrease ${option.label}`}
+                      onClick={() => setPackageQuantity(option.id, quantity - 1)}
+                      disabled={quantity === 0}
+                    >
+                      -
+                    </Button>
+                    <Input
+                      id={`package-${option.id}`}
+                      type="number"
+                      inputMode="numeric"
+                      min={0}
+                      value={quantity}
+                      onChange={(event) => handleQuantityInputChange(option.id, event.target.value)}
+                      className="w-20 text-center"
+                      aria-label={`${option.label} quantity`}
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="icon-sm"
+                      aria-label={`Increase ${option.label}`}
+                      onClick={() => setPackageQuantity(option.id, quantity + 1)}
+                    >
+                      +
+                    </Button>
+                  </div>
+                </div>
+              </div>
             )
           })}
         </div>
@@ -365,69 +561,6 @@ export default function RegistrationPage() {
     </div>
   )
 
-  const renderAdditionalNamesStep = () => (
-    <div className="rounded-2xl border border-border bg-card/95 p-6 shadow-sm">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h3 className="text-lg font-medium">Additional names</h3>
-          <p className="text-sm text-muted-foreground">
-            Share anyone else joining and how they&apos;re connected to the primary participant.
-          </p>
-        </div>
-        <Button type="button" size="sm" variant="outline" onClick={handleAddAdditionalName}>
-          Add name
-        </Button>
-      </div>
-      {additionalNames.length === 0 ? (
-        <p className="mt-6 text-sm text-muted-foreground">
-          No additional attendees yet. Add names if you&apos;re registering guests beyond the primary contact.
-        </p>
-      ) : (
-        <div className="mt-6 space-y-4">
-          {additionalNames.map((guest) => (
-            <div key={guest.id} className="space-y-4 rounded-xl border border-border/70 bg-background/80 p-4">
-              <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                <span>Additional attendee</span>
-                <button
-                  type="button"
-                  className="text-[10px] tracking-[0.3em] text-muted-foreground hover:text-accent"
-                  onClick={() => handleRemoveAdditionalName(guest.id)}
-                >
-                  Remove
-                </button>
-              </div>
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor={`guest-${guest.id}-first`}>First name</Label>
-                  <Input
-                    id={`guest-${guest.id}-first`}
-                    value={guest.firstName}
-                    onChange={(event) => handleAdditionalNameChange(guest.id, "firstName", event.target.value)}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor={`guest-${guest.id}-last`}>Last name</Label>
-                  <Input
-                    id={`guest-${guest.id}-last`}
-                    value={guest.lastName}
-                    onChange={(event) => handleAdditionalNameChange(guest.id, "lastName", event.target.value)}
-                  />
-                </div>
-                <div className="space-y-2 md:col-span-2">
-                  <Label htmlFor={`guest-${guest.id}-relationship`}>Relationship to primary participant</Label>
-                  <Input
-                    id={`guest-${guest.id}-relationship`}
-                    value={guest.relationship}
-                    onChange={(event) => handleAdditionalNameChange(guest.id, "relationship", event.target.value)}
-                  />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  )
 
   const renderNotesStep = () => (
     <div className="rounded-2xl border border-border bg-card/95 p-6 shadow-sm">
@@ -438,37 +571,37 @@ export default function RegistrationPage() {
             Include accessibility needs, celebrations, or scheduling notes.
           </p>
         </div>
-        <textarea
-          id="notes"
-          value={notes}
-          onChange={(event) => setNotes(event.target.value)}
-          className="min-h-[160px] w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50"
-          placeholder="Let us know how we can make the experience memorable."
-        />
+        <div className="space-y-2">
+          <Label htmlFor="notes">Notes</Label>
+          <textarea
+            id="notes"
+            name="notes"
+            value={notes}
+            onChange={(event) => setNotes(event.target.value)}
+            className="min-h-[160px] w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50"
+            placeholder="Let us know how we can make the experience memorable."
+          />
+        </div>
       </div>
     </div>
   )
 
   const renderStepContent = () => {
-    const currentStepId = activeSteps[safeCurrentStep]?.id
-    switch (currentStepId) {
-      case 1:
-        return renderPackageStep()
-      case 2:
-        return renderContactStep()
-      case 3:
-        return renderAdditionalNamesStep()
-      case 4:
-      default:
-        return renderNotesStep()
+    const currentStepId = STEPS[safeCurrentStep]?.id
+    if (currentStepId === "packages") {
+      return renderPackageStep()
     }
+    if (currentStepId === "attendees") {
+      return renderAttendeeStep()
+    }
+    return renderNotesStep()
   }
 
   const renderSummaryCard = () => (
     <aside className="lg:sticky lg:top-24 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
       <div className="space-y-6 rounded-xl border border-border bg-card/95 p-6 shadow-lg shadow-primary/10">
         <div>
-          <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Registration Contact</p>
+          <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Registration contact</p>
           <p className="mt-3 text-sm font-medium text-foreground">
             {contact.firstName || contact.lastName ? `${contact.firstName} ${contact.lastName}`.trim() : "Contact pending"}
           </p>
@@ -477,39 +610,57 @@ export default function RegistrationPage() {
         </div>
 
         <div>
-          <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Experience</p>
-          {selectedPackageDetails ? (
-            <div className="mt-3 space-y-1 text-sm">
-              <p className="font-medium text-foreground">{selectedPackageDetails.label}</p>
-              <p className="text-muted-foreground">{formatCurrency(selectedPackageDetails.price)}</p>
-            </div>
+          <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Packages selected</p>
+          {packageLineItems.length === 0 ? (
+            <p className="mt-3 text-sm text-muted-foreground">Set a quantity above to preview totals.</p>
           ) : (
-            <p className="mt-3 text-sm text-muted-foreground">Select an experience to see pricing.</p>
+            <ul className="mt-3 space-y-2 text-sm">
+              {packageLineItems.map((item) => (
+                <li key={item.id} className="flex items-center justify-between gap-4 rounded-md border border-border/60 bg-card/80 px-3 py-2">
+                  <div>
+                    <p className="font-medium text-foreground">
+                      {item.label} <span className="text-xs text-muted-foreground">× {item.quantity}</span>
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {item.attendeesPerPackage === 1 ? "Includes 1 attendee" : "Includes 2 attendees"}
+                    </p>
+                  </div>
+                  <p className="text-sm font-medium">{formatCurrency(item.total)}</p>
+                </li>
+              ))}
+            </ul>
           )}
         </div>
 
         <div>
-          <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Additional Names</p>
-          {needsAdditionalNames ? (
-            additionalNames.length === 0 ? (
-              <p className="mt-3 text-sm text-muted-foreground">Add your partner&apos;s details when ready.</p>
-            ) : (
-              <ul className="mt-3 space-y-2 text-sm">
-                {additionalNames.map((guest) => (
-                  <li key={guest.id} className="rounded-md border border-border/60 bg-card/80 p-3">
+          <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Attendees</p>
+          <div className="mt-3 space-y-2 text-sm">
+            <div>
+              <p className="font-medium text-foreground">
+                Primary: {contact.firstName || contact.lastName ? `${contact.firstName} ${contact.lastName}`.trim() || "Name pending" : "Name pending"}
+              </p>
+              <p className="text-xs text-muted-foreground">Package: {getPackageLabel(attendeePackageSelections[0])}</p>
+            </div>
+            {requiredSecondaryCount > 0 ? (
+              <ul className="space-y-2 text-muted-foreground">
+                {secondaryAttendees.map((attendee, index) => (
+                  <li key={attendee.id} className="rounded-md border border-border/60 bg-card/60 p-3 text-sm">
                     <p className="font-medium text-foreground">
-                      {guest.firstName || guest.lastName ? `${guest.firstName} ${guest.lastName}`.trim() : "Name pending"}
+                      Secondary {index + 1}: {attendee.firstName || attendee.lastName ? `${attendee.firstName} ${attendee.lastName}`.trim() || "Name pending" : "Name pending"}
+                      {attendee.relationship && (
+                        <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground/80"> - {attendee.relationship}</span>
+                      )}
                     </p>
-                    {guest.relationship && (
-                      <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">{guest.relationship}</p>
-                    )}
+                    <p className="text-xs text-muted-foreground">
+                      Package: {getPackageLabel(attendeePackageSelections[index + 1])}
+                    </p>
                   </li>
                 ))}
               </ul>
-            )
-          ) : (
-            <p className="mt-3 text-sm text-muted-foreground">Not required for individual registrations.</p>
-          )}
+            ) : (
+              <p className="text-muted-foreground">No additional attendees required.</p>
+            )}
+          </div>
         </div>
 
         {notes.trim() && (
@@ -521,9 +672,9 @@ export default function RegistrationPage() {
 
         <div className="border-t border-border pt-4">
           <p className="text-sm text-muted-foreground">Estimated total</p>
-          <p className="text-2xl font-semibold">{selectedPackageDetails ? formatCurrency(totalDue) : "$0"}</p>
+          <p className="text-2xl font-semibold">{formatCurrency(totalDue)}</p>
           <p className="mt-2 text-xs text-muted-foreground">
-            We&rsquo;ll follow up with payment instructions once we receive your submission.
+            We'll follow up with payment instructions once we receive your submission.
           </p>
         </div>
       </div>
@@ -533,32 +684,14 @@ export default function RegistrationPage() {
     return (
       <main className="min-h-screen bg-background py-24 px-4">
         <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
-          <p className="text-xs font-mono uppercase tracking-[0.4em] text-accent">Registration Received</p>
-          <h1 className="text-4xl font-light text-balance">
-            Thanks for sharing your roster. We&apos;ll be in touch shortly with next steps.
-          </h1>
+          <p className="text-xs font-mono uppercase tracking-[0.4em] text-accent">Registration complete</p>
+          <h1 className="text-4xl font-light text-balance">Thank you!</h1>
           <p className="text-sm text-muted-foreground">
-            Our team will confirm attendee details and send payment options within one business day. Need to adjust anything?
-            Email{" "}
-            <a href="mailto:marylynnwheaton@gmail.com" className="underline-offset-4 hover:underline">
-              marylynnwheaton@gmail.com
-            </a>{" "}
-            or{" "}
-            <a href="mailto:elizabetharmato@gmail.com" className="underline-offset-4 hover:underline">
-              elizabetharmato@gmail.com
-            </a>
-            .
+            We&apos;ve received your submission. Liz or ML will email {contact.email ? contact.email : "you"} shortly with next steps.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <Button asChild>
-              <Link href="/">Return to homepage</Link>
-            </Button>
-            <Button asChild variant="outline">
-              <Link href={EVENT.venue.groupLink} target="_blank" rel="noreferrer">
-                Book hotel at Hyatt
-              </Link>
-            </Button>
-          </div>
+          <Button asChild>
+            <Link href="/">Return home</Link>
+          </Button>
         </div>
       </main>
     )
@@ -663,7 +796,7 @@ export default function RegistrationPage() {
             <div className="md:hidden sticky top-0 z-30 -mx-4 bg-background/95 px-4 py-3 shadow-md shadow-primary/10">
               <div className="mb-2 flex items-center justify-between text-xs font-mono uppercase tracking-[0.35em] text-muted-foreground">
                 <span>
-                  Step {safeCurrentStep + 1} of {activeSteps.length}
+                  Step {safeCurrentStep + 1} of {STEPS.length}
                 </span>
                 <span>{Math.round(progressPercent)}%</span>
               </div>
@@ -676,12 +809,12 @@ export default function RegistrationPage() {
               <div>
                 <p className="text-xs font-mono uppercase tracking-[0.35em] text-muted-foreground">Registration Progress</p>
                 <p className="mt-3 text-lg font-medium">
-                  {activeSteps[safeCurrentStep]?.title}
+                  {STEPS[safeCurrentStep]?.title}
                 </p>
-                <p className="mt-1 text-sm text-muted-foreground">{activeSteps[safeCurrentStep]?.description}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{STEPS[safeCurrentStep]?.description}</p>
               </div>
               <div className="flex gap-2">
-                {activeSteps.map((step, index) => (
+                {STEPS.map((step, index) => (
                   <div
                     key={step.id}
                     className={`h-2 w-12 rounded-full ${index <= currentStep ? "bg-primary" : "bg-muted"}`}
@@ -690,25 +823,23 @@ export default function RegistrationPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border/70 bg-background/95 p-6 shadow-lg shadow-primary/5 md:p-10">
-              <div className="space-y-6">
-                {renderStepContent()}
-              </div>
+            <form
+              id="registration-form"
+              onSubmit={handleFormSubmit}
+              className="rounded-2xl border border-border/70 bg-background/95 p-6 shadow-lg shadow-primary/5 md:p-10"
+            >
+              <div className="space-y-6">{renderStepContent()}</div>
               <div className="mt-10 hidden justify-between border-t border-border pt-6 md:flex">
-                <Button variant="ghost" onClick={handleBack} disabled={currentStep === 0}>
+                <Button type="button" variant="ghost" onClick={handleBack} disabled={currentStep === 0}>
                   Back
                 </Button>
-                {currentStep < lastStepIndex ? (
-                  <Button onClick={handleContinue} disabled={!isStepValid()}>
-                    Continue to {activeSteps[safeCurrentStep + 1]?.title ?? "Next"}
-                  </Button>
-                ) : (
-                  <Button onClick={handleSubmit} disabled={!isStepValid()}>
-                    Confirm registration
-                  </Button>
-                )}
+                <Button type="submit" disabled={!isStepValid()}>
+                  {currentStep < lastStepIndex
+                    ? `Continue to ${STEPS[safeCurrentStep + 1]?.title ?? "Next"}`
+                    : "Submit registration"}
+                </Button>
               </div>
-            </div>
+            </form>
           </div>
 
           <div className="lg:w-[320px] lg:flex lg:justify-end">{renderSummaryCard()}</div>
@@ -716,18 +847,18 @@ export default function RegistrationPage() {
 
         <div className="md:hidden fixed inset-x-0 bottom-0 z-40 bg-card/95 px-4 py-4 shadow-[0_-10px_30px_rgba(0,0,0,0.15)] backdrop-blur">
           <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3">
-            <Button variant="ghost" size="sm" onClick={handleBack} disabled={currentStep === 0}>
+            <Button type="button" variant="ghost" size="sm" onClick={handleBack} disabled={currentStep === 0}>
               Back
             </Button>
-            {currentStep < lastStepIndex ? (
-              <Button className="flex-1" size="lg" onClick={handleContinue} disabled={!isStepValid()}>
-                Continue
-              </Button>
-            ) : (
-              <Button className="flex-1" size="lg" onClick={handleSubmit} disabled={!isStepValid()}>
-                Confirm registration
-              </Button>
-            )}
+            <Button
+              className="flex-1"
+              size="lg"
+              type="submit"
+              form="registration-form"
+              disabled={!isStepValid()}
+            >
+              {currentStep < lastStepIndex ? "Continue" : "Submit registration"}
+            </Button>
           </div>
         </div>
       </section>
