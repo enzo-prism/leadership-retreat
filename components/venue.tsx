@@ -26,15 +26,15 @@ export function Venue() {
               </h3>
               <ul className="space-y-3 text-foreground/90">
                 <li className="flex items-start gap-3">
-                  <span className="text-accent mt-1">•</span>
+                  <span className="text-accent mt-1">🌅</span>
                   <span>Sunroom reception with indoor/outdoor river views</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-accent mt-1">•</span>
+                  <span className="text-accent mt-1">🍹</span>
                   <span>Rooftop bar, pool deck, and creative culinary offerings</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-accent mt-1">•</span>
+                  <span className="text-accent mt-1">🚗</span>
                   <span>Complimentary house car service and bikes for exploring</span>
                 </li>
               </ul>
