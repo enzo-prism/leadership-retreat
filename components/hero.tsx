@@ -7,11 +7,28 @@ const HERO_IMAGE = {
   alt: "Attendees gathered around a long table sharing a toast during the Leadership Retreat.",
 }
 
+const HERO_VIDEO = {
+  src: "https://res.cloudinary.com/dhqpqfw6w/video/upload/v1763650316/Realistic_Savannah_Video_Generation_uaadc4.mp4",
+  alt: "Looping Savannah riverfront scene",
+}
+
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-background text-foreground">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(66,93,82,0.35)_0%,_transparent_60%)]" />
-      <div className="absolute inset-x-0 top-0 -z-10 h-[55%] bg-gradient-to-b from-primary/20 via-transparent to-transparent" />
+      <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top,_rgba(66,93,82,0.35)_0%,_transparent_60%)]" />
+      <div className="absolute inset-x-0 top-0 -z-20 h-[55%] bg-gradient-to-b from-primary/20 via-transparent to-transparent" />
+      <div className="absolute inset-0 -z-30">
+        <video
+          className="h-full w-full object-cover"
+          src={HERO_VIDEO.src}
+          muted
+          loop
+          autoPlay
+          playsInline
+          aria-label={HERO_VIDEO.alt}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background" />
+      </div>
 
       <div className="mx-auto flex w-full max-w-6xl flex-col-reverse gap-8 px-4 py-20 lg:flex-row lg:items-center lg:justify-between lg:gap-16 lg:py-28">
         <div className="flex flex-col gap-8 lg:max-w-xl">
