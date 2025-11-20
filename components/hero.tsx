@@ -18,6 +18,14 @@ export function Hero() {
       <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top,_rgba(66,93,82,0.35)_0%,_transparent_60%)]" />
       <div className="absolute inset-x-0 top-0 -z-20 h-[55%] bg-gradient-to-b from-primary/20 via-transparent to-transparent" />
       <div className="absolute inset-0 -z-30">
+        <div className="absolute inset-0">
+          <img
+            src="https://res.cloudinary.com/dhqpqfw6w/image/upload/v1763650469/Screenshot_2025-11-20_at_6.53.51_AM_cg81mj.webp"
+            alt="Savannah riverfront placeholder still"
+            className="h-full w-full object-cover"
+            loading="eager"
+          />
+        </div>
         <video
           className="h-full w-full object-cover"
           src={HERO_VIDEO.src}
