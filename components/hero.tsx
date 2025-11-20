@@ -55,7 +55,9 @@ export function Hero() {
             </div>
             <div className="flex items-center gap-3">
               <Building2 className="h-4 w-4 text-foreground/70" aria-hidden="true" />
-              <span>The Thompson Savannah</span>
+              <Link href="#venue" className="text-foreground hover:text-accent transition-colors">
+                The Thompson Savannah
+              </Link>
             </div>
           </div>
         </div>
