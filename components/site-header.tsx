@@ -18,22 +18,36 @@ const navItems = [
   { label: "Partners", href: "/#partners" },
 ]
 
-function isLinkActive(pathname: string, href: string) {
+function isLinkActive(pathname: string, hash: string, href: string) {
   if (href === "/") {
-    return pathname === "/"
+    return pathname === "/" && (hash === "" || hash === "#")
   }
   if (href.startsWith("/#")) {
-    return pathname === "/"
+    if (pathname !== "/") return false
+    const targetHash = href.replace("/#", "#")
+    return hash === targetHash
   }
   return pathname === href
 }
 
 export function SiteHeader() {
   const pathname = usePathname()
+  const [hash, setHash] = useState("")
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
     setOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
+    const updateHash = () => setHash(window.location.hash || "")
+    updateHash()
+    window.addEventListener("hashchange", updateHash)
+    return () => window.removeEventListener("hashchange", updateHash)
+  }, [])
+
+  useEffect(() => {
+    setHash(window.location.hash || "")
   }, [pathname])
 
   return (
@@ -46,16 +60,16 @@ export function SiteHeader() {
 
         <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
           {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`relative transition-[color,letter-spacing] duration-200 after:absolute after:left-1/2 after:bottom-[-6px] after:h-[2px] after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-accent after:opacity-0 after:transition-all after:duration-200 ${
-                isLinkActive(pathname, item.href)
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`relative transition-[color,letter-spacing] duration-200 after:absolute after:left-1/2 after:bottom-[-6px] after:h-[2px] after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-accent after:opacity-0 after:transition-all after:duration-200 ${
+                isLinkActive(pathname, hash, item.href)
                   ? "text-accent after:w-full after:opacity-100"
                   : "text-muted-foreground hover:text-foreground hover:tracking-[0.08em] hover:after:w-full hover:after:opacity-100 focus-visible:text-foreground focus-visible:after:w-full focus-visible:after:opacity-100"
               }`}
-              data-underline="true"
-            >
+                  data-underline="true"
+                >
               {item.label}
             </Link>
           ))}
