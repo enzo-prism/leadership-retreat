@@ -102,6 +102,8 @@ export default function RegistrationPage() {
   const [secondaryAttendees, setSecondaryAttendees] = useState<SecondaryAttendee[]>([])
   const [attendeePackageSelections, setAttendeePackageSelections] = useState<AttendeePackageSelection[]>([])
   const [notes, setNotes] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState("")
 
   const packageLineItems = useMemo(
     () =>
@@ -283,7 +285,7 @@ export default function RegistrationPage() {
     })
   }
 
-  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!isStepValid()) {
       return
@@ -292,7 +294,29 @@ export default function RegistrationPage() {
       handleContinue()
       return
     }
-    setHasSubmitted(true)
+    setIsSubmitting(true)
+    setSubmitError("")
+
+    try {
+      const response = await fetch("https://formspree.io/f/mqanwerw", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+        body: buildFormData(),
+      })
+
+      if (!response.ok) {
+        throw new Error("Formspree submission failed")
+      }
+
+      setHasSubmitted(true)
+    } catch (error) {
+      console.error("Registration submission error", error)
+      setSubmitError("We couldn't submit your registration. Please try again in a moment.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const renderPackageSelect = (attendeeIndex: number, label: string) => {
@@ -321,10 +345,9 @@ export default function RegistrationPage() {
             const isCurrentSelection = selection === option.id
             const remaining = capacity - assigned + (isCurrentSelection ? 1 : 0)
             const disabled = remaining <= 0 && !isCurrentSelection
-            const remainingLabel = `${remaining} spot${remaining === 1 ? "" : "s"} remaining`
             return (
               <option key={option.id} value={option.id} disabled={disabled}>
-                {option.label} ({remainingLabel})
+                {option.label}
               </option>
             )
           })}
@@ -339,6 +362,58 @@ export default function RegistrationPage() {
       return "Pending"
     }
     return PACKAGE_OPTIONS.find((option) => option.id === selection)?.label ?? "Pending"
+  }
+
+  const buildFormData = () => {
+    const formData = new FormData()
+    formData.append("event", EVENT.name)
+    formData.append("contact_first_name", contact.firstName)
+    formData.append("contact_last_name", contact.lastName)
+    formData.append("contact_email", contact.email)
+    formData.append("contact_phone", contact.phone)
+
+    PACKAGE_OPTIONS.forEach((option) => {
+      const quantity = packageQuantities[option.id] ?? 0
+      formData.append(`package_${option.id}_quantity`, String(quantity))
+    })
+
+    packageLineItems.forEach((item) => {
+      formData.append("packages_selected[]", `${item.label} x ${item.quantity} (${formatCurrency(item.total)})`)
+    })
+
+    const attendeeEntries = [
+      {
+        label: "Primary attendee",
+        firstName: contact.firstName,
+        lastName: contact.lastName,
+        relationship: "Primary contact",
+        packageLabel: getPackageLabel(attendeePackageSelections[0]),
+      },
+      ...secondaryAttendees.map((attendee, index) => ({
+        label: `Secondary attendee ${index + 1}`,
+        firstName: attendee.firstName,
+        lastName: attendee.lastName,
+        relationship: attendee.relationship,
+        packageLabel: getPackageLabel(attendeePackageSelections[index + 1]),
+      })),
+    ]
+
+    attendeeEntries.forEach((attendee, index) => {
+      formData.append(`attendees[${index}][label]`, attendee.label)
+      formData.append(`attendees[${index}][first_name]`, attendee.firstName)
+      formData.append(`attendees[${index}][last_name]`, attendee.lastName)
+      formData.append(`attendees[${index}][relationship]`, attendee.relationship)
+      formData.append(`attendees[${index}][package]`, attendee.packageLabel)
+    })
+
+    formData.append("total_due", formatCurrency(totalDue))
+    formData.append("total_attendees", String(totalAttendeesRequired))
+
+    if (notes.trim()) {
+      formData.append("notes", notes.trim())
+    }
+
+    return formData
   }
 
   const renderAttendeeStep = () => {
@@ -830,15 +905,20 @@ export default function RegistrationPage() {
             >
               <div className="space-y-6">{renderStepContent()}</div>
               <div className="mt-10 hidden justify-between border-t border-border pt-6 md:flex">
-                <Button type="button" variant="ghost" onClick={handleBack} disabled={currentStep === 0}>
+                <Button type="button" variant="ghost" onClick={handleBack} disabled={currentStep === 0 || isSubmitting}>
                   Back
                 </Button>
-                <Button type="submit" disabled={!isStepValid()}>
-                  {currentStep < lastStepIndex
+                <Button type="submit" disabled={!isStepValid() || isSubmitting} aria-busy={isSubmitting}>
+                  {isSubmitting
+                    ? "Submitting..."
+                    : currentStep < lastStepIndex
                     ? `Continue to ${STEPS[safeCurrentStep + 1]?.title ?? "Next"}`
                     : "Submit registration"}
                 </Button>
               </div>
+              {submitError && (
+                <p className="mt-4 text-sm text-destructive">{submitError}</p>
+              )}
             </form>
           </div>
 
@@ -847,7 +927,13 @@ export default function RegistrationPage() {
 
         <div className="md:hidden fixed inset-x-0 bottom-0 z-40 bg-card/95 px-4 py-4 shadow-[0_-10px_30px_rgba(0,0,0,0.15)] backdrop-blur">
           <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3">
-            <Button type="button" variant="ghost" size="sm" onClick={handleBack} disabled={currentStep === 0}>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={handleBack}
+              disabled={currentStep === 0 || isSubmitting}
+            >
               Back
             </Button>
             <Button
@@ -855,9 +941,14 @@ export default function RegistrationPage() {
               size="lg"
               type="submit"
               form="registration-form"
-              disabled={!isStepValid()}
+              disabled={!isStepValid() || isSubmitting}
+              aria-busy={isSubmitting}
             >
-              {currentStep < lastStepIndex ? "Continue" : "Submit registration"}
+              {isSubmitting
+                ? "Submitting..."
+                : currentStep < lastStepIndex
+                ? "Continue"
+                : "Submit registration"}
             </Button>
           </div>
         </div>
