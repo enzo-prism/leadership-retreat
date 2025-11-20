@@ -49,9 +49,12 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className={`transition-colors ${
-                isLinkActive(pathname, item.href) ? "text-accent" : "text-muted-foreground hover:text-foreground"
+              className={`relative transition-[color,letter-spacing] duration-200 after:absolute after:left-1/2 after:bottom-[-6px] after:h-[2px] after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-accent after:opacity-0 after:transition-all after:duration-200 ${
+                isLinkActive(pathname, item.href)
+                  ? "text-accent after:w-full after:opacity-100"
+                  : "text-muted-foreground hover:text-foreground hover:tracking-[0.08em] hover:after:w-full hover:after:opacity-100 focus-visible:text-foreground focus-visible:after:w-full focus-visible:after:opacity-100"
               }`}
+              data-underline="true"
             >
               {item.label}
             </Link>
