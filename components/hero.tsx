@@ -26,7 +26,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background" />
       </div>
 
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 py-20 lg:py-28">
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 py-20 lg:py-28">
         <div className="flex flex-col gap-8 lg:max-w-3xl">
           <div className="space-y-5">
             <p className="text-xs font-mono uppercase tracking-[0.4em] text-foreground/60">Leadership Retreat 2026</p>
