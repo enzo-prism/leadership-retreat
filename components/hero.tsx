@@ -37,8 +37,8 @@ export function Hero() {
           aria-label={HERO_VIDEO.alt}
           poster="https://res.cloudinary.com/dhqpqfw6w/image/upload/v1763650469/Screenshot_2025-11-20_at_6.53.51_AM_cg81mj.webp"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/45 to-black/70" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_30%,rgba(114,158,136,0.32),transparent_55%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/55 to-white/75" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_30%,rgba(255,255,255,0.42),transparent_55%)]" />
       </div>
 
       <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
