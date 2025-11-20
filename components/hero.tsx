@@ -2,11 +2,6 @@ import { Button } from "@/components/ui/button"
 import { Building2, CalendarDays, MapPin } from "lucide-react"
 import Link from "next/link"
 
-const HERO_IMAGE = {
-  src: "https://res.cloudinary.com/dhqpqfw6w/image/upload/v1762267112/Screenshot_2025-11-04_at_6.37.35_AM_j6borz.png",
-  alt: "Attendees gathered around a long table sharing a toast during the Leadership Retreat.",
-}
-
 const HERO_VIDEO = {
   src: "https://res.cloudinary.com/dhqpqfw6w/video/upload/v1763650316/Realistic_Savannah_Video_Generation_uaadc4.mp4",
   alt: "Looping Savannah riverfront scene",
@@ -31,8 +26,8 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background" />
       </div>
 
-      <div className="mx-auto flex w-full max-w-6xl flex-col-reverse gap-8 px-4 py-20 lg:flex-row lg:items-center lg:justify-between lg:gap-16 lg:py-28">
-        <div className="flex flex-col gap-8 lg:max-w-xl">
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 py-20 lg:py-28">
+        <div className="flex flex-col gap-8 lg:max-w-3xl">
           <div className="space-y-5">
             <p className="text-xs font-mono uppercase tracking-[0.4em] text-foreground/60">Leadership Retreat 2026</p>
             <h1 className="text-4xl font-light text-balance text-foreground sm:text-5xl md:text-6xl">
@@ -78,11 +73,6 @@ export function Hero() {
               </Link>
             </div>
           </div>
-        </div>
-
-        <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[2.5rem] border border-border/50 bg-gradient-to-br from-background/90 via-white/55 to-background shadow-[0_32px_80px_-40px_rgba(0,0,0,0.45)] backdrop-blur md:max-w-md lg:max-w-lg">
-          <img src={HERO_IMAGE.src} alt={HERO_IMAGE.alt} className="h-full w-full object-cover" loading="eager" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30" />
         </div>
       </div>
     </section>
