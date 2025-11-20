@@ -15,9 +15,9 @@ const HERO_VIDEO = {
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-background text-foreground">
-      <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top,_rgba(66,93,82,0.35)_0%,_transparent_60%)]" />
-      <div className="absolute inset-x-0 top-0 -z-20 h-[55%] bg-gradient-to-b from-primary/20 via-transparent to-transparent" />
-      <div className="absolute inset-0 -z-30">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(66,93,82,0.35)_0%,_transparent_60%)]" />
+      <div className="absolute inset-x-0 top-0 -z-10 h-[55%] bg-gradient-to-b from-primary/20 via-transparent to-transparent" />
+      <div className="pointer-events-none absolute inset-0 z-0">
         <video
           className="h-full w-full object-cover"
           src={HERO_VIDEO.src}
