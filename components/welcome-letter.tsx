@@ -2,7 +2,7 @@ import { LogoMark } from "@/components/logo-mark"
 
 export function WelcomeLetter() {
   return (
-    <section className="py-24 px-4 bg-card">
+    <section className="py-24 px-4 bg-card" data-reveal>
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-center mb-8">
           <LogoMark size="lg" className="max-w-[18rem] drop-shadow-[0_35px_90px_-30px_rgba(0,0,0,0.4)]" />

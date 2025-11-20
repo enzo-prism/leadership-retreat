@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react"
 import { CalendarDays } from "lucide-react"
 
 const schedule = [
@@ -38,7 +39,7 @@ const schedule = [
 
 export function Agenda() {
   return (
-    <section className="py-24 px-4 bg-card scroll-mt-28" id="agenda">
+    <section className="py-24 px-4 bg-card scroll-mt-28" id="agenda" data-reveal>
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-16">
           <div className="space-y-4 max-w-2xl">
@@ -62,8 +63,13 @@ export function Agenda() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {schedule.map((day) => (
-            <article key={day.day} className="flex flex-col border border-border/80 bg-background/95 rounded-md overflow-hidden shadow-sm">
+          {schedule.map((day, index) => (
+            <article
+              key={day.day}
+              className="flex flex-col border border-border/80 bg-background/95 rounded-md overflow-hidden shadow-sm"
+              data-reveal
+              style={{ "--reveal-delay": `${index * 120}ms` } as CSSProperties}
+            >
               <header className="bg-secondary text-secondary-foreground px-6 py-5 border-b border-border/60">
                 <p className="text-xs font-mono uppercase tracking-[0.4em]">{day.day}</p>
                 <h3 className="text-3xl font-medium mt-2">{day.date}</h3>

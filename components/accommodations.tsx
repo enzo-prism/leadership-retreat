@@ -1,12 +1,5 @@
-import {
-  type LucideIcon,
-  Bath,
-  BedDouble,
-  Bike,
-  Car,
-  MapPin,
-  TicketPercent,
-} from "lucide-react"
+import type { CSSProperties } from "react"
+import { type LucideIcon, Bath, BedDouble, Bike, Car, MapPin, TicketPercent } from "lucide-react"
 
 const perks: { icon: LucideIcon; description: string }[] = [
   {
@@ -37,10 +30,10 @@ const perks: { icon: LucideIcon; description: string }[] = [
 
 export function Accommodations() {
   return (
-    <section className="py-24 px-4 bg-background scroll-mt-28" id="stay">
+    <section className="py-24 px-4 bg-background scroll-mt-28" id="stay" data-reveal>
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12">
-          <div className="space-y-6">
+          <div className="space-y-6" data-reveal>
             <p className="text-sm font-mono font-semibold uppercase tracking-[0.35em] sm:tracking-[0.4em] text-accent accent-text-shadow">
               Stay in Style
             </p>
@@ -52,12 +45,14 @@ export function Accommodations() {
             </p>
 
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {perks.map((perk) => {
+              {perks.map((perk, index) => {
                 const Icon = perk.icon
                 return (
                   <li
                     key={perk.description}
                     className="flex items-start gap-3 rounded-md border border-border/80 bg-card/95 p-4 text-sm leading-relaxed shadow-sm"
+                    data-reveal
+                    style={{ "--reveal-delay": `${index * 70}ms` } as CSSProperties}
                   >
                     <Icon className="w-5 h-5 text-primary mt-1" />
                     <span>{perk.description}</span>
@@ -66,7 +61,11 @@ export function Accommodations() {
               })}
             </ul>
 
-            <div className="border border-dashed border-accent/60 rounded-md p-6 bg-accent/5 space-y-4">
+            <div
+              className="border border-dashed border-accent/60 rounded-md p-6 bg-accent/5 space-y-4"
+              data-reveal
+              style={{ "--reveal-delay": "160ms" } as CSSProperties}
+            >
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <BedDouble className="w-6 h-6 text-primary" />
@@ -101,14 +100,22 @@ export function Accommodations() {
           </div>
 
           <div className="grid grid-rows-[1fr_auto] gap-6">
-            <div className="relative overflow-hidden rounded-md border border-border">
+            <div
+              className="relative overflow-hidden rounded-md border border-border"
+              data-reveal
+              style={{ "--reveal-delay": "120ms" } as CSSProperties}
+            >
               <img
                 src="/thompson-savannah-bedroom.png"
                 alt="Suite interior at the Thompson Savannah hotel"
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="bg-card/95 border border-border rounded-md p-6 text-sm text-muted-foreground leading-relaxed shadow-sm">
+            <div
+              className="bg-card/95 border border-border rounded-md p-6 text-sm text-muted-foreground leading-relaxed shadow-sm"
+              data-reveal
+              style={{ "--reveal-delay": "220ms" } as CSSProperties}
+            >
               <p>
                 "The Thompson offers effortless sophistication — from the airy Sunroom to the rooftop lounge — giving us
                 space to connect, reflect, and celebrate Savannah’s creative spirit. We can't wait to welcome back

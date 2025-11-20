@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react"
 import { Handshake } from "lucide-react"
 
 const partners = [
@@ -26,7 +27,11 @@ const partners = [
 
 export function Partners() {
   return (
-    <section className="py-24 px-4 bg-gradient-to-b from-background via-white/65 to-background" id="partners">
+    <section
+      className="py-24 px-4 bg-gradient-to-b from-background via-white/65 to-background"
+      id="partners"
+      data-reveal
+    >
       <div className="max-w-6xl mx-auto text-center space-y-12">
         <div className="space-y-4">
           <p className="inline-flex items-center gap-2 text-sm font-mono font-semibold uppercase tracking-[0.4em] text-accent accent-text-shadow">
@@ -41,12 +46,14 @@ export function Partners() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {partners.map((partner) => {
+          {partners.map((partner, index) => {
             const { name, description, logo, logoAlt, url } = partner
             return (
               <div
                 key={name}
                 className="border border-border/40 bg-white rounded-2xl p-8 flex flex-col items-stretch text-center gap-6 shadow-[0_28px_65px_-35px_rgba(42,36,33,0.45)] transition-transform hover:-translate-y-1 hover:shadow-[0_32px_70px_-30px_rgba(66,93,82,0.35)]"
+                data-reveal
+                style={{ "--reveal-delay": `${index * 100}ms` } as CSSProperties}
               >
                 <div className="aspect-[16/9] w-full rounded-xl border border-border/50 bg-white flex items-center justify-center overflow-hidden shadow-[0_18px_40px_-35px_rgba(42,36,33,0.45)]">
                   <img

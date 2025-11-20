@@ -1,9 +1,11 @@
+import type { CSSProperties } from "react"
+
 export function Venue() {
   return (
-    <section className="py-24 px-4 bg-card scroll-mt-28" id="venue">
+    <section className="py-24 px-4 bg-card scroll-mt-28" id="venue" data-reveal>
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
+          <div data-reveal>
             <h2 className="text-5xl md:text-6xl font-light mb-8 text-balance">The Thompson Savannah</h2>
             <div className="space-y-6 text-lg leading-relaxed text-foreground/90">
               <p>
@@ -41,7 +43,7 @@ export function Venue() {
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative" data-reveal style={{ "--reveal-delay": "140ms" } as CSSProperties}>
             <div className="aspect-[4/5] rounded-md overflow-hidden shadow-lg shadow-primary/10">
               <img
                 src="/thompson-savannah-lobby.png"

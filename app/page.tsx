@@ -8,10 +8,12 @@ import { Agenda } from "@/components/agenda"
 import { Accommodations } from "@/components/accommodations"
 import { Partners } from "@/components/partners"
 import { Footer } from "@/components/footer"
+import { ScrollReveal } from "@/components/scroll-reveal"
 
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <ScrollReveal />
       <Hero />
       <WelcomeLetter />
       <PastRetreats />

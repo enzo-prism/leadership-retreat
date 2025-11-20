@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react"
+
 export function PastRetreats() {
   const retreats = [
     {
@@ -56,7 +58,11 @@ export function PastRetreats() {
   ]
 
   return (
-    <section className="py-24 px-4 scroll-mt-28 bg-gradient-to-b from-background via-white/55 to-background" id="journey">
+    <section
+      className="py-24 px-4 scroll-mt-28 bg-gradient-to-b from-background via-white/55 to-background"
+      id="journey"
+      data-reveal
+    >
       <div className="max-w-6xl mx-auto">
         <h2 className="text-5xl md:text-6xl font-light text-center mb-6 text-balance">Our Journey</h2>
         <p className="text-center text-xl text-muted-foreground mb-16 max-w-3xl mx-auto">
@@ -68,6 +74,8 @@ export function PastRetreats() {
             <div
               key={index}
               className="group relative overflow-hidden rounded-3xl border border-white/40 bg-white/75 shadow-[0_28px_55px_-30px_rgba(42,36,33,0.45)] backdrop-blur transition-all hover:-translate-y-1.5 hover:shadow-[0_40px_70px_-28px_rgba(66,93,82,0.35)]"
+              data-reveal
+              style={{ "--reveal-delay": `${index * 120}ms` } as CSSProperties}
             >
               <div className="aspect-[4/3] overflow-hidden">
                 <img
@@ -99,10 +107,12 @@ export function PastRetreats() {
             </p>
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {retreatMoments.map((moment) => (
+            {retreatMoments.map((moment, index) => (
               <figure
                 key={moment.src}
                 className="group relative overflow-hidden rounded-2xl border border-white/40 bg-white/70 shadow-[0_18px_40px_-28px_rgba(42,36,33,0.45)] backdrop-blur"
+                data-reveal
+                style={{ "--reveal-delay": `${index * 60}ms` } as CSSProperties}
               >
                 <div className="relative aspect-[4/5] overflow-hidden">
                   <img

@@ -4,7 +4,7 @@ import { LogoMark } from "@/components/logo-mark"
 
 export function Footer() {
   return (
-    <footer className="py-12 px-4 bg-card border-t border-border">
+    <footer className="py-12 px-4 bg-card border-t border-border" data-reveal>
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div className="space-y-4">

@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react"
 import { Lightbulb, Handshake, CalendarClock, CheckCircle2 } from "lucide-react"
 
 export function ProgramOverview() {
@@ -29,7 +30,11 @@ export function ProgramOverview() {
   ]
 
   return (
-    <section className="py-24 px-4 scroll-mt-28 bg-gradient-to-b from-background via-white/60 to-background" id="program">
+    <section
+      className="py-24 px-4 scroll-mt-28 bg-gradient-to-b from-background via-white/60 to-background"
+      id="program"
+      data-reveal
+    >
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div className="space-y-8">
@@ -51,6 +56,8 @@ export function ProgramOverview() {
                   <div
                     key={index}
                     className="relative overflow-hidden rounded-2xl border border-white/35 bg-white/70 p-6 shadow-[0_24px_45px_-30px_rgba(42,36,33,0.45)] backdrop-blur transition-transform hover:-translate-y-1"
+                    data-reveal
+                    style={{ "--reveal-delay": `${index * 80}ms` } as CSSProperties}
                   >
                     <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full border border-accent/25 bg-accent/10 text-primary">
                       <Icon className="w-6 h-6" />
@@ -63,7 +70,11 @@ export function ProgramOverview() {
             </div>
           </div>
   
-          <div className="flex flex-col gap-6 rounded-3xl border border-white/40 bg-white/75 p-8 shadow-[0_28px_55px_-32px_rgba(42,36,33,0.55)] backdrop-blur">
+          <div
+            className="flex flex-col gap-6 rounded-3xl border border-white/40 bg-white/75 p-8 shadow-[0_28px_55px_-32px_rgba(42,36,33,0.55)] backdrop-blur"
+            data-reveal
+            style={{ "--reveal-delay": "160ms" } as CSSProperties}
+          >
             <div>
               <h3 className="text-sm font-mono uppercase tracking-widest text-muted-foreground mb-2">Featured Facilitator</h3>
               <p className="text-2xl font-medium">Brian Parsley</p>

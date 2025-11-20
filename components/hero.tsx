@@ -41,7 +41,10 @@ export function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_30%,rgba(255,255,255,0.6),transparent_55%)]" />
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
+      <div
+        className="relative z-10 mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 py-16 sm:px-6 lg:px-10 lg:py-24"
+        data-reveal
+      >
         <div className="flex flex-col gap-8 lg:max-w-3xl">
           <div className="space-y-5">
             <p className="text-xs font-mono uppercase tracking-[0.36em] text-foreground/70 drop-shadow-[0_6px_18px_rgba(0,0,0,0.55)]">

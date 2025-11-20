@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react"
 import { Calendar, MapPin, Users, Mic2, Sparkles } from "lucide-react"
 import Link from "next/link"
 
@@ -39,6 +40,7 @@ export function EventDetails() {
     <section
       id="details"
       className="py-24 px-4 scroll-mt-28 bg-gradient-to-b from-background via-white/60 to-background"
+      data-reveal
     >
       <div className="max-w-6xl mx-auto">
         <h2 className="text-5xl md:text-6xl font-light text-center mb-6 text-balance">
@@ -56,6 +58,8 @@ export function EventDetails() {
               <div
                 key={index}
                 className="group relative overflow-hidden rounded-2xl border border-white/40 bg-white/70 p-8 text-center shadow-[0_20px_45px_-35px_rgba(42,36,33,0.65)] backdrop-blur transition-all hover:-translate-y-1 hover:shadow-[0_35px_65px_-30px_rgba(66,93,82,0.35)]"
+                data-reveal
+                style={{ "--reveal-delay": `${index * 90}ms` } as CSSProperties}
               >
                 <div className="mx-auto mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full border border-primary/15 bg-primary/10 text-primary shadow-[0_18px_35px_-28px_rgba(66,93,82,0.65)] transition-colors group-hover:bg-primary/15">
                   <Icon className="h-8 w-8" />
@@ -71,7 +75,11 @@ export function EventDetails() {
         </div>
 
         <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="rounded-3xl border border-white/40 bg-white/75 p-10 shadow-[0_24px_50px_-30px_rgba(42,36,33,0.55)] backdrop-blur">
+          <div
+            className="rounded-3xl border border-white/40 bg-white/75 p-10 shadow-[0_24px_50px_-30px_rgba(42,36,33,0.55)] backdrop-blur"
+            data-reveal
+            style={{ "--reveal-delay": "120ms" } as CSSProperties}
+          >
             <h3 className="text-sm font-mono uppercase tracking-widest text-muted-foreground mb-4">
               The Promise
             </h3>
@@ -81,7 +89,11 @@ export function EventDetails() {
               partner panel, and a closing integration conversation led by ML.
             </p>
           </div>
-          <div className="relative overflow-hidden rounded-3xl border border-secondary/30 bg-secondary text-secondary-foreground p-8 shadow-[0_24px_50px_-28px_rgba(175,111,106,0.6)]">
+          <div
+            className="relative overflow-hidden rounded-3xl border border-secondary/30 bg-secondary text-secondary-foreground p-8 shadow-[0_24px_50px_-28px_rgba(175,111,106,0.6)]"
+            data-reveal
+            style={{ "--reveal-delay": "220ms" } as CSSProperties}
+          >
             <div className="pointer-events-none absolute inset-y-0 right-[-40%] hidden w-2/3 translate-x-0 rounded-full bg-secondary-foreground/10 blur-3xl md:block" />
             <div>
               <h3 className="text-sm font-mono uppercase tracking-widest mb-2">Secure Your Spot</h3>
