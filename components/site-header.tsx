@@ -16,6 +16,7 @@ const navItems = [
   { label: "Venue", href: "/#venue" },
   { label: "Retreats", href: "/#journey" },
   { label: "Partners", href: "/#partners" },
+  { label: "Contact", href: "/contact" },
 ]
 
 function isLinkActive(pathname: string, hash: string, href: string) {
@@ -53,9 +54,13 @@ export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-4">
-        <Link href="/" className="flex items-center" aria-label="Leadership Retreat Savannah emblem">
+        <Link href="/" className="group flex items-center" aria-label="Leadership Retreat Savannah emblem">
           <span className="sr-only">Leadership Retreat Savannah emblem</span>
-          <LogoMark size="sm" variant="inline" className="h-9 w-auto md:h-10" />
+          <LogoMark
+            size="sm"
+            variant="inline"
+            className="h-9 w-auto transition-transform duration-200 group-hover:scale-105 group-focus-visible:scale-105 group-active:scale-95 md:h-10"
+          />
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-medium md:flex">

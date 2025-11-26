@@ -36,16 +36,10 @@ export function Footer() {
               </li>
               <li className="space-y-1">
                 <a
-                  href="mailto:marylynnwheaton@gmail.com"
+                  href="mailto:info@dentistretreat.com"
                   className="block text-muted-foreground hover:text-accent transition-colors"
                 >
-                  marylynnwheaton@gmail.com
-                </a>
-                <a
-                  href="mailto:elizabetharmato@gmail.com"
-                  className="block text-muted-foreground hover:text-accent transition-colors"
-                >
-                  elizabetharmato@gmail.com
+                  info@dentistretreat.com
                 </a>
               </li>
             </ul>
