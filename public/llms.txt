@@ -1,0 +1,24 @@
+# Leadership Retreat 2026 (LR26)
+
+Official website for Leadership Retreat 2026 in Savannah, Georgia (June 4–6, 2026) at The Thompson Savannah.
+
+## Key pages
+
+- / (overview, program, agenda, venue, accommodations, partners)
+- /register (registration packages, attendee details, submission)
+- /contact (email and phone contact information)
+
+## Homepage sections (anchors)
+
+- /#details (event details)
+- /#program (program overview)
+- /#agenda (agenda)
+- /#venue (venue)
+- /#journey (past retreats)
+- /#partners (partners)
+
+## Contact
+
+- Email: info@dentistretreat.com
+- Phone: ML (415) 298-6710
+- Phone: Liz (415) 309-0345
