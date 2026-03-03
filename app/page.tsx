@@ -1,3 +1,5 @@
+import type { Metadata } from "next"
+
 import { Hero } from "@/components/hero"
 import { WelcomeLetter } from "@/components/welcome-letter"
 import { EventDetails } from "@/components/event-details"
@@ -9,6 +11,12 @@ import { Accommodations } from "@/components/accommodations"
 import { Partners } from "@/components/partners"
 import { Footer } from "@/components/footer"
 import { ScrollReveal } from "@/components/scroll-reveal"
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+}
 
 export default function Home() {
   return (
