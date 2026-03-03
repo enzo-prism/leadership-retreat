@@ -22,6 +22,10 @@ Continue building your app on:
 
 **[https://v0.app/chat/projects/WXh8kmVVfHI](https://v0.app/chat/projects/WXh8kmVVfHI)**
 
+## Documentation
+
+- [`docs/seo-canonical-host.md`](docs/seo-canonical-host.md) — Canonical host and SEO consolidation runbook.
+
 ## How It Works
 
 1. Create and modify your project using [v0.app](https://v0.app)
