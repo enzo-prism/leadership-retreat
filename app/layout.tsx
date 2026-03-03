@@ -5,6 +5,7 @@ import { Cormorant_Garamond, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { SiteHeader } from "@/components/site-header"
+import { getSiteUrl } from "@/lib/site-url"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,7 +21,10 @@ const cormorantGaramond = Cormorant_Garamond({
   variable: "--app-font-serif",
 })
 
+const siteUrl = getSiteUrl()
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Leadership Retreat 2026 | Savannah, Georgia",
   description:
     "Join us for the third annual Leadership Retreat in historic Savannah, Georgia at The Thompson Savannah. June 4-6, 2026.",

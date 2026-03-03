@@ -6,6 +6,9 @@ import { LogoMark } from "@/components/logo-mark"
 export const metadata: Metadata = {
   title: "Contact | Leadership Retreat 2026",
   description: "Reach out to the Leadership Retreat team with any questions.",
+  alternates: {
+    canonical: "/contact",
+  },
 }
 
 export default function ContactPage() {

@@ -4,6 +4,9 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Register | Leadership Retreat 2026",
   description: "Register for Leadership Retreat 2026 in Savannah, Georgia.",
+  alternates: {
+    canonical: "/register",
+  },
 }
 
 export default function RegisterLayout({
@@ -13,4 +16,3 @@ export default function RegisterLayout({
 }>) {
   return children
 }
-
